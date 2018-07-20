@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		
+		<style>
+			.bg{
+				background: url(images/bg.png) no-repeat;
+				background-size: 100% 100%;
+				height: 150px;
+				margin-bottom: 60px;
+			}
+			
+			img {
+				clear: both; 
+				display: block; 
+				margin:auto;
+				padding-top: 100px;
+			}
+			.span-center{
+				width: 100%; 
+				float: left; 
+				text-align: center;
+			}
+			.mui-table-view{
+				width: 95%;
+				margin-left: 10px;
+				margin-top: 20px;
+			}
+		</style>
+		
+	</head>
+	
+
+	<body>
+		<div class="mui-content" >
+			<div class="mui-content bg">
+				<img src="images/头像.png" />
+				<span class="span-center">test</span>
+			</div>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a id="driverQuest" class="mui-navigate-right">
+						会员信息
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="tuijianma" class="mui-navigate-right">
+						我的收藏
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="youhuiquan" class="mui-navigate-right">
+						我的优惠劵
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a id="settings" class="mui-navigate-right">
+						设置
+					</a>
+				</li>
+
+			</ul>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a id="driverQuest" class="mui-navigate-right">
+						登录/退出登录
+					</a>
+				</li>
+
+			</ul>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var settingsBox = document.getElementById('settings');
+			settingsBox.addEventListener('tap', function(event) {
+				mui.openWindow({
+					url: 'settings.html',
+					id:'settings.html'
+				});
+			})
+		</script>
+	</body>
+
+</html>
