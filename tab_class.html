@@ -19,83 +19,64 @@
 				color: #FF6C00!important;
 				border-bottom-color: #FF6C00!important;
 			}
+			
+			.mui-slider-indicator {
+				background: white;
+			}
+			img{
+				max-width: 200px!important;
+				height: 100px!important;
+			}
+			li{
+				height: 120px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-				<a class="mui-control-item mui-active" href="#item1mobile" data-index="0">
-					家具保养
-				</a>
-				<a class="mui-control-item" href="#item2mobile" data-index="1">
-					保洁服务
-				</a>
-				<a class="mui-control-item" href="#item3mobile" data-index="2">
-					清洗服务
-				</a>
-				<a class="mui-control-item" href="#item4mobile" data-index="3">
-					母婴护理
-				</a>
+			<div id="mui-template">
+				<script type="text/template" id="temp">
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-positive">
+						<% for(var i in record){ var item=record[i]; %>
+						<a class="mui-control-item" href="#item1">
+							<%=item.at_name%>
+						</a>
+						<%}%>
+					</div>
+				</script>
 			</div>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
-						<div class="mui-media-body">
-							xxxxx
-							<p class='mui-ellipsis'>10-19&nbsp;&nbsp;&nbsp;&nbsp;3.2万</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
-						<div class="mui-media-body">
-							xxxxxxxxxxx
-							<p class='mui-ellipsis'>10-19&nbsp;&nbsp;&nbsp;&nbsp;3.2万</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
-						<div class="mui-media-body">
-							xxxxxxxxxx
-							<p class='mui-ellipsis'>10-19&nbsp;&nbsp;&nbsp;&nbsp;3.2万</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
-						<div class="mui-media-body">
-							xxxxxxxxxxxxx
-							<p class='mui-ellipsis'>10-19&nbsp;&nbsp;&nbsp;&nbsp;3.2万</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
-						<div class="mui-media-body">
-							xxxxxxxxxxxxxxxxxx
-							<p class='mui-ellipsis'>10-19&nbsp;&nbsp;&nbsp;&nbsp;3.2万</p>
-						</div>
-					</a>
-				</li>
+			<ul class="mui-table-view" id="mui-template2">
+				<script type="text/template" id="temp2">
+					<% for(var i in record){ var item=record[i]; %>
+					<li class="mui-table-view-cell mui-media" name="<%=item.ar_id%>">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="<%=item.ar_image_thum%>">
+							<div class="mui-media-body">
+								<%=item.ar_content%>
+								<p class='mui-ellipsis'>
+									<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
+									<%=item.ar_reads%>
+								</p>
+							</div>
+						</a>
+					</li>
+					<%}%>
+				</script>
 			</ul>
 		</div>
 
 		<script src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/app.js" ></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript">
-			var types = [];			
-			
+			var types = [],
+				articles = [];
 			mui.plusReady(init);
 
 			function init() {
-
+				getTypeList();
+				getArticleList();
 			}
 
 			function getTypeList() {
@@ -108,15 +89,19 @@
 					type: 'get', //HTTP请求类型
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						if(isRequestSuccess){
-							var list = data.list;
-							if(list && list.length > 0){
-								for (var i = 0; i< list.length;i++) {
-									types.push(list[i].at_name);
+						if(isRequestSuccess) {
+							var list = data.data.list;
+							if(list && list.length > 0) {
+								for(var i = 0; i < list.length; i++) {
+									types.push(list[i]);
 								}
+								var str = template('temp', {
+									"record": types
+								});
+								document.getElementById("mui-template").innerHTML = str;
+
 							}
 						}
-
 					},
 					error: function(xhr, type, errorThrown) {
 						//异常处理；
@@ -124,6 +109,59 @@
 					}
 				});
 			}
+
+			function getArticleList() {
+				var data = {
+					service: 'Hlbr365app.Article.GetArticleList',
+					at_id: 1,
+					firstRow: 1,
+					listRows: 20
+				};
+				mui.ajax({
+					url: makeurl(data),
+					data: {},
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if(isRequestSuccess) {
+							var list = data.data.list;
+							if(list && list.length > 0) {
+								for(var i = 0; i < list.length; i++) {
+									articles.push(list[i]);
+								}
+								var str = template('temp2', {
+									"record": articles
+								});
+								document.getElementById("mui-template2").innerHTML = str;
+
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+
+			mui(".mui-content").on('tap', 'li', function(e) {
+				var id = this.getAttribute("name");
+				console.log(id);
+				mui.openWindow({
+					url: 'article_info.html',
+					id: 'article_info',
+					extras: {
+						ar_id: id
+					}, 
+					show: {
+						autoShow: false, //页面loaded事件发生后自动显示，默认为true
+						event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
+					},
+					waiting: {
+						autoShow: true //自动显示等待框，默认为true
+					}
+				});
+			});
 		</script>
 	</body>
 

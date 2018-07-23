@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-bar{
+				background: red;
+			}
+			.mui-title{
+				color: white;
+			}
+			.mui-pull-left{
+				color: white;
+			}
+			.mui-content{
+				background: white;
+				height: 1000px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" >
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">小课堂</h1>
+		</header>
+		<div class="mui-content">
+			<h1 id="title"></h1>
+			<span id="time"></span><span id="read"></span>
+			<span id="content">
+			</span>
+			<img id="img"/>
+		</div>
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			
+			mui.plusReady(function(){
+				var currentView = plus.webview.currentWebview();
+				currentView.show('slide-in-right', 200);
+				plus.nativeUI.closeWaiting();
+				var id = currentView.ar_id;
+				getArticleInfo(id);
+			})
+			
+			function getArticleInfo(id){
+				var data = {
+					service: 'Hlbr365app.Article.GetArticleInfo',
+					ar_id: id
+				};
+				mui.ajax({
+					url: makeurl(data),
+					data: {},
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if(isRequestSuccess) {
+							console.log(JSON.stringify(data));
+							var info = data.data.info;
+							document.getElementById('title').innerHTML = info.ar_title;
+							document.getElementById('time').innerHTML = info.ar_time;
+							document.getElementById('read').innerHTML = info.ar_reads;
+							document.getElementById('content').innerHTML = info.ar_content;
+							document.getElementById('img').src = info.ar_image;
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>
