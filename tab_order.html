@@ -35,42 +35,13 @@
 								<ul class="mui-table-view">
 									<% for(var i in record){ var item=record[i]; %>
 									<li class="mui-table-view-cell">
-										<% if(item.OD_TYPE==1){%>
-										<span class="mui-badge mui-badge-warning">&nbsp;专车&nbsp;&nbsp;</span>
-										<%} else if(item.OD_TYPE==2){%>
-										<span class="mui-badge mui-badge-primary">&nbsp;检车&nbsp;&nbsp;</span>
-										<%} else if(item.OD_TYPE==3){%>
-										<span class="mui-badge mui-shunfengche">顺风车</span>
-										<%} else if(item.OD_TYPE==4){%>
-										<span class="mui-badge mui-badge-purple">&nbsp;物流&nbsp;&nbsp;</span>
-										<%}%>
-										<span id="shijian"><%=item.DATE_XIADAN%></span>
-										<% if(item.OD_STATUS==0){%>
-										<span class="mui-pull-right" id="shijian2">服务中</span>
-										<%} else if(item.OD_STATUS==1){%>
-										<span class="mui-pull-right" id="shijian2">下单</span>
-										<%} else if(item.OD_STATUS==2){%>
-										<span class="mui-pull-right" id="shijian2">抢单</span>
-										<%} else if(item.OD_STATUS==3){%>
-										<span class="mui-pull-right" id="shijian2">运输中</span>
-										<%} else if(item.OD_STATUS==4){%>
-										<span class="mui-pull-right" id="shijian2">送达</span>
-										<%} else if(item.OD_STATUS==5){%>
-										<span class="mui-pull-right" id="shijian2">支付</span>
-										<%}%>
+										<span id="shijian"><%=item.company_name%></span>
+										<span class="mui-pull-right" id="shijian2"><%=item.ob_time%></span>
 									</li>
 									<li class="mui-table-view-cell mui-media">
 										<div class="mui-slider-handle">
 											<div class="mui-media-body mui-ellipsis">
-												<% if(item.OD_TYPE==1){%>
 												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-												<%} else if(item.OD_TYPE==2){%>
-												<span id="zhongdian"><img src="../../image/dingdan/jianche.png"/></span>
-												<%} else if(item.OD_TYPE==3){%>
-												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-												<%} else if(item.OD_TYPE==4){%>
-												<span id="zhongdian"><img src="../../image/dingdan/wuliu.png"/></span>
-												<%}%>
 
 												<span id="unfull"><%=item.ADDRESS_NAME_BEGIN%></span>
 											</div>
