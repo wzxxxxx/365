@@ -123,8 +123,8 @@
 							plus.nativeUI.toast('请填入正确的验证码！');
 						}
 						if(passwordBox.value.length < 6) {
-			return callback('密码最短需要 6 个字符');
-		}
+							return callback('密码最短需要 6 个字符');
+						}
 						var regInfo = {
 							service: 'Hlbr365app.Member.Register',
 							mbi_login_phone: accountBox.value,
@@ -132,11 +132,6 @@
 							mbi_reg_ip: '192.168.0.1',
 							code: yanzhengmaBox.value
 						}
-//						var passwordConfirm = passwordConfirmBox.value;
-//						if(passwordConfirm != regInfo.password) {
-//							plus.nativeUI.toast('密码两次输入不一致');
-//							return;
-//						}
 						app.reg(regInfo, function(err) {
 							if(err) {
 								plus.nativeUI.toast(err);
