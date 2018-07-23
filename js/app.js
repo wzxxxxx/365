@@ -105,13 +105,9 @@
 				'Content-Type': 'application/json'
 			},
 			success: function(data) {
-				//服务器返回响应，根据响应结果，分析是否登录成功
-				//在这里将后台传过来判断是否可以自动登陆的字符串存到缓存中
-				console.log("success");
-				console.log(JSON.stringify(data));
-				var code = data.data.code;
-				if(code && code == 1) {
+				if(isRequestSuccess){
 					owner.createState(loginInfo.account, callback);
+					localStorage.setItem('login', JSON.stringify(data));
 				}
 				return callback(code, data.data.msg);
 			},
@@ -143,8 +139,6 @@
 			type: 'get', //HTTP请求类型
 			timeout: 10000, //超时时间设置为10秒；
 			success: function(data) {
-				console.log("success");
-				console.log(JSON.stringify(data));
 				return callback(data.data.msg);
 			},
 			error: function(xhr, type, errorThrown) {
