@@ -41,57 +41,36 @@
 									<li class="mui-table-view-cell mui-media">
 										<div class="mui-slider-handle">
 											<div class="mui-media-body mui-ellipsis">
-												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-
-												<span id="unfull"><%=item.ADDRESS_NAME_BEGIN%></span>
+												<span id="unfull"></span>
 											</div>
 										</div>
 									</li>
-									<% if(item.OD_TYPE==1){%>
 									<li class="mui-table-view-cell">
 										<div class="mui-slider-handle">
 											<div class="mui-media-body mui-ellipsis">
-												<span id="zhongdian"><img src="../../image/dingdan/zhong.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
+												<span id="unfull">预约时间: <%=item.user_predict_work_time%></span>
 											</div>
 										</div>
 									</li>
-									<%} else if(item.OD_TYPE==2){%>
+								
 									<li class="mui-table-view-cell">
 										<div class="mui-slider-handle">
 											<div class="mui-media-body mui-ellipsis">
-												<span id="zhongdian"><img src="../../image/dingdan/lvche.png"/></span>
-												<span id="unfull"><%=item.CAR_NAME%></span>
+												<span id="unfull"><%=item.user_contacts_name%>&nbsp;&nbsp;<%=item.user_contacts_phone%></span>
 											</div>
 										</div>
 									</li>
-									<%} else if(item.OD_TYPE==3){%>
 									<li class="mui-table-view-cell">
 										<div class="mui-slider-handle">
 											<div class="mui-media-body mui-ellipsis">
-												<span id="zhongdian"><img src="../../image/dingdan/zhong.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
+												<span id="unfull">备注:<%=item.ob_remark%></span>
 											</div>
 										</div>
-									</li>
-									<%} else if(item.OD_TYPE==4){%>
-									<%}%>
-									<li class="mui-table-view-cell">
-										<span><img src="../../image/dingdan/qian.png"/></span>
-										<% if(item.OD_TYPE==1){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（预估价）</span>
-										<%} else if(item.OD_TYPE==2){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span></span>
-										<%} else if(item.OD_TYPE==3){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（一口价）</span>
-										<%} else if(item.OD_TYPE==4){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（预估价）</span>
-										<%}%>
 									</li>
 									<li class="mui-table-view-cell order_xq">
-										<a href="javascript:;" id="<%=item.OD_ID%>" name="<%=item.OD_TYPE%>">
+										<a href="javascript:;">
 											<div class="mui-slider-handle">
-												<span class="mui-btn mui-btn-outlined mui-pull-right" id="dingdangenzong">订单跟踪</span>
+												<span class="mui-btn mui-btn-outlined mui-pull-right" id="dingdangenzong">去评价</span>
 											</div>
 										</a>
 									</li>
@@ -110,208 +89,6 @@
 						</div>
 					</div>
 				</div>
-				<div id="item2" class="mui-slider-item mui-control-content ">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<!--<div id="item2_2" class="mui-scroll">-->
-						<div class="mui-scroll item2_2">
-							<script type="text/template" id="radio-tigan">
-								<ul class="mui-table-view">
-									<% for(var i in record){ var item=record[i]; %>
-									<li class="mui-table-view-cell">
-										<% if(item.OD_TYPE==1){%>
-										<span class="mui-badge mui-badge-warning">&nbsp;专车&nbsp;&nbsp;</span>
-										<%} else if(item.OD_TYPE==2){%>
-										<span class="mui-badge mui-shunfengche">顺风车</span>
-										<%} else if(item.OD_TYPE==3){%>
-										<span class="mui-badge mui-badge-primary">&nbsp;物流&nbsp;&nbsp;</span>
-										<%} else if(item.OD_TYPE==4){%>
-										<span class="mui-badge mui-badge-purple">&nbsp;检车&nbsp;&nbsp;</span>
-										<%}%>
-										<span id="shijian"><%=item.DATE_XIADAN%></span>
-										<% if(item.OD_STATUS==1){%>
-										<span class="mui-pull-right" id="shijian2">下单</span>
-										<%} else if(item.OD_STATUS==2){%>
-										<span class="mui-pull-right" id="shijian2">抢单</span>
-										<%} else if(item.OD_STATUS==3){%>
-										<span class="mui-pull-right" id="shijian2">运输中</span>
-										<%} else if(item.OD_STATUS==4){%>
-										<span class="mui-pull-right" id="shijian2">送达</span>
-										<%} else if(item.OD_STATUS==5){%>
-										<span class="mui-pull-right" id="shijian2">支付</span>
-										<%}%>
-									</li>
-									<li class="mui-table-view-cell mui-media">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<% if(item.OD_TYPE==1){%>
-												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-												<%} else if(item.OD_TYPE==2){%>
-												<span id="zhongdian"><img src="../../image/dingdan/jianche.png"/></span>
-												<%} else if(item.OD_TYPE==3){%>
-												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-												<%} else if(item.OD_TYPE==4){%>
-												<span id="zhongdian"><img src="../../image/dingdan/wuliu.png"/></span>
-												<%}%>
-												<span id="unfull"><%=item.ADDRESS_NAME_BEGIN%></span>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<% if(item.OD_TYPE==1){%>
-												<span id="zhongdian"><img src="../../image/dingdan/zhong.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
-												<%} else if(item.OD_TYPE==2){%>
-												<span id="zhongdian"><img src="../../image/dingdan/lvche.png"/></span>
-												<span id="unfull"><%=item.CAR_NAME%></span>
-												<%} else if(item.OD_TYPE==3){%>
-												<span id="zhongdian"><img src="../../image/dingdan/zhong.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
-												<%} else if(item.OD_TYPE==4){%>
-												<span id="zhongdian"><img src="../../image/dingdan/wuliu.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
-												<%}%>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<span><img src="../../image/dingdan/qian.png"/></span>
-										<% if(item.OD_TYPE==1){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（预估价）</span>
-										<%} else if(item.OD_TYPE==2){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span></span>
-										<%} else if(item.OD_TYPE==3){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（一口价）</span>
-										<%} else if(item.OD_TYPE==4){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（预估价）</span>
-										<%}%>
-									</li>
-									<li class="mui-table-view-cell order_xq">
-										<a href="javascript:;" id="<%=item.OD_ID%>" name="<%=item.OD_TYPE%>">
-											<div class="mui-slider-handle">
-												<span class="mui-btn mui-btn-outlined mui-pull-right" id="dingdangenzong">订单跟踪</span>
-											</div>
-										</a>
-									</li>
-									<%}%>
-								</ul>
-							</script>
-							<div id="item2_2_null" class="display-none">
-								<div class="mui-content-padded wutu">
-									<div><img src="../../image/dingdan/wudingdan.png" /></div>
-									<p>您还没有此类订单</p>
-								</div>
-								<!--<div class="mui-content-padded anniu">
-									<button id='save_address' class="mui-btn mui-btn-block mui-btn-primary">下一步</button>
-								</div>-->
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<div id="item3" class="mui-slider-item mui-control-content ">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<!--<div id="item3_3" class="mui-scroll">-->
-						<div class="mui-scroll item3_3">
-							<script type="text/template" id="radio-tigan">
-								<ul class="mui-table-view">
-									<% for(var i in record){ var item=record[i]; %>
-
-									<li class="mui-table-view-cell">
-										<% if(item.OD_TYPE==1){%>
-										<span class="mui-badge mui-badge-warning">&nbsp;专车&nbsp;&nbsp;</span>
-										<%} else if(item.OD_TYPE==2){%>
-										<span class="mui-badge mui-shunfengche">顺风车</span>
-										<%} else if(item.OD_TYPE==3){%>
-										<span class="mui-badge mui-badge-primary">&nbsp;物流&nbsp;&nbsp;</span>
-										<%} else if(item.OD_TYPE==4){%>
-										<span class="mui-badge mui-badge-purple">&nbsp;检车&nbsp;&nbsp;</span>
-										<%}%>
-										<span id="shijian"><%=item.DATE_XIADAN%></span>
-										<% if(item.OD_STATUS==1){%>
-										<span class="mui-pull-right" id="shijian2">下单</span>
-										<%} else if(item.OD_STATUS==2){%>
-										<span class="mui-pull-right" id="shijian2">抢单</span>
-										<%} else if(item.OD_STATUS==3){%>
-										<span class="mui-pull-right" id="shijian2">运输中</span>
-										<%} else if(item.OD_STATUS==4){%>
-										<span class="mui-pull-right" id="shijian2">送达</span>
-										<%} else if(item.OD_STATUS==5){%>
-										<span class="mui-pull-right" id="shijian2">支付</span>
-										<%}%>
-									</li>
-									<li class="mui-table-view-cell mui-media">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<% if(item.OD_TYPE==1){%>
-												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-												<%} else if(item.OD_TYPE==2){%>
-												<span id="zhongdian"><img src="../../image/dingdan/jianche.png"/></span>
-												<%} else if(item.OD_TYPE==3){%>
-												<span id="qishi"><img src="../../image/dingdan/qi.png"/></span>
-												<%} else if(item.OD_TYPE==4){%>
-												<span id="zhongdian"><img src="../../image/dingdan/wuliu.png"/></span>
-												<%}%>
-												<span id="unfull"><%=item.ADDRESS_NAME_BEGIN%></span>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<% if(item.OD_TYPE==1){%>
-												<span id="zhongdian"><img src="../../image/dingdan/zhong.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
-												<%} else if(item.OD_TYPE==2){%>
-												<span id="zhongdian"><img src="../../image/dingdan/lvche.png"/></span>
-												<span id="unfull"><%=item.CAR_NAME%></span>
-												<%} else if(item.OD_TYPE==3){%>
-												<span id="zhongdian"><img src="../../image/dingdan/zhong.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
-												<%} else if(item.OD_TYPE==4){%>
-												<span id="zhongdian"><img src="../../image/dingdan/wuliu.png"/></span>
-												<span id="unfull"><%=item.ADDRESS_NAME_END%></span>
-												<%}%>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<span><img src="../../image/dingdan/qian.png"/></span>
-										<% if(item.OD_TYPE==1){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（预估价）</span>
-										<%} else if(item.OD_TYPE==2){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span></span>
-										<%} else if(item.OD_TYPE==3){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（一口价）</span>
-										<%} else if(item.OD_TYPE==4){%>
-										<span>¥ <span><%=item.MONEY_SHIJI%></span>（预估价）</span>
-										<%}%>
-									</li>
-									<li class="mui-table-view-cell order_xq">
-										<a href="javascript:;" id="<%=item.OD_ID%>" name="<%=item.OD_TYPE%>">
-											<div class="mui-slider-handle">
-												<span class="mui-btn mui-btn-outlined mui-pull-right">订单跟踪</span>
-											</div>
-										</a>
-									</li>
-									<%}%>
-								</ul>
-							</script>
-							<div id="item3_3_null" class="display-none">
-								<div class="mui-content-padded wutu">
-									<div><img src="../../image/dingdan/wudingdan.png" /></div>
-									<p>您还没有此类订单</p>
-								</div>
-								<!--<div class="mui-content-padded anniu">
-									<button id='save_address' class="mui-btn mui-btn-block mui-btn-primary">下一步</button>
-								</div>-->
-							</div>
-						</div>
-
-					</div>
-				</div>
-
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
