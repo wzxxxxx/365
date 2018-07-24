@@ -25,18 +25,17 @@
 				font-size: smaller;
 			}
 			
-			.mui-row {
+			/*.mui-row {
 				padding-top: 10px;
-				padding-left: 20px;
-			}
+			}*/
 			
-			.mui-col-sm-2 {
+			/*.mui-col-sm-2 {
 				margin-left: -10px;
 			}
 			
 			.mui-col-sm-3 {
 				/*margin-left: 5px;*/
-			}
+			}*/
 			
 			.smlimg {
 				height: 30px;
@@ -110,67 +109,67 @@
 				</div>
 			</div>
 			<div class="mui-row">
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter " src="images/母婴护理1.png" />
 					<span class="span-center">母婴护理</span>
 				</div>
-				<div class="mui-col-sm-3">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter " src="images/家政服务1.png" />
 					<span class="span-center">家政服务</span>
 				</div>
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter " src="images/劳务1.png" />
 					<span class="span-center">劳务用工</span>
 				</div>
-				<div class="mui-col-sm-3">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter " src="images/保洁服务1.png" />
 					<span class="span-center">保洁服务</span>
 				</div>
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter " src="images/其他1.png" />
 					<span class="span-center">其他业务</span>
 				</div>
 			</div>
 			<div class="mui-row second">
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/母婴.png" />
 					<span class="span-center">产后护理</span>
 				</div>
-				<div class="mui-col-sm-3">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/钟点工.png" />
 					<span class="span-center">钟点工</span>
 				</div>
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/保洁(1).png" />
 					<span class="span-center">保洁</span>
 				</div>
-				<div class="mui-col-sm-3">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/小儿推拿.png" />
 					<span class="span-center">小儿推拿</span>
 				</div>
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-55 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/甲醛.png" />
 					<span class="span-center">甲醛处理</span>
 				</div>
 			</div>
 			<div class="mui-row">
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-2 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/沙发.png" />
 					<span class="span-center">沙发保养</span>
 				</div>
-				<div class="mui-col-sm-3">
+				<div class="mui-col-sm-3 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/老人.png" />
 					<span class="span-center">养老护理</span>
 				</div>
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-2 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/搬家.png" />
 					<span class="span-center">搬家</span>
 				</div>
-				<div class="mui-col-sm-3">
+				<div class="mui-col-sm-3 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/管道.png" />
 					<span class="span-center">管道疏通</span>
 				</div>
-				<div class="mui-col-sm-2">
+				<div class="mui-col-sm-2 mui-col-xs-55">
 					<img class="aligncenter smlimg" src="images/全部分类.png" />
 					<span class="span-center">全部分类</span>
 				</div>
@@ -235,19 +234,27 @@
 
 			mui.plusReady(function() {
 				if(city_id) {
-					var data = {
+					var adParam = {
 						service: 'Hlbr365app.Ad.GetList',
 						ap_id: 1,
 						ar_city_id: city_id
 					};
-					wAjax(data, function(result) {
+					wAjax(adParam, function(result) {
 						var adList = result.data.list.top;
 						var str = template('temp', {
 							"record": adList
 						});
 						document.getElementById("mui-template").innerHTML = str;
-
+					});
+					var serviceParam = {
+						service: 'Hlbr365app.Goods.GetRecommendList'
+					};
+					wAjax(serviceParam, function(result){
+						var firstServiceList = result.data.info.one;
+						var secondServiceList = result.data.info.two;
+						
 					})
+					
 				}
 			});
 			
