@@ -86,7 +86,7 @@
 					type: 'get', //HTTP请求类型
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						if(isRequestSuccess) {
+						if(isRequestSuccess(data)) {
 							var list = data.data.list;
 							if(list && list.length > 0) {
 								for(var i = 0; i < list.length; i++) {
@@ -121,7 +121,7 @@
 					type: 'get', //HTTP请求类型
 					timeout: 10000, //超时时间设置为10秒；
 					success: function(data) {
-						if(isRequestSuccess) {
+						if(isRequestSuccess(data)) {
 							var list = data.data.list;
 							if(list && list.length > 0) {
 								for(var i = 0; i < list.length; i++) {

@@ -181,7 +181,7 @@
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
 								//在这里将后台传过来判断是否可以自动登陆的字符串存到缓存中
-								if(isRequestSuccess()){
+								if(isRequestSuccess(data)){
 									localStorage.setItem('token', JSON.stringify(data));
 								}
 
@@ -273,17 +273,7 @@
 							account: accountBox.value,
 							password: passwordBox.value
 						};
-						app.login(loginInfo, function(code, msg) {
-							if(code && code == 1) {
-								plus.nativeUI.toast(msg);
-								toMain();
-							} else if(msg){
-								plus.nativeUI.toast(msg);
-								return;
-							} else {
-								plus.nativeUI.toast('网络连接错误');
-								return;
-							}
+						app.login(loginInfo, function() {
 							
 						});
 					});

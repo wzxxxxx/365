@@ -47,6 +47,23 @@
 		}
 	}
 
+	wAjax = function(data, success) {
+		$.ajax(makeurl(data), {
+			type: 'get', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			success: function(data) {
+				if(isRequestSuccess(data)) {
+					return success(data);
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+				//异常处理；
+				console.log(type);
+				return;
+			}
+		});
+	}
+
 	//获取公网IP地址
 	getIp = function() {
 		mui.ajax(ipUrl, {
@@ -58,6 +75,7 @@
 			},
 			success: function(data) {
 				if(data) {
+					console.log(data);
 					return data;
 				}
 			},
@@ -84,11 +102,12 @@
 			return callback('密码最短为 6 个字符');
 		}
 		console.log(localStorage.getItem('token'));
-		var ip = getIp();
-		if(!ip) {
-			plus.nativeUI.toast('未能获取手机IP地址');
-			return;
-		}
+		//		var ip = getIp();
+		//		if(!ip) {
+		//			plus.nativeUI.toast('未能获取手机IP地址');
+		//			return;
+		//		}
+		var ip = '192.168.0.100';
 		var data = {
 			service: "Hlbr365app.Member.Landed",
 			mbi_login_phone: loginInfo.account,
@@ -105,16 +124,16 @@
 				'Content-Type': 'application/json'
 			},
 			success: function(data) {
-				if(isRequestSuccess){
+				if(isRequestSuccess(data)) {
 					owner.createState(loginInfo.account, callback);
 					localStorage.setItem('login', JSON.stringify(data));
 				}
-				return callback(code, data.data.msg);
+				return callback();
 			},
 			error: function(xhr, type, errorThrown) {
 				//异常处理；
 				console.log(type);
-				return callback('网络连接错误');
+				return callback();
 			}
 		});
 

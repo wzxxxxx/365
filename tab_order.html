@@ -96,6 +96,7 @@
 		<script type="text/javascript">
 			mui.plusReady(function() {
 				var loginData = localStorage.getItem('login');
+				console.log(loginData);
 				var orders = [];
 				if(loginData) {
 					loginData = JSON.parse(loginData);
@@ -109,12 +110,14 @@
 						type: 'get', //HTTP请求类型
 						timeout: 10000, //超时时间设置为10秒；
 						success: function(data) {
-							if(isRequestSuccess) {
+							console.log(JSON.stringify(data));
+							if(isRequestSuccess(data)) {
 								var list = data.data.list;
 								if(list && list.length > 0) {
 									for(var i = 0; i < list.length; i++) {
 										orders.push(list[i]);
 									}
+									console.log(orders);
 									var str = template('temp', {
 										"record": orders
 									});
