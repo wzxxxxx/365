@@ -70,12 +70,15 @@
 				font-size: large;
 				color: red;
 			}
+			#mui-template {
+				height: 200px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<div id="slider" class="mui-slider">
+			<div id="mui-template" class="mui-slider">
 				<div class="mui-slider-group mui-slider-loop">
 					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
@@ -83,30 +86,15 @@
 							<img src="images/广告.png">
 						</a>
 					</div>
-					<!-- 第一张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="images/广告.png">
-						</a>
-					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="images/广告.png">
-						</a>
-					</div>
-					<!-- 第三张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="images/广告.png">
-						</a>
-					</div>
-					<!-- 第四张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="images/广告.png">
-						</a>
-					</div>
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="<%=item.ar_img%>">
+							</a>
+						</div>
+						<%}%>
+					</script>
 					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
@@ -240,9 +228,41 @@
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
+			//默认为海拉尔市
+			var city_id = '150700';
+
 			mui.plusReady(function() {
+				if(city_id) {
+					var data = {
+						service: 'Hlbr365app.Ad.GetList',
+						ap_id: 1,
+						ar_city_id: city_id
+					};
+					wAjax(data, function(result) {
+						var adList = result.data.list.top;
+						var str = template('temp', {
+							"record": adList
+						});
+						document.getElementById("mui-template").innerHTML = str;
+
+					})
+				}
+			});
 			
+			window.addEventListener('changeCity', function(event) {
+				if(event) {
+					//					var provinceCode = event.detail.provinceCode; //省id
+					//					var provinceName = event.detail.provinceName; //省名称
+					var cityCode = event.detail.cityCode; //市id
+					//					var cityName = event.detail.cityName; //市名称
+					//					var areaCode = event.detail.areaCode; //区id
+					//					var areaName = event.detail.areaName; //区名称
+
+					city_id = cityCode;
+				}
+
 			});
 		</script>
 	</body>

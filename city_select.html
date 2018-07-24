@@ -3,7 +3,7 @@
 <html>
 
 	<head>
-	<meta charset="UTF-8">
+		<meta charset="UTF-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
@@ -25,11 +25,10 @@
 	<script type="text/javascript" src="js/mui.min.js"></script>
 	<script type="text/javascript" src="js/city.data-3.js"></script>
 	<script type="text/javascript" src="js/mui.picker.js"></script>
-	<script type="text/javascript" src="js/mui.poppicker.js" ></script>
+	<script type="text/javascript" src="js/mui.poppicker.js"></script>
 	<script type="text/javascript">
 		mui.plusReady(function() {
 			var self = plus.webview.currentWebview();
-			var class_id = self.classes;
 			var cityPicker3 = new mui.PopPicker({
 				layer: 3
 			});
@@ -42,29 +41,18 @@
 				var areaCode = (items[2] || {}).value;
 				var areaName = (items[2] || {}).text;
 				if(cityCode && cityName) {
-//					var fahuo_baginPage = plus.webview.getWebviewById('view/order/fahuo.html'); //跳转到发货
-//					var fahuo_endPage = plus.webview.getWebviewById('view/order/fahuo.html'); //跳转到发货始
-//					var shunfeng_baginPage = plus.webview.getWebviewById('along_car_xq'); //跳转到顺风
-//					var shunfeng_endPage = plus.webview.getWebviewById('along_car_xq'); //跳转到发顺风
-//					var param = {
-//						"keyWord": "changeCity",
-//						"provinceCode": provinceCode,
-//						"provinceName": provinceName,
-//						"cityCode": cityCode,
-//						"cityName": cityName,
-//						"areaCode": areaCode,
-//						"areaName": areaName
-//					};
-//					if(class_id == "xuanzediqu-start") { //发货页面起点
-//						mui.fire(fahuo_baginPage, "fahuo_baginEvent", param);
-//					} else if(class_id == "xuanzediqu-end") { //发货页面终点
-//						mui.fire(fahuo_endPage, "fahuo_endEvent", param);
-//					} else if(class_id == "sfc-start") { //顺风车页面起点
-//						mui.fire(shunfeng_baginPage, "shunfeng_baginEvent", param);
-//					} else if(class_id == "sfc-end") { //顺风车页面终点
-//						mui.fire(shunfeng_endPage, "shunfeng_endEvent", param);
-//					}
-
+					var shouye = plus.webview.getWebviewById('tab_shouye.html');
+					var main = plus.webview.currentWebview().opener();
+					var param = {
+						"provinceCode": provinceCode,
+						"provinceName": provinceName,
+						"cityCode": cityCode,
+						"cityName": cityName,
+						"areaCode": areaCode,
+						"areaName": areaName
+					};
+					mui.fire(shouye, 'changeCity', param);
+					mui.fire(main, 'changeCity', param);
 				}
 				plus.webview.currentWebview().close();
 				mui.back = function() {
@@ -74,57 +62,6 @@
 					list.close();
 				}
 			})
-			if(class_id == undefined) {
-				var arr1 = new Array();
-				var cityPicker3 = new mui.PopPicker({
-					layer: 3
-				});
-
-				cityPicker3.setData(cityData3);
-
-				cityPicker3.show(function(items) {
-					var provinceCode = (items[0] || {}).value;
-					var provinceName = (items[0] || {}).text;
-					var cityCode = (items[1] || {}).value;
-					var cityName = (items[1] || {}).text;
-					var areaCode = (items[2] || {}).value;
-					var areaName = (items[2] || {}).text;
-
-					//	console.log(provinceCode);
-					//	console.log(provinceName);
-					//	console.log(cityCode);
-					//	console.log(cityName);
-					//	console.log(areaCode);
-					//	console.log(areaName);
-
-					if(cityCode && cityName) {
-//						var mainPage = plus.webview.getLaunchWebview();
-//						var jianchePage = plus.webview.getWebviewById('view/order/jianche.html');
-//						var param = {
-//							"keyWord": "changeCity",
-//							"provinceCode": provinceCode,
-//							"provinceName": provinceName,
-//							"cityCode": cityCode,
-//							"cityName": cityName,
-//							"areaCode": areaCode,
-//							"areaName": areaName
-//						};
-//						mui.fire(mainPage, "appEvent", param);
-//						mui.fire(jianchePage, "cityChangeEvent", param);
-					}
-					plus.webview.currentWebview().close();
-					mui.back = function() {
-						// 隐藏弹出层
-						//plus.webview.currentWebview().close();
-						//plus.webview.getTopWebview().setStyle({mask: "none"});
-						var list = plus.webview.currentWebview().opener();
-						//				list.setStyle({
-						//					mask: "none"
-						//				});
-						list.close();
-					}
-				});
-			}
 		});
 
 		mui.back = function() {

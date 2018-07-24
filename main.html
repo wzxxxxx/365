@@ -29,7 +29,8 @@
 				padding-right: 15px;
 				background: red;
 			}
-			#city_name{
+			
+			#city_name {
 				color: white;
 				font-size: 14px;
 			}
@@ -41,7 +42,7 @@
 			<h1 id="title" class="mui-title"></h1>
 			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
 			<button id="chooseCity" class="mui-btn  mui-btn-link mui-pull-left">
-					<span id="city_name">呼伦贝尔市</span>
+					<span id="city_name">海拉尔区</span>
 					<img src="images/jiantou2.png" />
 			</button>
 		</header>
@@ -92,10 +93,30 @@
 				var title = doc.getElementById("title");
 				//激活当前项
 				var activeTab = subpages[0];
+
+				window.addEventListener('changeCity', function(event) {
+					if(event) {
+						var provinceCode = event.detail.provinceCode; //省id
+						var provinceName = event.detail.provinceName; //省名称
+						var cityCode = event.detail.cityCode; //市id
+						var cityName = event.detail.cityName; //市名称
+						var areaCode = event.detail.areaCode; //区id
+						var areaName = event.detail.areaName; //区名称
+
+						document.getElementById("city_name").innerText = cityName;
+					}
+				});
+
 				//选项卡点击事件
 				$(".mui-bar-tab").on('tap', 'a', function(e) {
+
 					var targetTab = this.getAttribute('href');
-					console.log(targetTab);
+					if(targetTab == 'tab_shouye.html') {
+						document.getElementById("chooseCity").setAttribute("class", "mui-btn  mui-btn-link mui-pull-left");
+					} else {
+						document.getElementById("chooseCity").setAttribute("class", "mui-hidden");
+					}
+
 					if(targetTab == activeTab) {
 						return;
 					}
@@ -197,44 +218,44 @@
 
 					preloadMainPage();
 					preloadOtherPages();
-					
-						var showCityPickerButton = document.getElementById('chooseCity');
-				showCityPickerButton.addEventListener('tap', function(event) {
-					if(window.plus) {
-						//		ws = plus.webview.currentWebview();
-						//		// 显示遮罩层
-						//		ws.setStyle({
-						//			mask: "rgba(0,0,0,0.5)"
-						//		});
-//						var topoffset = tiaozhengTOP();
-						mui.openWindow({
-							url: 'city_select.html',
-							id: 'city_select.html',
-							waiting: {
-								autoShow: false //自动显示等待框，默认为true
-							},
-							styles: {
-								//				top: '325px',
-//								top: topoffset,
-								bottom: '0px',
-								background: 'transparent',
-								opacity: 1,
-								//				mask:'rgba(0,0,0,0.5)',
-								zindex: "100"
-							}
-						});
-						// 点击关闭遮罩层
-						//		ws.addEventListener("maskClick", function() {
-						//			ws.setStyle({
-						//				mask: "none"
-						//			});
-						//			if(plus.webview.getWebviewById("city_select.html")!=null)
-						//			plus.webview.getWebviewById("city_select.html").close();
-						//		}, false);
-					} else {
-						mui.toast("请在html5+引擎环境使用");
-					}
-				}, false);
+
+					var showCityPickerButton = document.getElementById('chooseCity');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						if(window.plus) {
+							//		ws = plus.webview.currentWebview();
+							//		// 显示遮罩层
+							//		ws.setStyle({
+							//			mask: "rgba(0,0,0,0.5)"
+							//		});
+							//						var topoffset = tiaozhengTOP();
+							mui.openWindow({
+								url: 'city_select.html',
+								id: 'city_select.html',
+								waiting: {
+									autoShow: false //自动显示等待框，默认为true
+								},
+								styles: {
+									//				top: '325px',
+									//								top: topoffset,
+									bottom: '0px',
+									background: 'transparent',
+									opacity: 1,
+									//												mask:'rgba(0,0,0,0.5)',
+									zindex: "100"
+								}
+							});
+							// 点击关闭遮罩层
+							//		ws.addEventListener("maskClick", function() {
+							//			ws.setStyle({
+							//				mask: "none"
+							//			});
+							//			if(plus.webview.getWebviewById("city_select.html")!=null)
+							//			plus.webview.getWebviewById("city_select.html").close();
+							//		}, false);
+						} else {
+							mui.toast("请在html5+引擎环境使用");
+						}
+					}, false);
 
 				});
 			}(mui, document));
