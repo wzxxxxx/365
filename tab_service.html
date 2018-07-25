@@ -6,12 +6,74 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-row {
+				height: 50px;
+				background: white;
+			}
+			
+			.mui-text-center {
+				line-height: 50px;
+			}
+			
+			.line {
+				width: 1000px;
+				height: 1px;
+				background: gainsboro;
+			}
+			
+			.fengeline {
+				width: 100%;
+				position: fixed;
+				color: gainsboro;
+			}
+		</style>
 	</head>
 
 	<body>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="city_name">
+					<!--<a href="#popover" id="city_name" class="mui-btn mui-btn-primary mui-btn-block"></a>-->
+					海拉尔
+				</div>
+				<div class="mui-text-center fengeline">|</div>
+				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center">
+					<!--<a href="#popover" id="service_name" class="mui-btn mui-btn-primary mui-btn-block"></a>-->
+					家庭保洁
+				</div>
+			</div>
+			<div class="mui-popover" id="popover">
+				<ul class="mui-table-view" id="mui-template">
+					<script type="text/template" id="temp">
+						<li class="mui-table-view-cell">
+							<a href="#">Item1</a>
+						</li>
+					</script>
+				</ul>
+			</div>
+			<div class="line"></div>
+		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.plusReady(function() {
+				var citySelected = document.getElementById('city_name');
+				var serviceSelected = document.getElementById('service_name');
+				citySelected.innerHTML = '海拉尔';
+				serviceSelected.innerHTML = '家庭保洁';
+
+				var typeListParam = {
+					service: 'Hlbr365app.Article.GetTypeList'
+				};
+				wAjax(typeListParam, function(result) {
+					var typeList = result.data.list;
+					//					var str4 = template('temp4', {
+					//						'record': typeList
+					//					});
+					//					document.getElementById("mui-template4").innerHTML = str4;
+				});
+			})
 		</script>
 	</body>
 

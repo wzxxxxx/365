@@ -34,17 +34,33 @@
 				color: white;
 				font-size: 14px;
 			}
+			#searchBtn {
+				width: 200px;
+				height: 30px;
+				margin: 7px;
+				border-radius: 20px;
+				color: grey;
+			}
+			#noticeImg{
+				height: 25px;
+				width: 25px;
+				margin-top: 10px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<h1 id="title" class="mui-title"></h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
 			<button id="chooseCity" class="mui-btn  mui-btn-link mui-pull-left">
 					<span id="city_name">海拉尔区</span>
-					<img src="images/jiantou2.png" />
+					<img src="images/地区选择.png" />
 			</button>
+			<h1 id="title" class="mui-title"></h1>
+			<button id="searchBtn">搜索</button>
+			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">
+				<img id='noticeImg' src="images/message1.png" />
+			</button>
+			
 		</header>
 		<div class="mui-content">
 			<div class="mui-content-padded">
@@ -113,8 +129,12 @@
 					var targetTab = this.getAttribute('href');
 					if(targetTab == 'tab_shouye.html') {
 						document.getElementById("chooseCity").setAttribute("class", "mui-btn  mui-btn-link mui-pull-left");
+						document.getElementById('searchBtn').setAttribute('class', '');
+						document.getElementById('noticeImg').setAttribute('class', '');
 					} else {
 						document.getElementById("chooseCity").setAttribute("class", "mui-hidden");
+						document.getElementById('searchBtn').setAttribute('class', 'mui-hidden');
+						document.getElementById('noticeImg').setAttribute('class', 'mui-hidden');
 					}
 
 					if(targetTab == activeTab) {
@@ -222,12 +242,6 @@
 					var showCityPickerButton = document.getElementById('chooseCity');
 					showCityPickerButton.addEventListener('tap', function(event) {
 						if(window.plus) {
-							//		ws = plus.webview.currentWebview();
-							//		// 显示遮罩层
-							//		ws.setStyle({
-							//			mask: "rgba(0,0,0,0.5)"
-							//		});
-							//						var topoffset = tiaozhengTOP();
 							mui.openWindow({
 								url: 'city_select.html',
 								id: 'city_select.html',
@@ -235,27 +249,31 @@
 									autoShow: false //自动显示等待框，默认为true
 								},
 								styles: {
-									//				top: '325px',
-									//								top: topoffset,
 									bottom: '0px',
 									background: 'transparent',
 									opacity: 1,
-									//												mask:'rgba(0,0,0,0.5)',
 									zindex: "100"
 								}
 							});
-							// 点击关闭遮罩层
-							//		ws.addEventListener("maskClick", function() {
-							//			ws.setStyle({
-							//				mask: "none"
-							//			});
-							//			if(plus.webview.getWebviewById("city_select.html")!=null)
-							//			plus.webview.getWebviewById("city_select.html").close();
-							//		}, false);
 						} else {
 							mui.toast("请在html5+引擎环境使用");
 						}
 					}, false);
+					
+					var searchButton = document.getElementById('searchBtn');
+					searchButton.addEventListener('tap', function(event){
+						if(window.plus) {
+							mui.openWindow({
+								url: 'search.html',
+								id: 'search.html',
+								waiting: {
+									autoShow: false //自动显示等待框，默认为true
+								}
+							});
+						} else {
+							mui.toast("请在html5+引擎环境使用");
+						}
+					}, false)
 
 				});
 			}(mui, document));

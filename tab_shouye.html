@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-			.mui-content {
+		.mui-content {
 				background: white;
 			}
 			
@@ -18,60 +18,71 @@
 				height: 80px;
 			}
 			
+			.sml-aligncenter {
+				clear: both;
+				display: block;
+				margin: auto;
+				width: 30px;
+				height: 30px;
+			}
+			
+			.type-aligncenter{
+				clear: both;
+				display: block;
+				margin: auto;
+				width: 60px;
+				height: 80px;
+				padding: 10px;
+			}
+			
 			.span-center {
 				width: 100%;
 				float: right;
 				text-align: center;
 				font-size: smaller;
+				padding-bottom: 10px;
+				padding-top: 10px;
 			}
-			
 			/*.mui-row {
 				padding-top: 10px;
 			}*/
-			
 			/*.mui-col-sm-2 {
 				margin-left: -10px;
 			}
 			
 			.mui-col-sm-3 {
 				/*margin-left: 5px;*/
-			}*/
-			
-			.smlimg {
-				height: 30px;
-			}
-			
-			.second {
-				margin-top: 20px;
-			}
-			
-			.ad {
-				margin-top: 20px;
-				height: 100px;
-			}
-			
-			.mui-navigate-right {
-				color: red!important;
-			}
-			
-			.mui-pull-right {
-				margin-right: 25px;
-				color: gainsboro;
-			}
-			
-			.mui-table-view:before {
-				height: 0px;
-			}
-			
-			.hot {
-				margin-top: 20px;
-				margin-bottom: 20px;
-				font-size: large;
-				color: red;
-			}
-			#mui-template {
-				height: 200px;
-			}
+		}
+		.smlimg {
+			width: 10px;
+			height: 10px!important;
+		}
+		.second {
+			margin-top: 20px;
+		}
+		.ad {
+			margin-top: 20px;
+			height: 100px;
+		}
+		.mui-navigate-right {
+			color: red!important;
+		}
+		.mui-pull-right {
+			margin-right: 25px;
+			color: gainsboro;
+		}
+		.mui-table-view:before {
+			height: 0px;
+		}
+		.hot {
+			margin-top: 20px;
+			margin-bottom: 20px;
+			font-size: large;
+			color: red;
+		}
+		#mui-template {
+			height: 200px;
+		}
 		</style>
 	</head>
 
@@ -108,71 +119,25 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-			<div class="mui-row">
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter " src="images/母婴护理1.png" />
-					<span class="span-center">母婴护理</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter " src="images/家政服务1.png" />
-					<span class="span-center">家政服务</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter " src="images/劳务1.png" />
-					<span class="span-center">劳务用工</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter " src="images/保洁服务1.png" />
-					<span class="span-center">保洁服务</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter " src="images/其他1.png" />
-					<span class="span-center">其他业务</span>
-				</div>
+			<div id="mui-template2" class="mui-row">
+				<script type="text/template" id="temp2">
+					<% for(var i in record){ var item=record[i]; %>
+					<div class="mui-col-sm-55 mui-col-xs-55">
+						<img class="aligncenter " src="<%=item.si_icon%>" />
+						<span class="span-center"><%=item.si_name%></span>
+					</div>
+					<%}%>
+				</script>
 			</div>
-			<div class="mui-row second">
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/母婴.png" />
-					<span class="span-center">产后护理</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/钟点工.png" />
-					<span class="span-center">钟点工</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/保洁(1).png" />
-					<span class="span-center">保洁</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/小儿推拿.png" />
-					<span class="span-center">小儿推拿</span>
-				</div>
-				<div class="mui-col-sm-55 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/甲醛.png" />
-					<span class="span-center">甲醛处理</span>
-				</div>
-			</div>
-			<div class="mui-row">
-				<div class="mui-col-sm-2 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/沙发.png" />
-					<span class="span-center">沙发保养</span>
-				</div>
-				<div class="mui-col-sm-3 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/老人.png" />
-					<span class="span-center">养老护理</span>
-				</div>
-				<div class="mui-col-sm-2 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/搬家.png" />
-					<span class="span-center">搬家</span>
-				</div>
-				<div class="mui-col-sm-3 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/管道.png" />
-					<span class="span-center">管道疏通</span>
-				</div>
-				<div class="mui-col-sm-2 mui-col-xs-55">
-					<img class="aligncenter smlimg" src="images/全部分类.png" />
-					<span class="span-center">全部分类</span>
-				</div>
+			<div id="mui-template3" class="mui-row second">
+				<script type="text/template" id="temp3">
+					<% for(var i in record){ var item=record[i]; %>
+					<div class="mui-col-sm-55 mui-col-xs-55">
+						<img class="sml-aligncenter" src="<%=item.si_icon%>" />
+						<span class="span-center"><%=item.si_name%></span>
+					</div>
+					<%}%>
+				</script>
 			</div>
 			<div class="mui-content">
 				<img src="images/广告位.png" class="aligncenter ad" />
@@ -186,22 +151,14 @@
 					</li>
 
 				</ul>
-				<div class="mui-row">
-					<div class="mui-col-sm-2">
-						<img class="aligncenter " src="images/家政.png" />
-					</div>
-					<div class="mui-col-sm-3">
-						<img class="aligncenter " src="images/家政.png" />
-					</div>
-					<div class="mui-col-sm-2">
-						<img class="aligncenter " src="images/家具.png" />
-					</div>
-					<div class="mui-col-sm-3">
-						<img class="aligncenter " src="images/清洗.png" />
-					</div>
-					<div class="mui-col-sm-2">
-						<img class="aligncenter " src="images/保洁小.png" />
-					</div>
+				<div class="mui-row" id="mui-template4">
+					<script type="text/template" id="temp4">
+						<% for(var i in record){ var item=record[i]; %>
+						<div class="mui-col-sm-55 mui-col-xs-55">
+							<img class="type-aligncenter" src="<%=item.at_image%>" />
+						</div>
+						<%}%>
+					</script>
 				</div>
 			</div>
 			<div class="mui-content span-center hot">
@@ -209,19 +166,24 @@
 
 			</div>
 			<div class="mui-content">
-				<div class="mui-row">
-					<div class="mui-col-sm-6">
+				<div class="mui-row" id="mui-template5">
+					<script type="text/template" id="temp5">
+					<% for(var i in record){ var item=record[i]; %>
+					<div class="mui-col-sm-6 mui-col-xs-6">
+						<div class="mui-card">
+							<div class="mui-card-content"><img src="<%=item.jd_img%>" /></div>
+							<div class="mui-card-footer"><%=item.jg_content%></div>
+							<div class="mui-card-footer"><%=item.jci_name%></div>
+						</div>
+					</div>
+					<%}%>
+					</script>
+					<!--<div class="mui-col-sm-6">
 						<div class="mui-card">
 							<div class="mui-card-content"><img src="images/矩形30拷贝2.png" /></div>
 							<div class="mui-card-footer">专业家电维修，各种热水器维修</div>
 						</div>
-					</div>
-					<div class="mui-col-sm-6">
-						<div class="mui-card">
-							<div class="mui-card-content"><img src="images/矩形30拷贝2.png" /></div>
-							<div class="mui-card-footer">专业家电维修，各种热水器维修</div>
-						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
@@ -245,19 +207,61 @@
 							"record": adList
 						});
 						document.getElementById("mui-template").innerHTML = str;
+						getServiceList();
 					});
-					var serviceParam = {
-						service: 'Hlbr365app.Goods.GetRecommendList'
-					};
-					wAjax(serviceParam, function(result){
-						var firstServiceList = result.data.info.one;
-						var secondServiceList = result.data.info.two;
-						
-					})
-					
+
 				}
 			});
+
+			function getServiceList() {
+				var serviceParam = {
+					service: 'Hlbr365app.Goods.GetRecommendList'
+				};
+				wAjax(serviceParam, function(result) {
+					var firstServiceList = result.data.info.one;
+					var secondServiceList = result.data.info.two;
+					var str2 = template('temp2', {
+						'record': firstServiceList
+					});
+					document.getElementById("mui-template2").innerHTML = str2;
+					var str3 = template('temp3', {
+						'record': secondServiceList
+					});
+					document.getElementById('mui-template3').innerHTML = str3;
+					getTypeList();
+				})
+			}
+
+			function getTypeList() {
+				var typeListParam = {
+					service: 'Hlbr365app.Article.GetTypeList'
+				};
+				wAjax(typeListParam, function(result) {
+					var typeList = result.data.list;
+					var str4 = template('temp4', {
+						'record': typeList
+					});
+					document.getElementById("mui-template4").innerHTML = str4;
+					getRecGoods();
+				});
+			}
 			
+			function getRecGoods(){
+				var recGoodsParam = {
+					service: 'Hlbr365app.Goods.GetRecommendGoodsList',
+					city_id: city_id,
+					firstRow: 1,
+					listRows: 20
+				}
+				wAjax(recGoodsParam, function(result){
+					var goodsList = result.data.list
+					var str5 = template('temp5', {
+						'record': goodsList
+					});
+					document.getElementById('mui-template5').innerHTML = str5;
+				})
+			}
+
 			window.addEventListener('changeCity', function(event) {
 				if(event) {
 					//					var provinceCode = event.detail.provinceCode; //省id

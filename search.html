@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			#searchBtn {
+				width: 280px;
+				height: 30px;
+				margin: 7px;
+				border-radius: 20px;
+				border-style: hidden;
+			}
+			
+			span {
+				color: gray;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<input type="text" id="searchBtn" placeholder="输入服务项或服务内容"></button>
+			<span class="mui-pull-right" style="margin-top: 10px;color: #ff2600;">搜索</span>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<span class="mui-pull-left" style="margin: 5px;">历史搜索</span>
+				<button class="mui-pull-right">清空历史</button>
+			</div>
+			<div class="mui-content">
+				<span style="margin: 5px;">热门搜索</span>
+				<div class="mui-row" id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<span><%=item%></span>
+						<%}%>
+					</script>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var hotSearchParam = {
+					service: 'Hlbr365app.Member.GetHotSearch'
+				};
+				wAjax(hotSearchParam, function(result) {
+					var hotList = result.data.info;
+					var str = template('temp', {
+						"record": hotList
+					});
+					document.getElementById("mui-template").innerHTML = str;
+
+				})
+
+			})
+		</script>
+	</body>
+
+</html>

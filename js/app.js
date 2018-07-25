@@ -48,7 +48,7 @@
 	}
 
 	wAjax = function(data, success) {
-		$.ajax(makeurl(data), {
+		mui.ajax(makeurl(data), {
 			type: 'get', //HTTP请求类型
 			timeout: 10000, //超时时间设置为10秒；
 			success: function(data) {
