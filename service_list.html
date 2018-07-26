@@ -35,6 +35,16 @@
  			.mui-pull-left{
  				color: white;
  			}
+ 			li {
+ 				list-style-position: inside;
+ 				height: 130px;
+ 				border: 3px solid gainsboro;
+ 			}
+ 			.img_left{
+ 				line-height: 100px!important;
+ 				max-width: 100px!important;
+ 				height: 100px!important;
+ 			}
 		</style>
 	</head>
 
@@ -54,17 +64,17 @@
 					家庭保洁
 				</div>
 			</div>
-			<div class="mui-card">
+			<div class="mui-content">
 				<ul class="mui-table-view" id="mui-template">
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
 						<li class="mui-table-view-cell mui-media">
 							<a href="javascript:;">
-								<img class="mui-media-object mui-pull-left" src="<%=item.jd_img%>">
+								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img%>">
 								<div class="mui-media-body">
-									<%=item.jd_name%>
+									<%=item.jg_name%>
 									<p class='mui-ellipsis'>
-										<%=item.jd_intro%>
+										<%=item.jg_intro%>
 									</p>
 									<!--<p class="mui-ellipsis">
 									<%=item.ar_reads%>
