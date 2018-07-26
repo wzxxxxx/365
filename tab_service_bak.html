@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-row {
+				height: 50px;
+				background: white;
+			}
+			
+			.mui-text-center {
+				line-height: 50px;
+			}
+			
+			.line {
+				width: 100%;
+				height: 1px;
+				background: gainsboro;
+			}
+			
+			.fengeline {
+				float: right;
+				color: gainsboro;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="city_name">
+					海拉尔
+					<span  class="fengeline">|</span>
+				</div>
+				<!--<div class="mui-text-center fengeline">|</div>-->
+				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="service_name">
+					家庭保洁
+				</div>
+			</div>
+			<div class="mui-card">
+				<ul class="mui-table-view" id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="<%=item.jd_img%>">
+								<div class="mui-media-body">
+									<%=item.jd_name%>
+									<p class='mui-ellipsis'>
+										<%=item.jg_content%>
+									</p>
+									<!--<p class="mui-ellipsis">
+									<%=item.ar_reads%>
+								</p>-->
+								</div>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
+			<!--<div class="line"></div>-->
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript">
+			//默认为海拉尔市
+			var city_id = '150700';
+
+			window.addEventListener('changeCity', function(event) {
+				if(event) {
+					city_id = event.detail.cityCode; //市id
+					//					var cityName = event.detail.cityName; //市名称
+					//					var areaCode = event.detail.areaCode; //区id
+					//					var areaName = event.detail.areaName; //区名称
+					var cityName = event.detail.cityName; //市名称
+					document.getElementById("city_name").innerText = cityName;
+				}
+			});
+
+			mui.plusReady(function() {
+				var citySelected = document.getElementById('city_name');
+				var serviceSelected = document.getElementById('service_name');
+				citySelected.addEventListener('tap', function(event) {
+					if(window.plus) {
+						mui.openWindow({
+							url: 'city_select.html',
+							id: 'city_select.html',
+							waiting: {
+								autoShow: false //自动显示等待框，默认为true
+							},
+							styles: {
+								bottom: '0px',
+								background: 'transparent',
+								opacity: 1,
+								zindex: "100"
+							}
+						});
+					} else {
+						mui.toast("请在html5+引擎环境使用");
+					}
+				});
+
+				var typeListParam = {
+					service: 'Hlbr365app.Article.GetTypeList'
+				};
+
+				wAjax(typeListParam, function(result) {
+					var typeList = result.data.list;
+					//					var str4 = template('temp4', {
+					//						'record': typeList
+					//					});
+					//					document.getElementById("mui-template4").innerHTML = str4;
+				});
+
+				//				getGoodsList();
+			})
+
+			function getGoodsList(typeID) {
+				var goodsListWithInfo = [];
+				var goodsParam = {
+					service: 'Hlbr365app.Goods.GetServiceList',
+					two_type_id: typeID,
+					city_id: city_id,
+					firstRow: 1,
+					listRows: 20
+				}			
+				wAjax(goodsParam, function(result) {
+					var goodsList = result.data.list;
+					for(var i = 0; i < goodsList.length; i++) {
+						var goodsWithInfo = getGoodsInfo(goodsList[i].jg_id) || {};
+						goodsListWithInfo.push(goodsWithInfo);
+					}
+
+					var str = template('temp', {
+						'record': goodsListWithInfo
+					});
+					document.getElementById("mui-template").innerHTML = str;
+
+				})
+			}
+
+			function getGoodsInfo(goodsId) {
+				var infoParam = {
+					service: 'Hlbr365app.Goods.GetGoodsInfo',
+					jg_id: goodsId
+				}
+				wAjax(infoParam, function(result) {
+					var goodsInfo = result.data.info;
+					return goodsInfo;
+				})
+			}
+		</script>
+	</body>
+
+</html>

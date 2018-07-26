@@ -7,25 +7,48 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-			.mui-row {
-				height: 50px;
-				background: white;
-			}
-			
 			.mui-text-center {
 				line-height: 50px;
 			}
-			
-			.line {
-				width: 1000px;
+			/*.line {
+				width: 100%;
 				height: 1px;
 				background: gainsboro;
 			}
-			
-			.fengeline {
-				width: 100%;
-				position: fixed;
+			*/
+			/*.fengeline {
+				float: right;
 				color: gainsboro;
+			}*/
+			
+			.span-center {
+				width: 100%;
+				float: right;
+				text-align: center;
+				font-size: smaller;
+				/*padding-bottom: 10px;
+				padding-top: 10px;*/
+			}
+			
+			.img-center {
+				clear: both;
+				display: block;
+				margin: auto;
+				width: 60px;
+			}
+			
+			#firstTypeName {
+				margin-left: 10px;
+				color: grey;
+			}
+			
+			#mui-template2 {
+				margin-top: 20px;
+			}
+			
+			button {
+				border: hidden;
+				background: gainsboro;
 			}
 		</style>
 	</head>
@@ -33,84 +56,134 @@
 	<body>
 		<div class="mui-content">
 			<div class="mui-row">
-				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="city_name">
-					<!--<a href="#popover" id="city_name" class="mui-btn mui-btn-primary mui-btn-block"></a>-->
-					海拉尔
+				<div class="mui-col-sm-3 mui-col-xs-3" id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<div>
+							<img src="<%=item.si_icon%>" class="img-center" id="<%=item.si_id%>" />
+							<span class="span-center"><%=item.si_name%></span>
+						</div>
+						<%}%>
+					</script>
 				</div>
-				<div class="mui-text-center fengeline">|</div>
-				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="service_name">
-					<!--<a href="#popover" id="service_name" class="mui-btn mui-btn-primary mui-btn-block"></a>-->
-					家庭保洁
-				</div>
-			</div>
-			<div class="mui-popover" id="popover">
-				<ul class="mui-table-view" id="mui-template">
-				<script type="text/template" id="temp">
-					<% for(var i in record){ var item=record[i]; %>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="<%=item.jd_img%>">
-							<div class="mui-media-body">
-								<%=item.jd_name%>
-								<p class='mui-ellipsis'>
-									<%=item.jg_content%>
-									</p>
-								<!--<p class="mui-ellipsis">
-									<%=item.ar_reads%>
-								</p>-->
+				<div class="mui-col-sm-9 mui-col-xs-9" style="background: white;height: 600px;">
+					<div <div>
+						<img id="firstTypeIcon" />
+					</div>
+					<div>
+						<span id="firstTypeName"></span>
+					</div>
+					<div class="mui-row" id="mui-template2">
+						<script type="text/template" id="temp2">
+							<% for(var i in record){ var item=record[i]; %>
+							<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center">
+								<button type="button" id="<%=item.si_id%>"><%=item.si_name%></button>
 							</div>
-						</a>
-					</li>
-					<%}%>
-				</script>
-			</ul>
+							<%}%>
+						</script>
+					</div>
+
+				</div>
 			</div>
-			<div class="line"></div>
+		</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
-		<script type="text/javascript" src="js/arttmpl.js" ></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
-			mui.plusReady(function() {
-				var citySelected = document.getElementById('city_name');
-				var serviceSelected = document.getElementById('service_name');
-				citySelected.innerHTML = '海拉尔';
-				serviceSelected.innerHTML = '家庭保洁';
+			var typeList = [];
 
-				var typeListParam = {
-					service: 'Hlbr365app.Article.GetTypeList'
-				};
-				wAjax(typeListParam, function(result) {
-					var typeList = result.data.list;
-					//					var str4 = template('temp4', {
-					//						'record': typeList
-					//					});
-					//					document.getElementById("mui-template4").innerHTML = str4;
-				});
-				
-				getGoodsList();
-			})
-			
-			function getGoodsList(){
-				var city_id = '150700';
-				
-				var goodsParam = {
-					service: 'Hlbr365app.Goods.GetServiceList',
-					two_type_id: 33,
-					city_id: city_id,
-					firstRow: 1,
-					listRows: 20
+			mui("#mui-template").on('tap', 'img', function(e) {
+				var id = this.getAttribute("id");
+				for(var i = 0; i < typeList.length; i++) {
+					if(typeList[i].si_id == id) {
+						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
+						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
+					}
 				}
-				wAjax(goodsParam, function(result){
-					var goodsList = result.data.list;
+				getSecondTypeList(id);
+			});
+
+			mui("#mui-template2").on('tap', 'button', function(e) {
+				var id = this.getAttribute("id");
+				mui.openWindow({
+					url: 'service_list.html',
+					id: 'service_list.html',
+					extras: {
+						id: id
+					} //自定义扩展参数
+//					show: {
+//						autoShow: false, //页面loaded事件发生后自动显示，默认为true
+//						event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
+//					},
+//					waiting: {
+//						autoShow: true //自动显示等待框，默认为true
+//					}
+				});
+			});
+
+			mui.plusReady(function() {
+				var typeListParam = {
+					service: 'Hlbr365app.Goods.GetOneList'
+				};
+
+				wAjax(typeListParam, function(result) {
+					typeList = result.data.info;
 					var str = template('temp', {
-						'record': goodsList
+						'record': typeList
 					});
 					document.getElementById("mui-template").innerHTML = str;
-					
+				});
+			})
+
+			function getSecondTypeList(firtTypeId) {
+				var secTypeListParam = {
+					service: 'Hlbr365app.Goods.GetTwoListByOne',
+					si_id: firtTypeId
+				}
+				wAjax(secTypeListParam, function(result) {
+					var sceTypeList = result.data.info.service;
+					var str = template('temp2', {
+						'record': sceTypeList
+					});
+					document.getElementById("mui-template2").innerHTML = str;
 				})
-				
 			}
+
+			//			function getGoodsList(typeID) {
+			//				var goodsListWithInfo = [];
+			//				var goodsParam = {
+			//					service: 'Hlbr365app.Goods.GetServiceList',
+			//					two_type_id: typeID,
+			//					city_id: city_id,
+			//					firstRow: 1,
+			//					listRows: 20
+			//				}
+			//				wAjax(goodsParam, function(result) {
+			//					var goodsList = result.data.list;
+			//					for(var i = 0; i < goodsList.length; i++) {
+			//						var goodsWithInfo = getGoodsInfo(goodsList[i].jg_id) || {};
+			//						goodsListWithInfo.push(goodsWithInfo);
+			//					}
+			//
+			//					var str = template('temp', {
+			//						'record': goodsListWithInfo
+			//					});
+			//					document.getElementById("mui-template").innerHTML = str;
+			//
+			//				})
+			//			}
+			//
+			//			function getGoodsInfo(goodsId) {
+			//				var infoParam = {
+			//					service: 'Hlbr365app.Goods.GetGoodsInfo',
+			//					jg_id: goodsId
+			//				}
+			//				wAjax(infoParam, function(result) {
+			//					var goodsInfo = result.data.info;
+			//					return goodsInfo;
+			//				})
+			//			}
 		</script>
 	</body>
 

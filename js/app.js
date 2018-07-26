@@ -42,6 +42,7 @@
 		if(ret && ret == 200 && code && code == 1) {
 			return true;
 		} else {
+			console.log(JSON.stringify(data));
 			plus.nativeUI.toast(data.data.msg);
 			return false;
 		}

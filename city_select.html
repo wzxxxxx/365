@@ -43,6 +43,7 @@
 				if(cityCode && cityName) {
 					var shouye = plus.webview.getWebviewById('tab_shouye.html');
 					var main = plus.webview.currentWebview().opener();
+					var service = plus.webview.getWebviewById('tab_service.html');
 					var param = {
 						"provinceCode": provinceCode,
 						"provinceName": provinceName,
@@ -53,6 +54,7 @@
 					};
 					mui.fire(shouye, 'changeCity', param);
 					mui.fire(main, 'changeCity', param);
+					mui.fire(service, 'changeCity', param);
 				}
 				plus.webview.currentWebview().close();
 				mui.back = function() {
