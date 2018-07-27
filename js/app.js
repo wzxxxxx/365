@@ -43,7 +43,7 @@
 			return true;
 		} else {
 			console.log(JSON.stringify(data));
-			plus.nativeUI.toast(data.data.msg);
+//			plus.nativeUI.toast(data.data.msg);
 			return false;
 		}
 	}

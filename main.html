@@ -30,10 +30,16 @@
 				background: red;
 			}
 			
-			#city_name {
+			#openPopover {
 				color: white;
 				font-size: 14px;
+				max-width: 50px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				display: inline-block;
 			}
+			
 			#searchBtn {
 				width: 200px;
 				height: 30px;
@@ -41,18 +47,20 @@
 				border-radius: 20px;
 				color: grey;
 			}
-			#noticeImg{
+			
+			#noticeImg {
 				height: 25px;
 				width: 25px;
 				margin-top: 10px;
 			}
+			
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<button id="chooseCity" class="mui-btn  mui-btn-link mui-pull-left">
-					<span id="city_name">海拉尔区</span>
+					<a href="#popover" id="openPopover">海拉尔区</a>
 					<img src="images/地区选择.png" />
 			</button>
 			<h1 id="title" class="mui-title"></h1>
@@ -60,8 +68,21 @@
 			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">
 				<img id='noticeImg' src="images/message1.png" />
 			</button>
-			
+
 		</header>
+		<div id="popover" class="mui-popover">
+			<ul class="mui-table-view" id="mui-template">
+				<script type="text/template" id="temp">
+					<% for(var i in record){ var item=record[i]; %>
+					<li class="mui-table-view-cell">
+						<a href="#" id="<%=item.id%>">
+							<%=item.name%>
+						</a>
+					</li>
+					<%}%>
+				</script>
+			</ul>
+		</div>
 		<div class="mui-content">
 			<div class="mui-content-padded">
 				<nav class="mui-bar mui-bar-tab" style="background-color: #fff;">
@@ -99,6 +120,7 @@
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script src="js/app.js"></script>
 		<script>
 			(function($, doc) {
@@ -120,18 +142,18 @@
 				//激活当前项
 				var activeTab = subpages[0];
 
-				window.addEventListener('changeCity', function(event) {
-					if(event) {
-						var provinceCode = event.detail.provinceCode; //省id
-						var provinceName = event.detail.provinceName; //省名称
-						var cityCode = event.detail.cityCode; //市id
-						var cityName = event.detail.cityName; //市名称
-						var areaCode = event.detail.areaCode; //区id
-						var areaName = event.detail.areaName; //区名称
-
-						document.getElementById("city_name").innerText = cityName;
-					}
-				});
+				//				window.addEventListener('changeCity', function(event) {
+				//					if(event) {
+				//						var provinceCode = event.detail.provinceCode; //省id
+				//						var provinceName = event.detail.provinceName; //省名称
+				//						var cityCode = event.detail.cityCode; //市id
+				//						var cityName = event.detail.cityName; //市名称
+				//						var areaCode = event.detail.areaCode; //区id
+				//						var areaName = event.detail.areaName; //区名称
+				//
+				//						document.getElementById("city_name").innerText = cityName;
+				//					}
+				//				});
 
 				//选项卡点击事件
 				$(".mui-bar-tab").on('tap', 'a', function(e) {
@@ -208,6 +230,32 @@
 					}, 500);
 				}
 
+				function getConutryList() {
+					var getCountryParam = {
+						service: 'App.PublicClass.Country',
+						id: 150700
+					}
+					wAjax(getCountryParam, function(result) {
+						var countryList = result.data.list;
+						var str = template('temp', {
+							'record': countryList
+						});
+						document.getElementById("mui-template").innerHTML = str;
+					})
+				}
+
+				mui("#mui-template").on('tap', 'a', function(e) {
+					var id = this.getAttribute("id");
+					document.getElementById('openPopover').innerHTML = this.innerHTML;
+					var shouye = plus.webview.getWebviewById('tab_shouye.html');
+					var param = {
+						cityCode: id
+					}
+					mui.fire(shouye, 'changeCity', param);
+					mui('#popover').popover('hide');
+
+				});
+
 				$.plusReady(function() {
 					//					var settingPage = $.preload({
 					//						"id": 'setting',
@@ -245,33 +293,33 @@
 					//						return false;
 					//					};
 					//					
-
+					getConutryList();
 					preloadMainPage();
 					preloadOtherPages();
 
-					var showCityPickerButton = document.getElementById('chooseCity');
-					showCityPickerButton.addEventListener('tap', function(event) {
-						if(window.plus) {
-							mui.openWindow({
-								url: 'city_select.html',
-								id: 'city_select.html',
-								waiting: {
-									autoShow: false //自动显示等待框，默认为true
-								},
-								styles: {
-									bottom: '0px',
-									background: 'transparent',
-									opacity: 1,
-									zindex: "100"
-								}
-							});
-						} else {
-							mui.toast("请在html5+引擎环境使用");
-						}
-					}, false);
-					
+					//					var showCityPickerButton = document.getElementById('chooseCity');
+					//					showCityPickerButton.addEventListener('tap', function(event) {
+					//						if(window.plus) {
+					//							mui.openWindow({
+					//								url: 'city_select.html',
+					//								id: 'city_select.html',
+					//								waiting: {
+					//									autoShow: false //自动显示等待框，默认为true
+					//								},
+					//								styles: {
+					//									bottom: '0px',
+					//									background: 'transparent',
+					//									opacity: 1,
+					//									zindex: "100"
+					//								}
+					//							});
+					//						} else {
+					//							mui.toast("请在html5+引擎环境使用");
+					//						}
+					//					}, false);
+
 					var searchButton = document.getElementById('searchBtn');
-					searchButton.addEventListener('tap', function(event){
+					searchButton.addEventListener('tap', function(event) {
 						if(window.plus) {
 							mui.openWindow({
 								url: 'search.html',
@@ -289,4 +337,3 @@
 			}(mui, document));
 		</script>
 	</body>
-

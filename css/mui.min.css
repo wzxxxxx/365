@@ -1256,7 +1256,8 @@ input[type=submit]:enabled:active {
 	overflow: hidden;
 	width: auto;
 	margin: 0;
-	text-overflow: ellipsis
+	text-overflow: ellipsis;
+	color: white;
 }
 
 .mui-bar .mui-backdrop {

@@ -128,7 +128,8 @@
 						error: function(xhr, type, errorThrown) {
 							//异常处理；
 							console.log(type);
-							return callback('网络连接错误');
+							return;
+//							return callback('网络连接错误');
 						}
 					});
 				}

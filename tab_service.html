@@ -77,7 +77,7 @@
 						<script type="text/template" id="temp2">
 							<% for(var i in record){ var item=record[i]; %>
 							<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center">
-								<button type="button" id="<%=item.si_id%>"><%=item.si_name%></button>
+								<button type="button" id="<%=item.si_id%>" name="<%=item.si_pid%>" sname='<%=item.si_name%>'><%=item.si_name%></button>
 							</div>
 							<%}%>
 						</script>
@@ -106,11 +106,15 @@
 
 			mui("#mui-template2").on('tap', 'button', function(e) {
 				var id = this.getAttribute("id");
+				var first_id = this.getAttribute('name');
+				var name = this.getAttribute('sname');
 				mui.openWindow({
 					url: 'service_list.html',
 					id: 'service_list.html',
 					extras: {
-						id: id
+						type_id: id,
+						first_id: first_id,
+						name: name
 					} //自定义扩展参数
 //					show: {
 //						autoShow: false, //页面loaded事件发生后自动显示，默认为true
@@ -133,6 +137,7 @@
 						'record': typeList
 					});
 					document.getElementById("mui-template").innerHTML = str;
+					mui.trigger(document.querySelector('.img-center'), 'tap');
 				});
 			})
 
@@ -147,6 +152,7 @@
 						'record': sceTypeList
 					});
 					document.getElementById("mui-template2").innerHTML = str;
+					
 				})
 			}
 
