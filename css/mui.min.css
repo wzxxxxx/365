@@ -243,7 +243,7 @@ a:active {
 }
 
 .mui-bar-nav~.mui-content {
-	padding-top: 44px
+	padding-top: 44px;
 }
 
 .mui-bar-nav~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical {
@@ -706,7 +706,8 @@ p {
 	-webkit-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 	-webkit-box-shadow: none;
-	box-shadow: none
+	box-shadow: none;
+	
 }
 
 .mui-off-canvas-wrap {
@@ -1289,7 +1290,8 @@ input[type=submit]:enabled:active {
 .mui-bar-nav {
 	top: 0;
 	-webkit-box-shadow: 0 1px 6px #ccc;
-	box-shadow: 0 1px 6px #ccc
+	box-shadow: 0 1px 6px #ccc;
+	
 }
 
 .mui-bar-nav~.mui-content .mui-anchor {
@@ -1333,7 +1335,7 @@ input[type=submit]:enabled:active {
 	table-layout: fixed;
 	border-top: 0;
 	border-bottom: 0;
-	-webkit-touch-callout: none
+	-webkit-touch-callout: none;
 }
 
 .mui-bar-tab .mui-tab-item {

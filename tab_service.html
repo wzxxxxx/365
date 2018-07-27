@@ -46,6 +46,10 @@
 				margin-top: 20px;
 			}
 			
+			#mui-template {
+				background: gainsboro;
+			}
+			
 			button {
 				border: hidden;
 				background: gainsboro;
@@ -55,7 +59,7 @@
 
 	<body>
 		<div class="mui-content">
-			<div class="mui-row">
+			<div class="mui-row" style="background: white;">
 				<div class="mui-col-sm-3 mui-col-xs-3" id="mui-template">
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
@@ -66,9 +70,9 @@
 						<%}%>
 					</script>
 				</div>
-				<div class="mui-col-sm-9 mui-col-xs-9" style="background: white;height: 600px;">
+				<div class="mui-col-sm-9 mui-col-xs-9">
 					<div <div>
-						<img id="firstTypeIcon" style="max-height: 200px; width: 100%;"/>
+						<img id="firstTypeIcon" style="max-height: 200px; width: 100%;" />
 					</div>
 					<div>
 						<span id="firstTypeName"></span>
@@ -91,7 +95,8 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
-			var typeList = [], city_id = '';
+			var typeList = [],
+				city_id = '';
 
 			mui("#mui-template").on('tap', 'img', function(e) {
 				var id = this.getAttribute("id");
@@ -116,17 +121,17 @@
 						first_id: first_id,
 						name: name
 					} //自定义扩展参数
-//					show: {
-//						autoShow: false, //页面loaded事件发生后自动显示，默认为true
-//						event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
-//					},
-//					waiting: {
-//						autoShow: true //自动显示等待框，默认为true
-//					}
+					//					show: {
+					//						autoShow: false, //页面loaded事件发生后自动显示，默认为true
+					//						event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
+					//					},
+					//					waiting: {
+					//						autoShow: true //自动显示等待框，默认为true
+					//					}
 				});
 			});
-			
-				window.addEventListener('changeCity', function(event) {
+
+			window.addEventListener('changeCity', function(event) {
 				if(event) {
 					//					var provinceCode = event.detail.provinceCode; //省id
 					//					var provinceName = event.detail.provinceName; //省名称
@@ -135,7 +140,18 @@
 					//					var areaCode = event.detail.areaCode; //区id
 					//					var areaName = event.detail.areaName; //区名称
 
-//					city_id = cityCode;
+					//					city_id = cityCode;
+				}
+
+			});
+
+			window.addEventListener('toService', function(event) {
+				if(event) {
+					for(var i = 0; i < typeList.length; i++) {
+						if(typeList[i].si_id == event.detail.service_id) {
+							mui.trigger(document.getElementById(event.detail.service_id), 'tap');
+						}
+					}
 				}
 
 			});
@@ -166,25 +182,25 @@
 						'record': sceTypeList
 					});
 					document.getElementById("mui-template2").innerHTML = str;
-					
+
 				})
 			}
-			
-			function getAd(serviceType){
+
+			function getAd(serviceType) {
 				var adParam = {
-						service: 'Hlbr365app.Ad.GetList',
-						ap_id: 2,
-						ar_wid: serviceType,
-						ar_city_id: city_id
-					};
-					wAjax(adParam, function(result) {
-						var adList = result.data.list;
-						document.getElementById('firstTypeIcon').src = adList.ar_img;
-//						var str = template('temp', {
-//							"record": adList
-//						});
-//						document.getElementById("mui-template").innerHTML = str;
-					});
+					service: 'Hlbr365app.Ad.GetList',
+					ap_id: 2,
+					ar_wid: serviceType,
+					ar_city_id: city_id
+				};
+				wAjax(adParam, function(result) {
+					var adList = result.data.list;
+					document.getElementById('firstTypeIcon').src = adList.ar_img;
+					//						var str = template('temp', {
+					//							"record": adList
+					//						});
+					//						document.getElementById("mui-template").innerHTML = str;
+				});
 			}
 
 			//			function getGoodsList(typeID) {

@@ -189,6 +189,18 @@
 					//更改当前活跃的选项卡
 					activeTab = targetTab;
 				});
+				
+				window.addEventListener('toSerive', function(event) {
+				if(event) {
+					mui.trigger(document.getElementById('service'), 'tap');
+				}
+
+			});
+			
+			window.addEventListener('toClass', function(event) {
+					mui.trigger(document.getElementById('class'), 'tap');
+
+			});
 
 				function preloadMainPage() {
 					var temp = {};
@@ -299,26 +311,6 @@
 					preloadMainPage();
 					preloadOtherPages();
 
-					//					var showCityPickerButton = document.getElementById('chooseCity');
-					//					showCityPickerButton.addEventListener('tap', function(event) {
-					//						if(window.plus) {
-					//							mui.openWindow({
-					//								url: 'city_select.html',
-					//								id: 'city_select.html',
-					//								waiting: {
-					//									autoShow: false //自动显示等待框，默认为true
-					//								},
-					//								styles: {
-					//									bottom: '0px',
-					//									background: 'transparent',
-					//									opacity: 1,
-					//									zindex: "100"
-					//								}
-					//							});
-					//						} else {
-					//							mui.toast("请在html5+引擎环境使用");
-					//						}
-					//					}, false);
 
 					var searchButton = document.getElementById('searchBtn');
 					searchButton.addEventListener('tap', function(event) {
