@@ -15,18 +15,18 @@
 				clear: both;
 				display: block;
 				margin: auto;
-				height: 80px;
+				height: 75px;
 			}
 			
 			.sml-aligncenter {
 				clear: both;
 				display: block;
 				margin: auto;
-				width: 30px;
-				height: 30px;
+				width: 28px;
+				height: 28px;
 			}
 			
-			.type-aligncenter{
+			.type-aligncenter {
 				clear: both;
 				display: block;
 				margin: auto;
@@ -88,15 +88,16 @@
 
 	<body>
 		<div class="mui-content">
-			<div id="mui-template" class="mui-slider">
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="images/广告.png">
-						</a>
-					</div>
+			<div class="mui-slider">
+				<div class="mui-slider-group " id="mui-template">
+
 					<script type="text/template" id="temp">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<!--<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="images/广告.png">
+							</a>
+						</div>-->
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-slider-item">
 							<a href="#">
@@ -104,19 +105,20 @@
 							</a>
 						</div>
 						<%}%>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<!--<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="images/广告.png">
+							</a>
+						</div>-->
 					</script>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="images/广告.png">
-						</a>
-					</div>
+
 				</div>
 				<div class="mui-slider-indicator">
 					<div class="mui-indicator mui-active"></div>
 					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+					<!--<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>-->
 				</div>
 			</div>
 			<div id="mui-template2" class="mui-row">
@@ -168,15 +170,19 @@
 			<div class="mui-content">
 				<div class="mui-row" id="mui-template5">
 					<script type="text/template" id="temp5">
-					<% for(var i in record){ var item=record[i]; %>
-					<div class="mui-col-sm-6 mui-col-xs-6">
-						<div class="mui-card">
-							<div class="mui-card-content"><img src="<%=item.jd_img%>" /></div>
-							<div class="mui-card-footer"><%=item.jg_content%></div>
-							<div class="mui-card-footer"><%=item.jci_name%></div>
+						<% for(var i in record){ var item=record[i]; %>
+						<div class="mui-col-sm-6 mui-col-xs-6">
+							<div class="mui-card">
+								<div class="mui-card-content"><img src="<%=item.jd_img%>" /></div>
+								<div class="mui-card-footer">
+									<%=item.jg_content%>
+								</div>
+								<div class="mui-card-footer">
+									<%=item.jci_name%>
+								</div>
+							</div>
 						</div>
-					</div>
-					<%}%>
+						<%}%>
 					</script>
 					<!--<div class="mui-col-sm-6">
 						<div class="mui-card">
@@ -192,7 +198,7 @@
 		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
 			//默认为海拉尔市
-			var city_id = '150700';
+			var city_id = '150702';
 
 			mui.plusReady(function() {
 				if(city_id) {
@@ -245,15 +251,15 @@
 					getRecGoods();
 				});
 			}
-			
-			function getRecGoods(){
+
+			function getRecGoods() {
 				var recGoodsParam = {
 					service: 'Hlbr365app.Goods.GetRecommendGoodsList',
 					city_id: city_id,
 					firstRow: 1,
 					listRows: 20
 				}
-				wAjax(recGoodsParam, function(result){
+				wAjax(recGoodsParam, function(result) {
 					var goodsList = result.data.list
 					var str5 = template('temp5', {
 						'record': goodsList

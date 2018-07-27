@@ -248,10 +248,12 @@
 					var id = this.getAttribute("id");
 					document.getElementById('openPopover').innerHTML = this.innerHTML;
 					var shouye = plus.webview.getWebviewById('tab_shouye.html');
+					var service = plus.webview.getWebviewById('tab_service.html');
 					var param = {
 						cityCode: id
 					}
 					mui.fire(shouye, 'changeCity', param);
+					mui.fire(service, 'changeCity', param);
 					mui('#popover').popover('hide');
 
 				});

@@ -68,7 +68,7 @@
 				</div>
 				<div class="mui-col-sm-9 mui-col-xs-9" style="background: white;height: 600px;">
 					<div <div>
-						<img id="firstTypeIcon" />
+						<img id="firstTypeIcon" style="max-height: 200px; width: 100%;"/>
 					</div>
 					<div>
 						<span id="firstTypeName"></span>
@@ -91,13 +91,13 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
-			var typeList = [];
+			var typeList = [], city_id = '';
 
 			mui("#mui-template").on('tap', 'img', function(e) {
 				var id = this.getAttribute("id");
 				for(var i = 0; i < typeList.length; i++) {
 					if(typeList[i].si_id == id) {
-						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
+						getAd(typeList[i].si_id);
 						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
 					}
 				}
@@ -124,6 +124,20 @@
 //						autoShow: true //自动显示等待框，默认为true
 //					}
 				});
+			});
+			
+				window.addEventListener('changeCity', function(event) {
+				if(event) {
+					//					var provinceCode = event.detail.provinceCode; //省id
+					//					var provinceName = event.detail.provinceName; //省名称
+					city_id = event.detail.cityCode; //市id
+					//					var cityName = event.detail.cityName; //市名称
+					//					var areaCode = event.detail.areaCode; //区id
+					//					var areaName = event.detail.areaName; //区名称
+
+//					city_id = cityCode;
+				}
+
 			});
 
 			mui.plusReady(function() {
@@ -154,6 +168,23 @@
 					document.getElementById("mui-template2").innerHTML = str;
 					
 				})
+			}
+			
+			function getAd(serviceType){
+				var adParam = {
+						service: 'Hlbr365app.Ad.GetList',
+						ap_id: 2,
+						ar_wid: serviceType,
+						ar_city_id: city_id
+					};
+					wAjax(adParam, function(result) {
+						var adList = result.data.list;
+						document.getElementById('firstTypeIcon').src = adList.ar_img;
+//						var str = template('temp', {
+//							"record": adList
+//						});
+//						document.getElementById("mui-template").innerHTML = str;
+					});
 			}
 
 			//			function getGoodsList(typeID) {
