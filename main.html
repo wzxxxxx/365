@@ -60,7 +60,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<button id="chooseCity" class="mui-btn  mui-btn-link mui-pull-left">
-					<a href="#popover" id="openPopover">海拉尔区</a>
+					<a id="openPopover">海拉尔区</a>
 					<img src="images/地区选择.png" />
 			</button>
 			<h1 id="title" class="mui-title"></h1>
@@ -70,7 +70,7 @@
 			</button>
 
 		</header>
-		<div id="popover" class="mui-popover">
+		<!--<div id="popover" class="mui-popover">
 			<ul class="mui-table-view" id="mui-template">
 				<script type="text/template" id="temp">
 					<% for(var i in record){ var item=record[i]; %>
@@ -82,7 +82,7 @@
 					<%}%>
 				</script>
 			</ul>
-		</div>
+		</div>-->
 		<div class="mui-content">
 			<div class="mui-content-padded">
 				<nav class="mui-bar mui-bar-tab" style="background-color: #fff;">
@@ -154,6 +154,11 @@
 				//						document.getElementById("city_name").innerText = cityName;
 				//					}
 				//				});
+				
+				document.getElementById('chooseCity').addEventListener('tap', function(){
+					var shouye = plus.webview.getWebviewById('tab_shouye.html');
+					mui.fire(shouye, 'openPop', null);
+				})
 
 				//选项卡点击事件
 				$(".mui-bar-tab").on('tap', 'a', function(e) {
@@ -193,6 +198,19 @@
 				window.addEventListener('toSerive', function(event) {
 				if(event) {
 					mui.trigger(document.getElementById('service'), 'tap');
+				}
+
+			});
+			
+			window.addEventListener('changeCity', function(event) {
+				if(event) {
+					//					var provinceCode = event.detail.provinceCode; //省id
+					//					var provinceName = event.detail.provinceName; //省名称
+					var cityName = event.detail.cityName; //市id
+					//					var cityName = event.detail.cityName; //市名称
+					//					var areaCode = event.detail.areaCode; //区id
+					//					var areaName = event.detail.areaName; //区名称
+					document.getElementById('openPopover').innerHTML = cityName;
 				}
 
 			});
@@ -256,19 +274,19 @@
 					})
 				}
 
-				mui("#mui-template").on('tap', 'a', function(e) {
-					var id = this.getAttribute("id");
-					document.getElementById('openPopover').innerHTML = this.innerHTML;
-					var shouye = plus.webview.getWebviewById('tab_shouye.html');
-					var service = plus.webview.getWebviewById('tab_service.html');
-					var param = {
-						cityCode: id
-					}
-					mui.fire(shouye, 'changeCity', param);
-					mui.fire(service, 'changeCity', param);
-					mui('#popover').popover('hide');
-
-				});
+//				mui("#mui-template").on('tap', 'a', function(e) {
+//					var id = this.getAttribute("id");
+//					document.getElementById('openPopover').innerHTML = this.innerHTML;
+//					var shouye = plus.webview.getWebviewById('tab_shouye.html');
+//					var service = plus.webview.getWebviewById('tab_service.html');
+//					var param = {
+//						cityCode: id
+//					}
+//					mui.fire(shouye, 'changeCity', param);
+//					mui.fire(service, 'changeCity', param);
+//					mui('#popover').popover('hide');
+//
+//				});
 
 				$.plusReady(function() {
 					//					var settingPage = $.preload({
@@ -307,7 +325,7 @@
 					//						return false;
 					//					};
 					//					
-					getConutryList();
+//					getConutryList();
 					preloadMainPage();
 					preloadOtherPages();
 

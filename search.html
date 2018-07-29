@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-			#searchBtn {
+			#searchInput {
 				width: 280px;
 				height: 30px;
 				margin: 7px;
@@ -18,14 +18,19 @@
 			span {
 				color: gray;
 			}
+			.hot-search-btn{
+				border: hidden;
+				background: gainsboro;
+				margin-bottom: 5px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<input type="text" id="searchBtn" placeholder="输入服务项或服务内容"></button>
-			<span class="mui-pull-right" style="margin-top: 10px;color: #ff2600;">搜索</span>
+			<input type="text" id="searchInput" placeholder="输入服务项或服务内容"></input>
+			<span  id="searchBtn" class="mui-pull-right" style="margin-top: 10px;color: #ff2600;">搜索</span>
 		</header>
 		<div class="mui-content">
 			<div class="mui-row">
@@ -37,7 +42,7 @@
 				<div class="mui-row" id="mui-template">
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
-						<span><%=item%></span>
+						<button type="button" class="hot-search-btn"><%=item%></button>
 						<%}%>
 					</script>
 				</div>
@@ -59,8 +64,43 @@
 					document.getElementById("mui-template").innerHTML = str;
 
 				})
-
+				
+				document.getElementById('searchBtn').addEventListener('tap', function(){
+					var input = document.getElementById('searchInput').value;
+					if(!input){
+						plus.nativeUI.toast("请输入内容!");
+						return;
+					}
+					searchGoods(input);
+				})
 			})
+			
+			function searchGoods(input){
+				console.log(input);
+				mui.openWindow({
+					url: 'service_list.html',
+					id: 'service_list.html',
+					extras: {
+						input: input
+					} 
+				});
+			}
+			
+			mui("#mui-template").on('tap', 'button', function(e) {
+//				var id = this.getAttribute("id");
+//				var first_id = this.getAttribute('name');
+				var name = this.innerHTML;
+				searchGoods(name);
+//				mui.openWindow({
+//					url: 'service_list.html',
+//					id: 'service_list.html',
+//					extras: {
+//						type_id: id,
+//						first_id: first_id,
+//						name: name
+//					} 
+//				});
+			});
 		</script>
 	</body>
 

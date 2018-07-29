@@ -86,11 +86,31 @@
 		#mui-template2 {
 			margin-top: 10px;
 		}
+		/*.pop-btn{
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			overflow: hidden;
+		}*/
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
+		<a class="mui-bar mui-bar-nav" href="#popover" id="openPopover" style="height: 1px;"></a>
+		<div id="popover" class="mui-popover">
+			<ul class="mui-table-view" id="mui-template0">
+				<script type="text/template" id="temp0">
+					<% for(var i in record){ var item=record[i]; %>
+					<li class="mui-table-view-cell">
+						<a href="#" id="<%=item.id%>">
+							<%=item.name%>
+						</a>
+					</li>
+					<%}%>
+				</script>
+			</ul>
+		</div>
 			<div class="mui-slider">
 				<div class="mui-slider-group " id="mui-template">
 					<script type="text/template" id="temp">
@@ -102,7 +122,7 @@
 						</div>-->
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-slider-item">
-							<a href="#">
+							<a href="#" id="<%=item.ar_id%>">
 								<img src="<%=item.ar_img%>">
 							</a>
 						</div>
@@ -157,7 +177,7 @@
 					</li>
 
 				</ul>
-				<div class="mui-row" id="mui-template4">
+				<div class="mui-row" id="mui-template4" hidden="hidden">
 					<script type="text/template" id="temp4">
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-col-sm-55 mui-col-xs-55">
@@ -205,6 +225,7 @@
 			var city_id = '150702';
 
 			mui.plusReady(function() {
+				getConutryList();
 				if(city_id) {
 					var adParam = {
 						service: 'Hlbr365app.Ad.GetList',
@@ -232,6 +253,20 @@
 					mui.fire(main, 'toClass', null);
 				})
 			});
+			
+			function getConutryList() {
+					var getCountryParam = {
+						service: 'App.PublicClass.Country',
+						id: 150700
+					}
+					wAjax(getCountryParam, function(result) {
+						var countryList = result.data.list;
+						var str = template('temp0', {
+							'record': countryList
+						});
+						document.getElementById("mui-template0").innerHTML = str;
+					})
+				}
 
 			function getServiceList() {
 				var serviceParam = {
@@ -282,6 +317,17 @@
 				})
 			}
 			
+			mui("#mui-template").on('tap', 'a', function(e) {
+				var id = this.getAttribute("id");
+				mui.openWindow({
+					url: 'ad_info.html',
+					id: 'ad_info.html',
+					extras: {
+						ar_id: id
+					}
+				});
+			});
+			
 			mui("#mui-template2").on('tap', 'img', function(e) {
 				var id = this.getAttribute("id");
 				var param = {
@@ -300,8 +346,8 @@
 				var sid = this.getAttribute("name");
 				var name = this.getAttribute("sname")
 				mui.openWindow({
-					url: 'goods_info.html',
-					id: 'goods_info.html',
+					url: 'service_list.html',
+					id: 'service_list.html',
 					extras: {
 						first_id: sid,
 						type_id: id,
@@ -310,19 +356,34 @@
 				});
 			});
 			
+			mui("#mui-template0").on('tap', 'a', function(e) {
+					var id = this.getAttribute("id");
+					city_id = id;
+					var cityName = this.innerHTML;
+					var main = plus.webview.currentWebview().opener();
+					var service = plus.webview.getWebviewById('tab_service.html');
+					var param = {
+						cityCode: id,
+						cityName: cityName
+					}
+					mui.fire(main, 'changeCity', param);
+					mui.fire(service, 'changeCity', param);
+					mui('#popover').popover('hide');
+
+				});
+			
 
 			window.addEventListener('changeCity', function(event) {
 				if(event) {
-					//					var provinceCode = event.detail.provinceCode; //省id
-					//					var provinceName = event.detail.provinceName; //省名称
 					var cityCode = event.detail.cityCode; //市id
-					//					var cityName = event.detail.cityName; //市名称
-					//					var areaCode = event.detail.areaCode; //区id
-					//					var areaName = event.detail.areaName; //区名称
-
 					city_id = cityCode;
 				}
 
+			});
+			
+			window.addEventListener('openPop', function(event) {
+				mui('#popover').popover('show');
+//				mui.trigger(document.getElementById('openPopover'), 'tap');
 			});
 		</script>
 	</body>

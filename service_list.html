@@ -8,7 +8,7 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
 			.mui-row {
-				height: 50px;
+				height: 55px;
 				background: white;
 			}
 			
@@ -16,11 +16,6 @@
 				line-height: 50px;
 			}
 			
-			.line {
-				width: 100%;
-				height: 1px;
-				background: gainsboro;
-			}
 			
 			.fengeline {
 				float: right;
@@ -42,7 +37,7 @@
 			.service-li {
 				list-style-position: inside;
 				height: 130px;
-				border: 3px solid gainsboro;
+				border-bottom: 3px solid gainsboro;
 			}
 			
 			.img_left {
@@ -65,7 +60,7 @@
 			<h1 class="mui-title">服务</h1>
 		</header>
 		<div class="mui-content">
-			<div class="mui-row">
+			<div class="mui-row" id="firstrow">
 				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="city_name">
 					<a href="#popover" id="openPopover" class="mui-btn mui-btn-block">海拉尔<span class="fengeline">|</span></a>
 
@@ -100,7 +95,7 @@
 					</script>
 				</ul>
 			</div>
-			<div class="mui-content">
+			<div>
 				<ul class="mui-table-view" id="mui-template">
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
@@ -129,6 +124,7 @@
 		<script type="text/javascript">
 			var country_id = '150702';
 			var type_id = 1;
+			var name = '';
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				getConutryList();
@@ -137,6 +133,12 @@
 					type_id = self.type_id;
 					getGoodsList();
 					getSecondTypeList(self.first_id);
+				}
+				if(self.input){
+					console.log(self.input);
+					name = self.input;
+					document.getElementById('firstrow').hidden = "true";
+					getGoodsList();
 				}
 
 			})
@@ -190,14 +192,19 @@
 			});
 
 			function getGoodsList() {
-				var goodsListWithInfo = [];
+//				var goodsListWithInfo = [];
 				var goodsParam = {
 					service: 'Hlbr365app.Goods.GetServiceList',
-					two_type_id: type_id,
-					city_id: country_id,
 					firstRow: 1,
 					listRows: 20
 				}
+				if(name != ''){
+					goodsParam.name = name;
+				} else {
+					goodsParam.two_type_id = type_id;
+					goodsParam.city_id = country_id;
+				}
+				console.log(JSON.stringify(goodsParam));
 				wAjax(goodsParam, function(result) {
 					var goodsList = result.data.list;
 					console.log(JSON.stringify(goodsList));
