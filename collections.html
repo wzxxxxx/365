@@ -25,27 +25,31 @@
 			<h1 class="mui-title">我的收藏</h1>
 		</header>
 		<div class="mui-content">
-			<ul class="mui-table-view" id="mui-template">
-				<!--<script type="text/template" id="temp">
-					<% for(var i in record){ var item=record[i]; %>
-					<li class="mui-table-view-cell mui-media" name="<%=item.ar_id%>">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="<%=item.ar_image_thum%>">
-							<div class="mui-media-body">
-								<%=item.ar_content%>
-								<p class='mui-ellipsis'>
-									<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
+				<ul class="mui-table-view" id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell mui-media service-li">
+							<a href="javascript:;" id="<%=item.jg_id%>">
+								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img%>">
+								<div class="mui-media-body">
+									<%=item.jg_name%>
+									<p class='mui-ellipsis'>
+										<%=item.jg_intro%>
+									</p>
+									<!--<p class="mui-ellipsis">
 									<%=item.ar_reads%>
-								</p>
-							</div>
-						</a>
-					</li>
-					<%}%>
-				</script>-->
-			</ul>
+								</p>-->
+								</div>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+		</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js" ></script>
 		<script type="text/javascript">
 			mui.plusReady(function(){
 				var loginData = JSON.parse(localStorage.getItem('login'));
@@ -61,10 +65,10 @@
 				}
 				wAjax(collectionParam, function(result){
 					var collectionList = result.data.list;
-//					var str4 = template('temp', {
-//											'record': collectionList
-//										});
-//										document.getElementById("mui-template").innerHTML = str;
+					var str = template('temp', {
+											'record': collectionList
+										});
+										document.getElementById("mui-template").innerHTML = str;
 				})
 				
 			})

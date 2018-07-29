@@ -45,12 +45,12 @@
 			</div>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-					<a id="driverQuest" class="mui-navigate-right">
+					<a id="notice" class="mui-navigate-right">
 						会员信息
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a id="tuijianma" class="mui-navigate-right">
+					<a id="collection" class="mui-navigate-right">
 						我的收藏
 					</a>
 				</li>
@@ -82,6 +82,8 @@
 			mui.init();
 			var settingsBox = document.getElementById('settings');
 			var reloginBox = document.getElementById('relogin');
+			var collectionBox = document.getElementById('collection');
+			var noticeBox = document.getElementById('notice');
 			settingsBox.addEventListener('tap', function(event) {
 				mui.openWindow({
 					url: 'settings.html',
@@ -93,6 +95,18 @@
 				mui.openWindow({
 					url: 'login.html',
 					id: 'login.html'
+				})
+			});
+			collectionBox.addEventListener('tap', function(){
+				mui.openWindow({
+					url: 'collections.html',
+					id: 'collections.html'
+				})
+			});
+			noticeBox.addEventListener('tap', function(){
+				mui.openWindow({
+					url: 'notice.html',
+					id: 'notice.html'
 				})
 			})
 		</script>

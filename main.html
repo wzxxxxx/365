@@ -159,6 +159,13 @@
 					var shouye = plus.webview.getWebviewById('tab_shouye.html');
 					mui.fire(shouye, 'openPop', null);
 				})
+				
+				document.getElementById('noticeImg').addEventListener('tap', function(){
+					mui.openWindow({
+					url: 'notice.html',
+					id: 'notice.html'
+				})
+				})
 
 				//选项卡点击事件
 				$(".mui-bar-tab").on('tap', 'a', function(e) {

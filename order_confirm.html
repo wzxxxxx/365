@@ -13,6 +13,11 @@
 			.mui-bar{
 				background: red;
 			}
+			input.ly-input {
+	border: hidden;
+	width: 95%;
+	margin-left: 10px;
+}
 		</style>
 	</head>
 
@@ -21,6 +26,55 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">订单</h1>
 		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						请选择服务地址
+					</a>
+				</li>
+
+			</ul>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						选择服务时间
+					</a>
+				</li>
+
+			</ul>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						备注<input class="ly-input" type="text" placeholder="如有特殊需求,请给商家留言">
+					</a>
+				</li>
+
+			</ul>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						服务注意事项
+					</a>
+				</li>
+
+			</ul>
+			<ul class="mui-table-view" >
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						&nbsp;
+					</a>
+				</li>
+
+			</ul>
+		<!--<div class="mui-row">
+			<input placeholder="如有特殊需求,请给商家留言" />
+		</div>-->
+		<!--<div class="mui-row">
+			
+		</div>-->
+		<!--<div class="mui-row"></div>
+		</div>-->
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.plusReady(function(){
