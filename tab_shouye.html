@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-		.mui-content {
+			.mui-content {
 				background: white;
 			}
 			
@@ -52,41 +52,49 @@
 			
 			.mui-col-sm-3 {
 				/*margin-left: 5px;*/
-		}
-		.smlimg {
-			width: 10px;
-			height: 10px!important;
-		}
-		.second {
-			margin-top: 20px;
-		}
-		.ad {
-			margin-top: 20px;
-			height: 100px;
-		}
-		.mui-navigate-right {
-			color: red!important;
-		}
-		.mui-pull-right {
-			margin-right: 25px;
-			color: gainsboro;
-		}
-		.mui-table-view:before {
-			height: 0px;
-		}
-		.hot {
-			margin-top: 20px;
-			margin-bottom: 20px;
-			font-size: large;
-			color: red;
-		}
-		#mui-template {
+			/*}*/
+			
+			.smlimg {
+				width: 10px;
+				height: 10px!important;
+			}
+			
+			.second {
+				margin-top: 20px;
+			}
+			
+			.ad {
+				margin-top: 20px;
+				height: 100px;
+			}
+			
+			.mui-navigate-right {
+				color: red!important;
+			}
+			
+			.mui-pull-right {
+				margin-right: 25px;
+				color: gainsboro;
+			}
+			
+			.mui-table-view:before {
+				height: 0px;
+			}
+			
+			.hot {
+				font-size: large;
+				color: red;
+				background: white;
+			}
+			/*#mui-template {
+			width: 100%;
 			height: 200px;
-		}
-		#mui-template2 {
-			margin-top: 10px;
-		}
-		/*.pop-btn{
+		}*/
+			
+			#mui-template2 {
+				margin-top: 10px;
+			}
+			/*.pop-btn{
 			position: absolute;
 			left: 0px;
 			top: 0px;
@@ -97,20 +105,20 @@
 
 	<body>
 		<div class="mui-content">
-		<a class="mui-bar mui-bar-nav" href="#popover" id="openPopover" style="height: 1px;"></a>
-		<div id="popover" class="mui-popover">
-			<ul class="mui-table-view" id="mui-template0">
-				<script type="text/template" id="temp0">
-					<% for(var i in record){ var item=record[i]; %>
-					<li class="mui-table-view-cell">
-						<a href="#" id="<%=item.id%>">
-							<%=item.name%>
-						</a>
-					</li>
-					<%}%>
-				</script>
-			</ul>
-		</div>
+			<a class="mui-bar mui-bar-nav" href="#popover" id="openPopover" style="height: 1px;"></a>
+			<div id="popover" class="mui-popover">
+				<ul class="mui-table-view" id="mui-template0">
+					<script type="text/template" id="temp0">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell">
+							<a href="#" id="<%=item.id%>">
+								<%=item.name%>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
 			<div class="mui-slider">
 				<div class="mui-slider-group " id="mui-template">
 					<script type="text/template" id="temp">
@@ -123,7 +131,7 @@
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-slider-item">
 							<a href="#" id="<%=item.ar_id%>">
-								<img src="<%=item.ar_img%>">
+								<img src="<%=item.ar_img%>" style="width: 100%;max-height: 200px;">
 							</a>
 						</div>
 						<%}%>
@@ -148,27 +156,29 @@
 				<script type="text/template" id="temp2">
 					<% for(var i in record){ var item=record[i]; %>
 					<div class="mui-col-sm-55 mui-col-xs-55">
-						<img class="aligncenter " src="<%=item.si_icon%>" id="<%=item.si_id%>"/>
+						<img class="aligncenter " src="<%=item.si_icon%>" id="<%=item.si_id%>" />
 						<span class="span-center"><%=item.si_name%></span>
 					</div>
 					<%}%>
 				</script>
 			</div>
+			<div style="height: 1px; background: gainsboro;"></div>
 			<div id="mui-template3" class="mui-row second">
 				<script type="text/template" id="temp3">
 					<% for(var i in record){ var item=record[i]; %>
 					<div class="mui-col-sm-55 mui-col-xs-55">
-						<img class="sml-aligncenter" src="<%=item.si_icon%>" id="<%=item.si_id%>" 
-						name="<%=item.si_pid%>" sname="<%=item.si_name%>"/>
+						<img class="sml-aligncenter" src="<%=item.si_icon%>" id="<%=item.si_id%>" name="<%=item.si_pid%>" sname="<%=item.si_name%>" />
 						<span class="span-center"><%=item.si_name%></span>
 					</div>
 					<%}%>
 				</script>
 			</div>
-			<div class="mui-content">
-				<img src="images/广告位.png" class="aligncenter ad" />
+			<div style="height: 5px; background: gainsboro;"></div>
+			<div class="mui-row">
+				<img src="images/广告位.png" class="aligncenter ad" id="middleAd" />
 			</div>
-			<div class="mui-content">
+			<div style="height: 5px; background: gainsboro;"></div>
+			<div class="mui-row">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
 						<a class="mui-navigate-right" id="toClass">
@@ -177,7 +187,7 @@
 					</li>
 
 				</ul>
-				<div class="mui-row" id="mui-template4" hidden="hidden">
+				<div class="mui-row" id="mui-template4">
 					<script type="text/template" id="temp4">
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-col-sm-55 mui-col-xs-55">
@@ -187,17 +197,17 @@
 					</script>
 				</div>
 			</div>
-			<div class="mui-content span-center hot">
-				<img src="images/热门.png" style="margin-right: 5px;">热门精选
-
+			<div style="height: 5px; background: gainsboro;"></div>
+			<div class="mui-row span-center hot">
+				<img src="images/热门.png" style="margin-right: 5px; height: 20px;width: 20px;">热门精选
 			</div>
-			<div class="mui-content">
+			<div class="mui-row" style="background: gainsboro; padding-top: 50px;">
 				<div class="mui-row" id="mui-template5">
 					<script type="text/template" id="temp5">
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-col-sm-6 mui-col-xs-6">
 							<div class="mui-card">
-								<div class="mui-card-content"><img src="<%=item.jd_img%>" /></div>
+								<div class="mui-card-content"><img src="<%=item.jg_img%>" style="max-height: 100px;"/></div>
 								<div class="mui-card-footer">
 									<%=item.jg_content%>
 								</div>
@@ -234,6 +244,22 @@
 					};
 					wAjax(adParam, function(result) {
 						var adList = result.data.list.top;
+						var middleAd = result.data.list.middle;
+						var middleAdImg = document.getElementById('middleAd');
+						if(middleAd) {
+							middleAdImg.src = middleAd.ar_img;
+							middleAdImg.addEventListener('tap', function() {
+							mui.openWindow({
+								url: 'ad_info.html',
+								id: 'ad_info.html',
+								extras: {
+									ar_id: middleAd.ar_id
+								}
+							})
+						});
+						}
+						
+
 						var str = template('temp', {
 							"record": adList
 						});
@@ -247,26 +273,26 @@
 					});
 
 				}
-				
-				document.getElementById('toClass').addEventListener('tap', function(){
+
+				document.getElementById('toClass').addEventListener('tap', function() {
 					var main = plus.webview.currentWebview().opener();
 					mui.fire(main, 'toClass', null);
 				})
 			});
-			
+
 			function getConutryList() {
-					var getCountryParam = {
-						service: 'App.PublicClass.Country',
-						id: 150700
-					}
-					wAjax(getCountryParam, function(result) {
-						var countryList = result.data.list;
-						var str = template('temp0', {
-							'record': countryList
-						});
-						document.getElementById("mui-template0").innerHTML = str;
-					})
+				var getCountryParam = {
+					service: 'App.PublicClass.Country',
+					id: 150700
 				}
+				wAjax(getCountryParam, function(result) {
+					var countryList = result.data.list;
+					var str = template('temp0', {
+						'record': countryList
+					});
+					document.getElementById("mui-template0").innerHTML = str;
+				})
+			}
 
 			function getServiceList() {
 				var serviceParam = {
@@ -309,6 +335,7 @@
 					listRows: 20
 				}
 				wAjax(recGoodsParam, function(result) {
+					console.log("---------" + JSON.stringify(result));
 					var goodsList = result.data.list
 					var str5 = template('temp5', {
 						'record': goodsList
@@ -316,7 +343,7 @@
 					document.getElementById('mui-template5').innerHTML = str5;
 				})
 			}
-			
+
 			mui("#mui-template").on('tap', 'a', function(e) {
 				var id = this.getAttribute("id");
 				mui.openWindow({
@@ -327,7 +354,7 @@
 					}
 				});
 			});
-			
+
 			mui("#mui-template2").on('tap', 'img', function(e) {
 				var id = this.getAttribute("id");
 				var param = {
@@ -336,11 +363,11 @@
 				var main = plus.webview.currentWebview().opener();
 				var service = plus.webview.getWebviewById('tab_service.html');
 				mui.fire(service, 'toService', param);
-				setTimeout(function(){
+				setTimeout(function() {
 					mui.fire(main, 'toSerive', param);
 				}, 100)
 			});
-			
+
 			mui("#mui-template3").on('tap', 'img', function(e) {
 				var id = this.getAttribute("id");
 				var sid = this.getAttribute("name");
@@ -355,23 +382,38 @@
 					} //自定义扩展参数
 				});
 			});
-			
-			mui("#mui-template0").on('tap', 'a', function(e) {
-					var id = this.getAttribute("id");
-					city_id = id;
-					var cityName = this.innerHTML;
-					var main = plus.webview.currentWebview().opener();
-					var service = plus.webview.getWebviewById('tab_service.html');
-					var param = {
-						cityCode: id,
-						cityName: cityName
-					}
-					mui.fire(main, 'changeCity', param);
-					mui.fire(service, 'changeCity', param);
-					mui('#popover').popover('hide');
 
-				});
+			mui("#mui-template0").on('tap', 'a', function(e) {
+				var id = this.getAttribute("id");
+				city_id = id;
+				var cityName = this.innerHTML;
+				var main = plus.webview.currentWebview().opener();
+				var service = plus.webview.getWebviewById('tab_service.html');
+				var param = {
+					cityCode: id,
+					cityName: cityName
+				}
+				mui.fire(main, 'changeCity', param);
+				mui.fire(service, 'changeCity', param);
+				mui('#popover').popover('hide');
+
+			});
 			
+			mui("#mui-template5").on('tap', 'img', function(e) {
+//				var id = this.getAttribute("id");
+//				city_id = id;
+//				var cityName = this.innerHTML;
+//				var main = plus.webview.currentWebview().opener();
+//				var service = plus.webview.getWebviewById('tab_service.html');
+//				var param = {
+//					cityCode: id,
+//					cityName: cityName
+//				}
+//				mui.fire(main, 'changeCity', param);
+//				mui.fire(service, 'changeCity', param);
+//				mui('#popover').popover('hide');
+
+			});
 
 			window.addEventListener('changeCity', function(event) {
 				if(event) {
@@ -380,10 +422,10 @@
 				}
 
 			});
-			
+
 			window.addEventListener('openPop', function(event) {
 				mui('#popover').popover('show');
-//				mui.trigger(document.getElementById('openPopover'), 'tap');
+				//				mui.trigger(document.getElementById('openPopover'), 'tap');
 			});
 		</script>
 	</body>

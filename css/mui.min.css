@@ -237,6 +237,10 @@ a:active {
 	color: #0062cc
 }
 
+.mui-action-back{
+	color: white;
+}
+
 .mui-content {
 	background-color: #efeff4;
 	-webkit-overflow-scrolling: touch
@@ -1291,7 +1295,9 @@ input[type=submit]:enabled:active {
 	top: 0;
 	-webkit-box-shadow: 0 1px 6px #ccc;
 	box-shadow: 0 1px 6px #ccc;
-	
+	background: url(../images/矩形16.png);
+	background-size: cover;
+	margin-left: -10px;
 }
 
 .mui-bar-nav~.mui-content .mui-anchor {
