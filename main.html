@@ -28,7 +28,8 @@
 			#openPopover {
 				color: white;
 				font-size: 14px;
-				max-width: 50px;
+				max-width: 60px;
+				margin-left: 5px;
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
@@ -49,18 +50,19 @@
 				margin-top: 10px;
 			}
 			
-			.mui-active{
+			.mui-active {
 				color: red!important;
 			}
-			.tab-icon{
+			
+			.tab-icon {
 				width: 20px;
 				height: 20px;
 				opacity: 0.4;
 			}
-			.mui-active .tab-icon{
+			
+			.mui-active .tab-icon {
 				opacity: 1.0!important;
 			}
-			
 		</style>
 	</head>
 
@@ -128,6 +130,7 @@
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script src="js/app.js"></script>
 		<script>
 			(function($, doc) {
@@ -140,9 +143,14 @@
 				//				}, false);
 
 				var subpages = ['tab_shouye.html', 'tab_service.html', 'tab_class.html', 'tab_order.html', 'tab_mine.html'];
+				//				var subpage_style = {
+				//					top: '44px',
+				//					bottom: '50px'
+				//				};
+				var topoffset = tiaozhengTOP();
 				var subpage_style = {
-					top: '44px',
-					bottom: '50px'
+					top: topoffset,
+					bottom: '51px'
 				};
 				var aniShow = {};
 				var title = doc.getElementById("title");
@@ -161,16 +169,16 @@
 				//						document.getElementById("city_name").innerText = cityName;
 				//					}
 				//				});
-				
-				document.getElementById('chooseCity').addEventListener('tap', function(){
+
+				document.getElementById('chooseCity').addEventListener('tap', function() {
 					var shouye = plus.webview.getWebviewById('tab_shouye.html');
 					mui.fire(shouye, 'openPop', null);
 				})
-				
-				document.getElementById('noticeImg').addEventListener('tap', function(){
+
+				document.getElementById('noticeImg').addEventListener('tap', function() {
 					mui.openWindow({
-					url: 'notice.html',
-					id: 'notice.html'
+						url: 'notice.html',
+						id: 'notice.html'
 					})
 				})
 
@@ -208,26 +216,26 @@
 					//更改当前活跃的选项卡
 					activeTab = targetTab;
 				});
-				
-		   window.addEventListener('toSerive', function(event) {
-				if(event) {
-					mui.trigger(document.getElementById('service'), 'tap');
-				}
 
-			});
-			
-			window.addEventListener('changeCity', function(event) {
-				if(event) {
-					var cityName = event.detail.cityName; //市id
-					document.getElementById('openPopover').innerHTML = cityName;
-				}
-			});
-			
-			window.addEventListener('toClass', function(event) {
-//					document.getElementById('class').setAttribute('');
+				window.addEventListener('toSerive', function(event) {
+					if(event) {
+						mui.trigger(document.getElementById('service'), 'tap');
+					}
+
+				});
+
+				window.addEventListener('changeCity', function(event) {
+					if(event) {
+						var cityName = event.detail.cityName; //市id
+						document.getElementById('openPopover').innerHTML = cityName;
+					}
+				});
+
+				window.addEventListener('toClass', function(event) {
+					//					document.getElementById('class').setAttribute('');
 					mui.trigger(document.getElementById('class'), 'tap');
 
-			});
+				});
 
 				function preloadMainPage() {
 					var temp = {};
@@ -283,19 +291,19 @@
 					})
 				}
 
-//				mui("#mui-template").on('tap', 'a', function(e) {
-//					var id = this.getAttribute("id");
-//					document.getElementById('openPopover').innerHTML = this.innerHTML;
-//					var shouye = plus.webview.getWebviewById('tab_shouye.html');
-//					var service = plus.webview.getWebviewById('tab_service.html');
-//					var param = {
-//						cityCode: id
-//					}
-//					mui.fire(shouye, 'changeCity', param);
-//					mui.fire(service, 'changeCity', param);
-//					mui('#popover').popover('hide');
-//
-//				});
+				//				mui("#mui-template").on('tap', 'a', function(e) {
+				//					var id = this.getAttribute("id");
+				//					document.getElementById('openPopover').innerHTML = this.innerHTML;
+				//					var shouye = plus.webview.getWebviewById('tab_shouye.html');
+				//					var service = plus.webview.getWebviewById('tab_service.html');
+				//					var param = {
+				//						cityCode: id
+				//					}
+				//					mui.fire(shouye, 'changeCity', param);
+				//					mui.fire(service, 'changeCity', param);
+				//					mui('#popover').popover('hide');
+				//
+				//				});
 
 				$.plusReady(function() {
 					//					var settingPage = $.preload({
@@ -334,10 +342,9 @@
 					//						return false;
 					//					};
 					//					
-//					getConutryList();
+					//					getConutryList();
 					preloadMainPage();
 					preloadOtherPages();
-
 
 					var searchButton = document.getElementById('searchBtn');
 					searchButton.addEventListener('tap', function(event) {

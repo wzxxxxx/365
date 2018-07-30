@@ -21,6 +21,15 @@
 				color: gainsboro;
 			}*/
 			
+			.img-gray {
+				-webkit-filter: grayscale(100%);
+				-moz-filter: grayscale(100%);
+				-ms-filter: grayscale(100%);
+				-o-filter: grayscale(100%);
+				filter: grayscale(100%);
+				filter: gray;
+			}
+			
 			.span-center {
 				width: 100%;
 				float: right;
@@ -64,7 +73,7 @@
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
 						<div>
-							<img src="<%=item.si_icon%>" class="img-center" id="<%=item.si_id%>" />
+							<img src="<%=item.si_icon%>" class="img-center img-gray" id="<%=item.si_id%>" />
 							<span class="span-center"><%=item.si_name%></span>
 						</div>
 						<%}%>
@@ -100,6 +109,13 @@
 
 			mui("#mui-template").on('tap', 'img', function(e) {
 				var id = this.getAttribute("id");
+				var imgList = document.querySelectorAll(".img-center");
+				if(imgList) {
+					for(var i = 0; i < imgList.length; i++) {
+						imgList[i].setAttribute('class', 'img-center img-gray');
+					}
+				}
+				this.setAttribute('class', 'img-center');
 				for(var i = 0; i < typeList.length; i++) {
 					if(typeList[i].si_id == id) {
 						getAd(typeList[i].si_id);
@@ -120,7 +136,7 @@
 						type_id: id,
 						first_id: first_id,
 						name: name
-					} 
+					}
 				});
 			});
 

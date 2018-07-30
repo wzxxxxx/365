@@ -14,72 +14,104 @@
 				border-radius: 20px;
 				border-style: hidden;
 			}
-			.hot-search-btn{
+			
+			.hot-search-btn {
 				border: hidden;
 				background: gainsboro;
 				margin-bottom: 5px;
 				border-radius: 25px;
 			}
-			.left-icon{
+			
+			.left-icon {
 				display: inline-block;
 				float: left;
 				height: 20px;
 				width: 20px;
 			}
-			.mui-row{
+			
+			.mui-row {
 				margin-top: 10px;
 				margin-left: 10px;
 			}
-			.mui-row span{
+			
+			.mui-row span {
 				color: gainsboro;
 			}
-			body{
+			
+			.mui-content {
 				background: white;
 			}
-			.mui-content{
-				background: white;
-			}
-			.sm-icon{
+			
+			.sm-icon {
 				display: inline-block;
 				float: left;
 				height: 10px;
 				width: 10px;
 				margin-top: 5px;
 			}
+			
+			#searchImg {
+				position: fixed;
+				right: 80px;
+				top: 32px;
+				z-index: 999;
+			}
+			
+			#searchBtn {
+				margin-top: 10px;
+				color: white;
+			}
 		</style>
 	</head>
 
-	<body>
+	<body style="background: white;">
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
 			<input type="text" id="searchInput" placeholder="输入关键字"></input>
-			<!--<img src="images/搜索.png"/>-->
-			<span id="searchBtn" class="mui-pull-right" style="margin-top: 10px;color: white;">取消</span>
+			<img src="images/搜索.png" id="searchImg" />
+			<span id="searchBtn" class="mui-pull-right">取消</span>
 		</header>
 		<div class="mui-content">
 			<div class="mui-row">
-				<img src="images/╦Л╦э.png" class="left-icon"/>
-				<span class="mui-pull-left" >历史搜索</span>
+				<img src="images/╦Л╦э.png" class="left-icon" />
+				<span class="mui-pull-left">历史搜索</span>
 				<button type="button" class="mui-pull-right hot-search-btn" id="clearHistory"><img src="images/└г╗Э═░.png" class="sm-icon"/>清空历史</button>
+			</div>
+			<div class="mui-row" id="mui-template0">
+				<script type="text/template" id="temp0">
+					<% for(var i in record){ var item=record[i]; %>
+					<button type="button" class="hot-search-btn"><%=item%></button>
+					<%}%>
+				</script>
 			</div>
 			<div class="mui-row">
 				<img src="images/热门.png" class="left-icon">
 				<span class="mui-pull-left">热门搜索</span>
-				
+
 			</div>
 			<div class="mui-row" id="mui-template">
-					<script type="text/template" id="temp">
-						<% for(var i in record){ var item=record[i]; %>
-						<button type="button" class="hot-search-btn"><%=item%></button>
-						<%}%>
-					</script>
-				</div>
+				<script type="text/template" id="temp">
+					<% for(var i in record){ var item=record[i]; %>
+					<button type="button" class="hot-search-btn"><%=item%></button>
+					<%}%>
+				</script>
+			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
+				var history = (localStorage.getItem('history') || '').trim();
+				if(history){
+					var hisArr = history.split(' ', 5);
+					var str = template('temp0', {
+						"record": hisArr
+					});
+					document.getElementById("mui-template0").innerHTML = str;
+				}
+				
 				var hotSearchParam = {
 					service: 'Hlbr365app.Member.GetHotSearch'
 				};
@@ -90,33 +122,45 @@
 					});
 					document.getElementById("mui-template").innerHTML = str;
 				})
-				
-				document.getElementById('searchBtn').addEventListener('tap', function(){
+
+				document.getElementById('searchBtn').addEventListener('tap', function() {
 					document.getElementById('searchInput').value = '';
-//					var input = document.getElementById('searchInput').value;
-//					if(!input){
-//						plus.nativeUI.toast("请输入内容!");
-//						return;
-//					}
-//					searchGoods(input);
+					//					var input = document.getElementById('searchInput').value;
+					//					if(!input){
+					//						plus.nativeUI.toast("请输入内容!");
+					//						return;
+					//					searchGoods(input);
 				})
-				
-				document.getElementById('clearHistory').addEventListener('tap', function(){
-					
+
+				document.getElementById('searchImg').addEventListener('tap', function() {
+					var input = document.getElementById('searchInput').value;
+					if(!input) {
+						plus.nativeUI.toast("请输入内容!");
+						return;
+					}
+					var history = localStorage.getItem('history') || '';
+					history = input + ' ' + history;
+					localStorage.setItem('history', history);
+					searchGoods(input);
+				})
+
+				document.getElementById('clearHistory').addEventListener('tap', function() {
+					localStorage.removeItem('history');
+					document.getElementById('mui-template0').innerHTML = '';
 				})
 			})
-			
-			function searchGoods(input){
+
+			function searchGoods(input) {
 				console.log(input);
 				mui.openWindow({
 					url: 'service_list.html',
 					id: 'service_list.html',
 					extras: {
 						input: input
-					} 
+					}
 				});
 			}
-			
+
 			mui("#mui-template").on('tap', 'button', function(e) {
 				var name = this.innerHTML;
 				searchGoods(name);

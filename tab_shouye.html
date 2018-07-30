@@ -207,7 +207,7 @@
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-col-sm-6 mui-col-xs-6">
 							<div class="mui-card">
-								<div class="mui-card-content"><img src="<%=item.jg_img%>" style="max-height: 100px;"/></div>
+								<div class="mui-card-content"><img id="<%=item.jg_id%>" src="<%=item.jg_img%>" style="max-height: 100px;"/></div>
 								<div class="mui-card-footer">
 									<%=item.jg_content%>
 								</div>
@@ -400,19 +400,14 @@
 			});
 			
 			mui("#mui-template5").on('tap', 'img', function(e) {
-//				var id = this.getAttribute("id");
-//				city_id = id;
-//				var cityName = this.innerHTML;
-//				var main = plus.webview.currentWebview().opener();
-//				var service = plus.webview.getWebviewById('tab_service.html');
-//				var param = {
-//					cityCode: id,
-//					cityName: cityName
-//				}
-//				mui.fire(main, 'changeCity', param);
-//				mui.fire(service, 'changeCity', param);
-//				mui('#popover').popover('hide');
-
+				var id = this.getAttribute("id");
+				mui.openWindow({
+					url: 'goods_info.html',
+					id: 'goods_info.html',
+					extras: {
+						good_id: id
+					} 
+				});
 			});
 
 			window.addEventListener('changeCity', function(event) {
