@@ -48,13 +48,19 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-row" id="firstrow">
-				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="city_name">
-					<a href="#popover" id="openPopover" class="mui-btn mui-btn-block">海拉尔<span class="fengeline">|</span></a>
-
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="city_name">
+					<a href="#popover" id="openPopover" class="mui-btn mui-btn-block">海拉尔
+						<span class="fengeline">|</span>
+					</a>
 				</div>
 				<!--<div class="mui-text-center fengeline">|</div>-->
-				<div class="mui-col-sm-6 mui-col-xs-6 mui-text-center" id="service_name">
-					<a href="#popover2" id="openPopove2r" class="mui-btn mui-btn-block">家庭保洁</a>
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="service_name">
+					<a href="#popover2" id="openPopove2r" class="mui-btn mui-btn-block">家庭保洁
+						<span class="fengeline">|</span>
+					</a>
+				</div>
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="shop">
+					<a class="mui-btn mui-btn-block">店铺</a>
 
 				</div>
 			</div>
@@ -87,6 +93,7 @@
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
 						<li class="mui-table-view-cell mui-media service-li">
+							<% if(item.isGoods == 1){%>
 							<a href="javascript:;" id="<%=item.jg_id%>">
 								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img%>">
 								<div class="mui-media-body">
@@ -99,6 +106,11 @@
 								</p>-->
 								</div>
 							</a>
+							<%} else if(item.isGoods == 2 && item.Ad && item.Ad.top && item.Ad.top[0]){%>
+							<a href="javascript:;">
+								<img class="mui-media-object" style="width: 100%;" src="<%=item.Ad.top[0].ar_img%>">
+							</a>
+							<%}%>
 						</li>
 						<%}%>
 					</script>
@@ -117,7 +129,7 @@
 				var self = plus.webview.currentWebview();
 				getConutryList();
 				if(self.type_id && self.first_id && self.name) {
-					document.getElementById('openPopove2r').innerHTML = self.name;
+					document.getElementById('openPopove2r').innerHTML = self.name + '<span class="fengeline">|</span>';
 					type_id = self.type_id;
 					getGoodsList();
 					getSecondTypeList(self.first_id);
@@ -159,7 +171,7 @@
 //				}
 				type_id = id;
 				getGoodsList();
-				document.getElementById('openPopove2r').innerHTML = this.innerHTML;
+				document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<span class="fengeline">|</span>';
 				mui('#popover2').popover('hide');
 				
 			});

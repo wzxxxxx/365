@@ -184,7 +184,6 @@
 
 				//选项卡点击事件
 				$(".mui-bar-tab").on('tap', 'a', function(e) {
-
 					var targetTab = this.getAttribute('href');
 					if(targetTab == 'tab_shouye.html') {
 						document.getElementById("chooseCity").setAttribute("class", "mui-btn  mui-btn-link mui-pull-left");
@@ -232,8 +231,11 @@
 				});
 
 				window.addEventListener('toClass', function(event) {
+					if(event){
+						mui.trigger(document.getElementById('class'), 'tap');
+					}
 					//					document.getElementById('class').setAttribute('');
-					mui.trigger(document.getElementById('class'), 'tap');
+					
 
 				});
 
