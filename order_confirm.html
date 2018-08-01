@@ -76,7 +76,7 @@
 			<h1 class="mui-title">订单</h1>
 		</header>
 		<div class="mui-content">
-			<div class="white-bg">
+			<div class="white-bg" id="chooseAddress">
 				<img src="images/bg_address.png" class="bg-address" />
 				<div class="mui-text-center">
 					<img src="images/ic_nav_9.png" /> 请选择服务地址
@@ -113,7 +113,12 @@
 			<script type="text/javascript" src="js/xiachenshi.js"></script>
 			<script type="text/javascript">
 				mui.plusReady(function() {
-
+					document.getElementById('chooseAddress').addEventListener('tap', function(){
+						mui.openWindow({
+							url: 'my_address.html',
+							id: 'my_address.html'
+						})
+					})
 				})
 			</script>
 	</body>
