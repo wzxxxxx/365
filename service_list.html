@@ -16,11 +16,11 @@
 				line-height: 50px;
 			}
 			
-			
 			.fengeline {
 				float: right;
 				color: gainsboro;
 			}
+			
 			.service-li {
 				list-style-position: inside;
 				height: 130px;
@@ -38,6 +38,12 @@
 				background: white;
 				border-radius: 0px;
 			}
+			.list-down-img{
+				width: 8px;
+				height: 5px;
+				margin-bottom: 3px;
+				margin-left: 5px;
+			}
 		</style>
 	</head>
 
@@ -50,12 +56,14 @@
 			<div class="mui-row" id="firstrow">
 				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="city_name">
 					<a href="#popover" id="openPopover" class="mui-btn mui-btn-block">海拉尔
+						<img src="images/ic_list_down.png" class="list-down-img" />
 						<span class="fengeline">|</span>
 					</a>
 				</div>
 				<!--<div class="mui-text-center fengeline">|</div>-->
 				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="service_name">
 					<a href="#popover2" id="openPopove2r" class="mui-btn mui-btn-block">家庭保洁
+						<img src="images/ic_list_down.png" class="list-down-img"/>
 						<span class="fengeline">|</span>
 					</a>
 				</div>
@@ -68,10 +76,12 @@
 				<ul class="mui-table-view" id="mui-template11">
 					<script type="text/template" id="temp3">
 						<% for(var i in record){ var item=record[i]; %>
-					<li class="mui-table-view-cell">
-						<a href="#" id="<%=item.id%>"><%=item.name%></a>
-					</li>
-					<%}%>
+						<li class="mui-table-view-cell">
+							<a href="#" id="<%=item.id%>">
+								<%=item.name%>
+							</a>
+						</li>
+						<%}%>
 					</script>
 				</ul>
 			</div>
@@ -101,14 +111,19 @@
 									<p class='mui-ellipsis'>
 										<%=item.jg_intro%>
 									</p>
-									<!--<p class="mui-ellipsis">
-									<%=item.ar_reads%>
-								</p>-->
+									<p class="mui-ellipsis">
+									_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+								</p>
+								<p class="mui-ellipsis">
+									 <%=item.jci_name%>
+								</p>
 								</div>
 							</a>
-							<%} else if(item.isGoods == 2 && item.Ad && item.Ad.top && item.Ad.top[0]){%>
-							<a href="javascript:;">
-								<img class="mui-media-object" style="width: 100%;" src="<%=item.Ad.top[0].ar_img%>">
+							<%} else if(item.isGoods == 2 && item.Ad){%>
+							<a href="javascript:;" id="<%=item.Ad.ar_id%>" name="isGood">
+								<div class="mui-media-body">
+									<img style="width: 100%;" src="<%=item.Ad.ar_img%>">
+								</div>
 							</a>
 							<%}%>
 						</li>
@@ -120,7 +135,7 @@
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
-		<script type="text/javascript" src="js/xiachenshi.js" ></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script type="text/javascript">
 			var country_id = '150702';
 			var type_id = 1;
@@ -129,12 +144,12 @@
 				var self = plus.webview.currentWebview();
 				getConutryList();
 				if(self.type_id && self.first_id && self.name) {
-					document.getElementById('openPopove2r').innerHTML = self.name + '<span class="fengeline">|</span>';
+					document.getElementById('openPopove2r').innerHTML = self.name + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
 					type_id = self.type_id;
 					getGoodsList();
 					getSecondTypeList(self.first_id);
 				}
-				if(self.input){
+				if(self.input) {
 					console.log(self.input);
 					name = self.input;
 					document.getElementById('firstrow').hidden = "true";
@@ -142,69 +157,78 @@
 				}
 
 			})
-			
+
 			mui("#mui-template").on('tap', 'a', function(e) {
 				var id = this.getAttribute("id");
-//				for(var i = 0; i < typeList.length; i++) {
-//					if(typeList[i].si_id == id) {
-//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
-//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
-//					}
-//				}
-				mui.openWindow({
-					url: 'goods_info.html',
-					id: 'goods_info.html',
-					extras: {
-						good_id: id
-					} //自定义扩展参数
-				});
-				
+				var name = this.getAttribute('name');
+				//				for(var i = 0; i < typeList.length; i++) {
+				//					if(typeList[i].si_id == id) {
+				//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
+				//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
+				//					}
+				//				}
+				if(name == 'isGood') {
+					mui.openWindow({
+						url: 'ad_info.html',
+						id: 'ad_info.html',
+						extras: {
+							ar_id: id
+						} //自定义扩展参数
+					});
+				} else {
+					mui.openWindow({
+						url: 'goods_info.html',
+						id: 'goods_info.html',
+						extras: {
+							good_id: id
+						} //自定义扩展参数
+					});
+				}
 			});
-			
+
 			mui("#mui-template2").on('tap', 'a', function(e) {
 				var id = this.getAttribute("id");
-//				for(var i = 0; i < typeList.length; i++) {
-//					if(typeList[i].si_id == id) {
-//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
-//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
-//					}
-//				}
+				//				for(var i = 0; i < typeList.length; i++) {
+				//					if(typeList[i].si_id == id) {
+				//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
+				//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
+				//					}
+				//				}
 				type_id = id;
 				getGoodsList();
-				document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<span class="fengeline">|</span>';
+				document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
 				mui('#popover2').popover('hide');
-				
+
 			});
-			
+
 			mui("#mui-template11").on('tap', 'a', function(e) {
 				var id = this.getAttribute("id");
-//				for(var i = 0; i < typeList.length; i++) {
-//					if(typeList[i].si_id == id) {
-//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
-//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
-//					}
-//				}
+				//				for(var i = 0; i < typeList.length; i++) {
+				//					if(typeList[i].si_id == id) {
+				//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
+				//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
+				//					}
+				//				}
 				country_id = id;
 				getGoodsList();
-				document.getElementById('openPopover').innerHTML = this.innerHTML + '<span class="fengeline">|</span>';
+				document.getElementById('openPopover').innerHTML = this.innerHTML + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
 				mui('#popover').popover('hide');
-				
+
 			});
 
 			function getGoodsList() {
-//				var goodsListWithInfo = [];
+				//				var goodsListWithInfo = [];
 				var goodsParam = {
 					service: 'Hlbr365app.Goods.GetServiceList',
 					firstRow: 1,
 					listRows: 20
 				}
-				if(name != ''){
+				if(name != '') {
 					goodsParam.name = name;
 				} else {
 					goodsParam.two_type_id = type_id;
 					goodsParam.city_id = country_id;
 				}
-				console.log(JSON.stringify(goodsParam));
 				wAjax(goodsParam, function(result) {
 					var goodsList = result.data.list;
 					console.log(JSON.stringify(goodsList));
@@ -247,13 +271,13 @@
 
 				})
 			}
-			
-			function getConutryList(){
+
+			function getConutryList() {
 				var getCountryParam = {
 					service: 'App.PublicClass.Country',
 					id: 150700
 				}
-				wAjax(getCountryParam, function(result){
+				wAjax(getCountryParam, function(result) {
 					var countryList = result.data.list;
 					var str = template('temp3', {
 						'record': countryList

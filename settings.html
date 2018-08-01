@@ -24,7 +24,7 @@
 			
 			<ul class="mui-table-view" >
 				<li class="mui-table-view-cell">
-					<a id="settings" class="mui-navigate-right">
+					<a id="address" class="mui-navigate-right">
 						地址管理
 					</a>
 				</li>
@@ -66,7 +66,15 @@
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.plusReady(function(){
+				var address = document.getElementById('address');
+				address.addEventListener('tap', function(){
+					mui.openWindow({
+						url: "my_address.html",
+						id: "my_address.html"
+					})
+				})
+			})
 		</script>
 	</body>
 

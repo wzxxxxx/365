@@ -11,9 +11,10 @@
 				width: 50px!important;
 			}
 			
-			img{
+			.mui-content img{
 				width: 100%;
 			}
+			
 			.line{
 				width: 100%;
 				height: 1px;
@@ -21,14 +22,26 @@
 				margin-bottom: 10px;
 				background: gainsboro;
 			}
-			.padding-left{
-				padding-left: 10px;
-			}
 			
 			.img-juxing {
 				max-width: 5px;
-				height=8px;
-				margin-right: 5px;
+				height: 15px;
+				margin-right: 10px;
+				margin-top: 5px;
+			}
+			.mui-row{
+				background: white!important;
+				margin-top: 10px;
+				padding: 10px;
+			}
+			#arrange{
+				width: 150px;
+				height: 40px;
+				background: url(images/bg_red_bt.png) no-repeat;
+				background-size: contain;
+				color: white;
+				border: none;
+				margin-right: 20px;
 			}
 		</style>
 	</head>
@@ -42,30 +55,39 @@
 			</button>
 		</header>
 		<div class="mui-content">
-			<div class="mui-row">
+			<div class="mui-content">
 				<img id="good_img"/>
 			</div>
-			<div class="mui-row padding-left" id="good_name">
-			</div>
-			<div class="mui-row padding-left" >
+			<div class="mui-row">
+				<div id="good_name">
+				</div>
 				<span id="good_intro" style="color: darkgrey;"></span>
 			</div>
-			<div class="mui-row" id="youhuiquan"></div>
-			<div class="mui-content" style="margin-top: 20px;">
-				<div class="padding-left"><img src="images/矩形20.png"  class="img-juxing"/>服务价格</div>
-				<div class="line"></div>
-				<div class="padding-left" id="price"></div>
+			<!--<div class="mui-row" >
+				
 			</div>
-			<div class="mui-content" style="margin-top: 20px;">
-				<div class="padding-left"><img src="images/矩形20.png"  class="img-juxing"/>服务介绍</div>
+			<div class="mui-row" id="youhuiquan"></div>-->
+			<div class="mui-row">
+				<div ><img src="images/矩形20.png"  class="img-juxing"/>服务价格</div>
+				<div class="line"></div>
+				<div id="price"></div>
+			</div>
+			<div class="mui-row">
+				<div><img src="images/矩形20.png"  class="img-juxing"/>服务介绍</div>
 				<div class="line"></div>
 				<div id="info"></div>
+			</div>
+			
+			<div class="mui-row">
+				<div><img src="images/矩形20.png"  class="img-juxing"/>用户评论</div>
+				<div class="line"></div>
+				<div id="comment"></div>
 			</div>
 				
 			</div>
 		</div>
 		<div class="mui-content-padded">
-				<nav class="mui-bar mui-bar-tab" style="background-color: #fff;">
+				<nav class="mui-bar mui-bar-tab">
 					<a class="mui-tab-item">
 						<span class="iconstyle mui-icon ">
 							<img src="images/商家.png" />

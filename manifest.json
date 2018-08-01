@@ -53,7 +53,7 @@
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
-		"distribute": {"plugins":{"share":{"qq":{"appid":"","description":"QQ分享"},"weixin":{"appid":"","appsecret":"","description":"可选，微信分享"}}},
+		"distribute": {"plugins":{"payment":{"alipay":{"description":"阿里支付","scheme":""}},"share":{"qq":{"appid":"101403014","description":"QQ分享"},"weixin":{"appid":"wx5eb66fbf57cd9cb6","appsecret":"756474ccc36dba34d22155527766043c","description":"可选，微信分享"}}},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/

@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-row input {
+				border-style: none;
+				/*width: 200px;*/
+				line-height: 30px;
+				width: 60%;
+				margin: 0;
+				/*margin: 0px 0px;*/
+			}
+			
+			.mui-row a {
+				display: block;
+				width: 100%;
+				color: black;
+				margin: 10px 0;
+			}
+			
+			textarea {
+				border-style: none;
+			}
+			
+			.mui-row {
+				background: white;
+				padding: 10px;
+			}
+			
+			.line {
+				width: 100%;
+				height: 1px;
+				background: gainsboro;
+			}
+			
+			#addAddress {
+				width: 150px;
+				height: 40px;
+				background: url(images/bg_red_bt.png) no-repeat;
+				background-size: contain;
+				color: white;
+				border: none;
+				position: fixed;
+				bottom: 5px;
+				left: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加地址</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				联系人<input id="name" type="text" placeholder="请输入姓名">
+			</div>
+			<div class="line"></div>
+			<div class="mui-row">
+				联系电话<input id="number" type="text" placeholder="请输入联系电话">
+			</div>
+			<div class="line"></div>
+			<div class="mui-row">
+				<a href="#popover">所在地区
+					<div class="mui-pull-right" id="country"></div>
+				</a>
+			</div>
+			<div id="popover" class="mui-popover">
+				<ul class="mui-table-view" id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell">
+							<a href="#" id="<%=item.id%>">
+								<%=item.name%>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
+			<div class="line"></div>
+			<div class="mui-row"><textarea id="addressDetail" placeholder="请填写详细地址"></textarea></div>
+			<div><input id="isDefault" type="checkbox" />是否为默认收货地址</div>
+			<button type="button" class="mui-btn mui-pull-right" id="addAddress">添加地址</button>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript">
+			var country_id = '';
+			mui.plusReady(function() {
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_id = loginData.data.info.mbi_id;
+				document.getElementById('addAddress').addEventListener('tap', function() {
+					addAddress(mbi_id);
+				})
+				getConutryList();
+			})
+
+			function getConutryList() {
+				var getCountryParam = {
+					service: 'App.PublicClass.Country',
+					id: 150700
+				}
+				wAjax(getCountryParam, function(result) {
+					var countryList = result.data.list;
+					var str = template('temp', {
+						'record': countryList
+					});
+					document.getElementById("mui-template").innerHTML = str;
+				})
+			}
+
+			function addAddress(mbi_id) {
+				var name = document.getElementById('name').value;
+				var phoneNumber = document.getElementById('number').value;
+				var addressDetail = document.getElementById('addressDetail').value;
+				var isDefault = document.getElementById('isDefault').value;
+				var addressParam = {
+					service: 'Hlbr365app.MemberDeliveryAddress.Add',
+					mbi_id: mbi_id,
+					mda_contacts_name: name,
+					mda_contacts_phone: phoneNumber,
+					mda_contacts_province: 150000,
+					mda_contacts_city: 150700,
+					mda_contacts_county: country_id,
+					mda_contacts_address: addressDetail,
+					mda_default: isDefault
+				}
+			}
+
+			mui("#mui-template").on('tap', 'a', function(e) {
+				var id = this.getAttribute("id");
+				country_id = id;
+				document.getElementById('country').innerHTML = this.innerHTML;
+				mui('#popover').popover('hide');
+
+			});
+		</script>
+	</body>
+
+</html>
