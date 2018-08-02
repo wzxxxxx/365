@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-			.mui-active {
+			.mui-slider-indicator .mui-active {
 				color: #FF6C00!important;
 				border-bottom-color: #FF6C00!important;
 			}
@@ -15,8 +15,33 @@
 			.mui-slider-indicator {
 				background: white;
 			}
-			.display-none{
+			
+			.display-none {
 				display: none;
+			}
+			
+			.mui-row {
+				font-size: small;
+				padding: 2px;
+			}
+			
+			body {
+				background: white;
+			}
+			
+			.line {
+				width: 100%;
+				height: 1px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				background: gainsboro;
+			}
+			img {
+				height: 20px;
+				width: 20px;
+				margin-top: 15px;
+				margin-left: 10px;
+				margin-right: 10px;
 			}
 		</style>
 	</head>
@@ -25,114 +50,100 @@
 		<div class="mui-content">
 			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-positive">
 				<a class="mui-control-item  mui-active" href="#item1">全部</a>
-				<a class="mui-control-item" href="#item2">待接单</a>
-				<a class="mui-control-item" href="#item3">待服务</a>
-				<a class="mui-control-item" href="#item4">待支付</a>
-				<a class="mui-control-item" href="#item5">待评价</a>
+				<a class="mui-control-item" href="#item2">待服务</a>
+				<a class="mui-control-item" href="#item3">待支付</a>
+				<a class="mui-control-item" href="#item4">待评价</a>
 			</div>
 			<div class="mui-slider-group">
 				<div id="item1" class="mui-slider-item mui-control-content mui-active">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<div class="mui-scroll item1_1" id="mui-template">
-							<script type="text/template" id="temp">
-								<ul class="mui-table-view">
-									<% for(var i in record){ var item=record[i]; %>
-									<li class="mui-table-view-cell">
-										<span id="shijian"><%=item.company_name%></span>
-										<span class="mui-pull-right" id="shijian2"><%=item.ob_time%></span>
-									</li>
-									<li class="mui-table-view-cell mui-media">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<span id="unfull"></span>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<span id="unfull">预约时间: <%=item.user_predict_work_time%></span>
-											</div>
-										</div>
-									</li>
+					<!--<div id="scroll" class="mui-scroll-wrapper">-->
+					<div class="mui-scroll item1_1" id="mui-template">
+						<script type="text/template" id="temp">
+							<% for(var i in record){ var item=record[i]; %>
+							<div>
+								<img src="images/ic_shop_company.png" />
+								<span id="shijian"><%=item.company_name%></span>
+							</div>
+							<div class="line"></div>
+							<div class="mui-row">
+								<%=item.goods.og_goods_name%>
+							</div>
+							<div class="mui-row">
+								预约时间:
+								<%=item.user_predict_work_time%>
+							</div>
+							<div class="mui-row">下单时间:
+								<%=item.ob_time%>
+							</div>
 
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<span id="unfull"><%=item.user_contacts_name%>&nbsp;&nbsp;<%=item.user_contacts_phone%></span>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell">
-										<div class="mui-slider-handle">
-											<div class="mui-media-body mui-ellipsis">
-												<span id="unfull">备注:<%=item.ob_remark%></span>
-											</div>
-										</div>
-									</li>
-									<li class="mui-table-view-cell order_xq">
-										<a href="javascript:;">
-											<div class="mui-slider-handle">
-												<span class="mui-btn mui-btn-outlined mui-pull-right" id="dingdangenzong">去评价</span>
-											</div>
-										</a>
-									</li>
-									<%}%>
-								</ul>
-							</script>
-							<div id="item1_1_null" class="display-none">
-								<div class="mui-content-padded wutu" style="text-align:center;padding-top:1.8rem;">
-									<!--<div><img src="../../image/dingdan/wudingdan.png" /></div>-->
-									<p>您还没有此类订单</p>
-								</div>
+							<div class="mui-row">
+								<%=item.user_contacts_name%>&nbsp;&nbsp;
+								<%=item.user_contacts_phone%>
+							</div>
+							<div class="mui-row">备注:
+								<%=item.ob_remark%>
+							</div>
+							<div class="mui-slider-handle">
+								<span class="mui-btn mui-btn-outlined mui-pull-right" id="dingdangenzong">去评价</span>
+							</div>
+							<%}%>
+						</script>
+						<div id="item1_1_null" class="display-none">
+							<div class="mui-content-padded wutu" style="text-align:center;padding-top:1.8rem;">
+								<!--<div><img src="../../image/dingdan/wudingdan.png" /></div>-->
+								<p>您还没有此类订单</p>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!--</div>-->
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
-				var loginData = localStorage.getItem('login');
-				console.log(loginData);
-				var orders = [];
-				if(loginData) {
-					loginData = JSON.parse(loginData);
-					var data = {
-						service: 'Hlbr365app.Member.GetMyOrderList',
-						mbi_number: loginData.data.info.mbi_number,
-						firstRow: 1,
-						listRows: 10
-					};
-					mui.ajax(makeurl(data), {
-						type: 'get', //HTTP请求类型
-						timeout: 10000, //超时时间设置为10秒；
-						success: function(data) {
-							console.log(JSON.stringify(data));
-							if(isRequestSuccess(data)) {
-								var list = data.data.list;
-								if(list && list.length > 0) {
-									for(var i = 0; i < list.length; i++) {
-										orders.push(list[i]);
-									}
-									console.log(orders);
-									var str = template('temp', {
-										"record": orders
-									});
-									document.getElementById("mui-template").innerHTML = str;
-								}
-							}
-						},
-						error: function(xhr, type, errorThrown) {
-							//异常处理；
-							console.log(type);
-							return;
-//							return callback('网络连接错误');
-						}
-					});
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
 				}
+				var mbi_number = loginData.data.info.mbi_id;
+
+				var orders = [];
+				var data = {
+					service: 'Hlbr365app.Member.GetMyOrderList',
+					mbi_number: mbi_number,
+					firstRow: 1,
+					listRows: 10
+				};
+				mui.ajax(makeurl(data), {
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						if(isRequestSuccess(data)) {
+							var list = data.data.list;
+							if(list && list.length > 0) {
+								for(var i = 0; i < list.length; i++) {
+									list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
+									list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
+								}
+								//									console.log(orders);
+								var str = template('temp', {
+									"record": list
+								});
+								document.getElementById("mui-template").innerHTML = str;
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+						return;
+						//							return callback('网络连接错误');
+					}
+				});
 			});
 		</script>
 	</body>

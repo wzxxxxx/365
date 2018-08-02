@@ -9,11 +9,9 @@
 		<style>
 			.mui-row input {
 				border-style: none;
-				/*width: 200px;*/
 				line-height: 30px;
 				width: 60%;
 				margin: 0;
-				/*margin: 0px 0px;*/
 			}
 			
 			.mui-row a {
@@ -96,15 +94,15 @@
 		<script type="text/javascript">
 			var country_id = '';
 			mui.plusReady(function() {
-//				var loginData = JSON.parse(localStorage.getItem('login'));
-//				if(!loginData) {
-//					return;
-//				}
-//				var mbi_id = loginData.data.info.mbi_id;
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_id = loginData.data.info.mbi_id;
 				document.getElementById('addAddress').addEventListener('tap', function() {
 					// 登陆出现错误无法获取mbi_id
-//					addAddress(mbi_id);
-					addAddress(58);
+					addAddress(mbi_id);
+//					addAddress(58);
 				})
 				getConutryList();
 			})

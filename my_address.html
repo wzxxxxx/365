@@ -31,6 +31,7 @@
 				width: 15px;
 				margin-top: 40px;
 			}
+			
 			span {
 				color: red;
 			}
@@ -46,14 +47,16 @@
 			<div id="mui-template">
 				<script type="text/template" id="temp">
 					<% for(var i in record){ var item=record[i]; %>
-					<div class="mui-row" id="<%=item.jg_id%>">
+					<div class="mui-row" id="<%=item.mda_id%>">
 						<div class="mui-col-sm-1 mui-col-xs-1">
 							<img src="images/ic_nav_9.png" />
 						</div>
 						<div class="mui-col-sm-11 mui-col-xs-11">
 							<div>联系人:
 								<%=item.mda_contacts_name%>
-								<div class="mui-pull-right"><%=item.mda_contacts_phone%></div>
+								<div class="mui-pull-right">
+									<%=item.mda_contacts_phone%>
+								</div>
 							</div>
 							<div>联系地址:
 								<%=item.mda_contacts_province_name%>
@@ -62,7 +65,7 @@
 								<%=item.mda_contacts_address%> </div>
 							<h5>----------------------------------------------------------</h5>
 							<div>
-								<input type="checkbox" disabled="<%=item.mda_default%>"/>默认地址
+								<input type="checkbox" disabled="<%=item.mda_default%>" />默认地址
 								<span id="<%=item.mda_id%>" class="mui-pull-right delete">删除</span>
 								<span name="<%=item.mda_id%>" class="mui-pull-right edit">编辑&nbsp;&nbsp;&nbsp;</span>
 							</div>
@@ -81,12 +84,29 @@
 		<script type="text/javascript">
 			var mbi_id = 58;
 			mui.plusReady(function() {
-				//				var loginData = JSON.parse(localStorage.getItem('login'));
-				//				if(!loginData) {
-				//					return;
-				//				}
-				//				var mbi_id = loginData.data.info.mbi_id;
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				mbi_id = loginData.data.info.mbi_id;
 				getAddressList(mbi_id);
+
+				var self = plus.webview.currentWebview();
+				if(self.isChoosing) {
+					mui("#mui-template").on('tap', '.mui-row', function(e) {
+						var id = this.getAttribute("id");
+						var order = plus.webview.getWebviewById('order_confirm.html');
+						var param = {
+							addr_id: id
+						};
+						mui.fire(order, "addr", param);
+						//					order.reload();		
+						setTimeout(function() {
+							mui.back();
+						}, 500)
+
+					});
+				}
 
 				var addAddress = document.getElementById('addAddress');
 				addAddress.addEventListener('tap', function() {
@@ -110,31 +130,31 @@
 					document.getElementById("mui-template").innerHTML = str;
 				})
 			}
-			
-			function deleteAddress(mda_id){
+
+			function deleteAddress(mda_id) {
 				var deleteParam = {
 					service: 'Hlbr365app.MemberDeliveryAddress.Delete',
 					mda_id: mda_id,
 					mbi_id: mbi_id
 				}
-				wAjax(deleteParam, function(){
+				wAjax(deleteParam, function() {
 					location.reload();
 				})
 			}
-			
+
 			mui("#mui-template").on('tap', '.delete', function(e) {
 				var id = this.getAttribute("id");
 				deleteAddress(id);
 
 			});
-			
+
 			mui("#mui-template").on('tap', '.edit', function(e) {
 				var name = this.getAttribute("name");
 				mui.openWindow({
 					url: "edit_address.html",
 					id: "edit_address.html",
 					extras: {
-						id: name
+						addr_id: name
 					}
 				})
 

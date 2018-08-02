@@ -11,11 +11,11 @@
 				width: 50px!important;
 			}
 			
-			.mui-content img{
+			.mui-content img {
 				width: 100%;
 			}
 			
-			.line{
+			.line {
 				width: 100%;
 				height: 1px;
 				margin-top: 10px;
@@ -29,12 +29,14 @@
 				margin-right: 10px;
 				margin-top: 5px;
 			}
-			.mui-row{
+			
+			.mui-row {
 				background: white!important;
 				margin-top: 10px;
 				padding: 10px;
 			}
-			#arrange{
+			
+			#arrange {
 				width: 150px;
 				height: 40px;
 				background: url(images/bg_red_bt.png) no-repeat;
@@ -56,7 +58,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-content">
-				<img id="good_img"/>
+				<img id="good_img" />
 			</div>
 			<div class="mui-row">
 				<div id="good_name">
@@ -68,68 +70,70 @@
 			</div>
 			<div class="mui-row" id="youhuiquan"></div>-->
 			<div class="mui-row">
-				<div ><img src="images/矩形20.png"  class="img-juxing"/>服务价格</div>
+				<div><img src="images/矩形20.png" class="img-juxing" />服务价格</div>
 				<div class="line"></div>
 				<div id="price"></div>
 			</div>
 			<div class="mui-row">
-				<div><img src="images/矩形20.png"  class="img-juxing"/>服务介绍</div>
+				<div><img src="images/矩形20.png" class="img-juxing" />服务介绍</div>
 				<div class="line"></div>
 				<div id="info"></div>
 			</div>
-			
+
 			<div class="mui-row">
-				<div><img src="images/矩形20.png"  class="img-juxing"/>用户评论</div>
+				<div><img src="images/矩形20.png" class="img-juxing" />用户评论</div>
 				<div class="line"></div>
 				<div id="comment"></div>
 			</div>
-				
-			</div>
+
+		</div>
 		</div>
 		<div class="mui-content-padded">
-				<nav class="mui-bar mui-bar-tab">
-					<a class="mui-tab-item">
-						<span class="iconstyle mui-icon ">
+			<nav class="mui-bar mui-bar-tab">
+				<a class="mui-tab-item">
+					<span class="iconstyle mui-icon ">
 							<img src="images/商家.png" />
 						</span>
-						<span class="mui-tab-label">商家</span>
-					</a>
-					<a class="mui-tab-item ">
-						<span class="iconstyle mui-icon ">
+					<span class="mui-tab-label">商家</span>
+				</a>
+				<a class="mui-tab-item ">
+					<span class="iconstyle mui-icon ">
 							<img src="images/收藏2.png"/>
 						</span>
-						<span class="mui-tab-label">收藏</span>
-					</a>
-					<span id="start_price" style="line-height: 58px; color: red;"> </span>
-					<button type="button" class="mui-btn mui-pull-right" id="arrange">立即预约</button>
-				</nav>
-			</div>
+					<span class="mui-tab-label">收藏</span>
+				</a>
+				<span id="start_price" style="line-height: 58px; color: red;"> </span>
+				<button type="button" class="mui-btn mui-pull-right" id="arrange">立即预约</button>
+			</nav>
+		</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
-		<script type="text/javascript" src="js/xiachenshi.js" ></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script type="text/javascript">
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				var good_id = self.good_id;
-				if(good_id){
+				if(good_id) {
 					getGoodInfo(good_id);
 				}
+				document.getElementById('arrange').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'order_confirm.html',
+						id: 'order_confirm.html',
+						extras: {
+							good_id: good_id
+						}
+					});
+				})
 			})
-			
-			document.getElementById('arrange').addEventListener('tap', function(){
-				mui.openWindow({
-					url: 'order_confirm.html',
-					id: 'order_confirm.html'
-				});
-			})
-			
-			function getGoodInfo(good_id){
+
+			function getGoodInfo(good_id) {
 				var getGoodParam = {
 					service: 'Hlbr365app.Goods.GetGoodsInfo',
 					jg_id: good_id
 				}
-				wAjax(getGoodParam, function(result){
+				wAjax(getGoodParam, function(result) {
 					var info = result.data.info;
 					document.getElementById('good_img').src = info.jg_img;
 					document.getElementById('good_name').innerHTML = info.jg_name;

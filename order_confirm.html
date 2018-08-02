@@ -6,10 +6,14 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link rel="stylesheet" href="css/mui.dtpicker.css" />-->
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 		<style>
-			input{
+		.mui-row input {
 				border-style: none;
-				width: 300px;
+				line-height: 30px;
+				width: 80%;
+				margin: 0;
 			}
 			
 			.bg-address {
@@ -27,24 +31,26 @@
 				padding: 10px;
 			}
 			
-			.mui-text-center {
+			#noAddr {
 				height: 50px;
 				line-height: 50px;
 				font-size: small;
 				color: gainsboro;
 			}
 			
-			.mui-text-center img {
+			.nav-img {
 				height: 15px;
 				width: 10px;
 				margin-left: 8px;
 				float: left;
 				margin-top: 20px;
 			}
-			.white-bg{
+			
+			#chooseAddress {
 				background: white;
 			}
-			.line{
+			
+			.line {
 				width: 100%;
 				height: 1px;
 				margin-top: 10px;
@@ -55,7 +61,8 @@
 				margin-top: 10px;
 				border: none;
 			}*/
-			#submit{
+			
+			#submit {
 				width: 150px;
 				height: 40px;
 				background: url(images/bg_red_bt.png) no-repeat;
@@ -65,6 +72,10 @@
 				position: fixed;
 				bottom: 5px;
 				right: 10px;
+			}
+			
+			h5 {
+				color: black;
 			}
 		}
 		</style>
@@ -76,29 +87,46 @@
 			<h1 class="mui-title">订单</h1>
 		</header>
 		<div class="mui-content">
-			<div class="white-bg" id="chooseAddress">
+			<div id="chooseAddress">
 				<img src="images/bg_address.png" class="bg-address" />
-				<div class="mui-text-center">
-					<img src="images/ic_nav_9.png" /> 请选择服务地址
+				<div>
+					<div class="mui-row mui-hidden" id="gotAddr">
+						<div class="mui-col-sm-1 mui-col-xs-1">
+							<img src="images/ic_nav_9.png" class="nav-img" />
+						</div>
+						<div class="mui-col-sm-11 mui-col-xs-11">
+							<div>
+								<h5 id="name" class="mui-pull-left"></h5>
+								<h5 id="phoneNumber" class="mui-pull-right"></h4>
+							</div>
+							<div>
+							<h5 id="address" class="mui-pull-left"> </h5>
+							</div>
+						</div>
+					</div>
+					<div id="noAddr" class="mui-text-center">
+						<img src="images/ic_nav_9.png" class="nav-img" /> 请选择服务地址
+					</div>
 				</div>
 				<img src="images/bg_address.png" class="bg-address" />
 			</div>
-			<div class="mui-row">
-						选择服务时间
+			<div class="mui-row" id="chooseTime">
+				选择服务时间
+				<div class="mui-pull-right" id="time"></div>
 			</div>
 			<div class="mui-row">
-				<br />
-						<div class="line"></div>
-						<br />
+				<div id="goodName"></div>
+				<div class="line"></div>
+				<div id="goodIntro"></div>
 			</div>
 			<div class="mui-row">
-						备注<input placeholder="如有特殊需求,请给商家留言">
+				备注<input type="text" placeholder="如有特殊需求,请给商家留言" id="remark">
 
 			</div>
 			<div class="mui-row">
-						服务注意事项
-						<div class="line"></div>
-						<br />
+				服务注意事项
+				<div class="line"></div>
+				<br />
 			</div>
 			<button type="button" class="mui-btn mui-pull-right" id="submit">确认提交</button>
 			<!--<div class="mui-row">
@@ -111,15 +139,116 @@
 		</div>-->
 			<script src="js/mui.min.js"></script>
 			<script type="text/javascript" src="js/xiachenshi.js"></script>
+			<script type="text/javascript" src="js/mui.picker.min.js"></script>
+			<!--<script type="text/javascript" src="js/mui.dtpicker.js" ></script>-->
+			<script type="text/javascript" src="js/app.js"></script>
 			<script type="text/javascript">
+				var addrId = '';
 				mui.plusReady(function() {
-					document.getElementById('chooseAddress').addEventListener('tap', function(){
+					var self = plus.webview.currentWebview();
+					if(self.good_id) {
+						getGoodInfo(self.good_id);
+					}
+					var loginData = JSON.parse(localStorage.getItem('login'));
+					if(!loginData) {
+						return;
+					}
+					var mbi_id = loginData.data.info.mbi_id;
+
+					document.getElementById('chooseAddress').addEventListener('tap', function() {
 						mui.openWindow({
 							url: 'my_address.html',
-							id: 'my_address.html'
+							id: 'my_address.html',
+							extras: {
+								isChoosing: true
+							}
 						})
 					})
+
+					document.getElementById('chooseTime').addEventListener('tap', function() {
+						var endDate = new Date(new Date().setDate(new Date().getDate() + 6));
+						var dtPicker = new mui.DtPicker({
+							beginDate: new Date(),
+							endDate: endDate,
+							customData: {
+								"i": [{
+										"text": "00",
+										"value": "00"
+									},
+									{
+										"text": "30",
+										"value": "30"
+									}
+								]
+
+							}
+						});
+						dtPicker.show(function(selectItems) {
+							document.getElementById('time').innerHTML = selectItems.text;
+						})
+					})
+
+					document.getElementById('submit').addEventListener('tap', function() {
+						submitOrder(self.good_id, mbi_id);
+					})
+
 				})
+
+				window.addEventListener('addr', function(event) {
+					if(event) {
+						addrId = event.detail.addr_id;
+						getAddressInfo(addrId);
+					}
+				});
+
+				function getAddressInfo(id) {
+					var getAddrParam = {
+						service: 'Hlbr365app.MemberDeliveryAddress.GetInfo',
+						mda_id: id
+					}
+					wAjax(getAddrParam, function(result) {
+						var addrInfo = result.data.info;
+						if(addrInfo) {
+							document.getElementById('noAddr').setAttribute('class', 'mui-hidden');
+							document.getElementById('gotAddr').setAttribute('class', 'mui-row');
+							document.getElementById('name').innerHTML = '联系人：' + addrInfo.mda_contacts_name;
+							document.getElementById('phoneNumber').innerHTML = '联系电话：' + addrInfo.mda_contacts_phone;
+							document.getElementById('address').innerHTML = '联系地址：' + addrInfo.mda_contacts_province_name +
+								addrInfo.mda_contacts_city_name + addrInfo.mda_contacts_county_name + addrInfo.mda_contacts_address;
+						}
+					})
+				}
+
+				function getGoodInfo(good_id) {
+					var getGoodParam = {
+						service: 'Hlbr365app.Goods.GetGoodsInfo',
+						jg_id: good_id
+					}
+					wAjax(getGoodParam, function(result) {
+						var info = result.data.info;
+						document.getElementById('goodName').innerHTML = info.jg_name;
+						document.getElementById('goodIntro').innerHTML = info.jg_intro;
+					})
+				}
+
+				function submitOrder(good_id, mbi_id) {
+					var timeText = document.getElementById('time').innerHTML;
+					var orderDate = new Date(timeText.replace(/-/g, "/"));
+					var submitParam = {
+						service: 'Hlbr365app.Order.AddOrder',
+						user_number: mbi_id,
+						jg_id: good_id,
+						mda_id: addrId,
+						predict_time: Number(orderDate)
+					}
+					var remark = document.getElementById('remark').value;
+					if(remark) {
+						submitParam.remark = remark;
+					}
+					wAjax(submitParam, function(result){
+						mui.back();
+					})
+				}
 			</script>
 	</body>
 

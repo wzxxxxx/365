@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.inc-scroll-landscape-container {
+				width: 100%;
+				height: 150px;
+				overflow: hidden;
+				background-color: #FFF;
+				margin-bottom: 10px;
+			}
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content {
+				padding-bottom: 100px;
+				/* 当内容宽度小于容器宽度时，会出现横向滚动条。将横向滚动条溢出至容器外，保证横向滚动条不可见 */
+				white-space: nowrap;
+				overflow: hidden;
+				overflow-x: scroll;
+				/* 1 */
+				-webkit-backface-visibility: hidden;
+				-webkit-perspective: 1000;
+				-webkit-overflow-scrolling: touch;
+				/* 2 */
+				text-align: justify;
+				/* 3 */
+				&::-webkit-scrollbar {
+					display: none;
+				}
+			}
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul {
+				padding-left: 10px;
+			}
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li {
+				width: 100px;
+				height: 150px;
+				line-height: 150px;
+				position: relative;
+				display: inline-block;
+				text-align: center;
+				font-size: 13px;
+				color: #666;
+				font-weight: bold;
+				background-color: gainsboro;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择服务时间</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row" id="mui-template">
+				<script type="text/template" id="temp">
+					<div class="inc-scroll-landscape-container">
+						<div class="inc-scroll-landscape-content">
+							<ul>
+								<% for(var i in record){ var item=record[i]; %>
+								<li>
+									<h5><%=item.xingqi%></h5>
+									<h5><%=item.myDate%></h5>
+								</li>
+								<%}%>
+							</ul>
+						</div>
+					</div>
+				</script>
+
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var myDate = new Date();
+				var xingqi = myDate.getDay();
+				var xingqiArr = ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+				var dateArr = [];
+				for(var i = 0;i < 7; i++ ) {
+					var item = {
+						xingqi: xingqiArr[xingqi - 1],
+						myDate: getTomorrow(myDate)
+					}
+					dateArr.push(item);
+				}
+				var str = template('temp', {
+					"record": dateArr
+				});
+				document.getElementById("mui-template").innerHTML = str;
+
+			})
+
+			function getTomorrow(myDate) {
+				myDate.setDate(myDate.getDate() + 1);
+				return myDate.toLocaleDateString();
+			}
+		</script>
+	</body>
+
+</html>

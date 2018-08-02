@@ -87,7 +87,7 @@
 			<div class="line"></div>
 			<div class="mui-row"><textarea id="addressDetail" placeholder="请填写详细地址"></textarea></div>
 			<div><input id="isDefault" type="checkbox" />是否为默认收货地址</div>
-			<button type="button" class="mui-btn mui-pull-right" id="addAddress">修改地址</button>
+			<button type="button" class="mui-btn mui-pull-right" id="addAddress">提交修改</button>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>
@@ -97,17 +97,17 @@
 			var country_id = '';
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
-				var id = self.id || '';
+				var id = self.addr_id || '';
 				getAddressInfo(id);
-//				var loginData = JSON.parse(localStorage.getItem('login'));
-//				if(!loginData) {
-//					return;
-//				}
-//				var mbi_id = loginData.data.info.mbi_id;
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_id = loginData.data.info.mbi_id;
 				document.getElementById('addAddress').addEventListener('tap', function() {
 					// 登陆出现错误无法获取mbi_id
-//					addAddress(mbi_id);
-					addAddress(58);
+					addAddress(mbi_id);
+//					addAddress(58);
 				})
 				getConutryList();
 			})
@@ -125,10 +125,6 @@
 						document.getElementById('country').innerHTML = addrInfo.mda_contacts_county_name;
 						document.getElementById('addressDetail').value = addrInfo.mda_contacts_address;
 						document.getElementById('isDefault').value = addrInfo.mda_default;
-//						var str = template('temp', {
-//						'record': addrList
-//					});
-//					document.getElementById("mui-template").innerHTML = str;
 					}
 				})
 			}
