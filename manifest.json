@@ -34,12 +34,12 @@
 		"UI": {},
 		"Share": {},
 		"OAuth": {},
-		"Push": {},
+		
 		"Maps": {},
 		"Speech": {},
 		"Payment": {},
 		"Contacts": {},
-		"Statistic": {},
+		
 		"Messaging": {},"Webview":{},"NativeUI":{},"Navigator":{}
 	},
 	"plus": {
@@ -100,10 +100,7 @@
 					"<uses-permission android:name=\"android.permission.READ_SMS\"/>"
 				]
 			},
-			"orientation": [
-				"portrait-primary",
-				"portrait-secondary"
-			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"orientation": ["portrait-primary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
@@ -146,7 +143,7 @@
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
 						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "","retina47":"C:/Users/Administrator/Desktop/页面/pic_guidepage_1.png"
+						"retina40": ""
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/

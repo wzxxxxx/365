@@ -6,12 +6,266 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--<link rel="stylesheet" href="css/mui.dtpicker.css" />-->
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<style>
+		.mui-row input {
+				border-style: none;
+				line-height: 30px;
+				width: 80%;
+				margin: 0;
+			}
+			
+			.bg-address {
+				height: 5px;
+				width: 100%;
+			}
+			
+			.mui-content {
+				padding-top: 54px!important;
+			}
+			
+			.mui-row {
+				background: white;
+				margin-top: 10px;
+				padding: 10px;
+			}
+			/*#noAddr {
+				height: 50px;
+				line-height: 50px;
+				font-size: small;
+				color: gainsboro;
+			}*/
+			
+			.nav-img {
+				height: 15px;
+				width: 10px;
+				margin-left: 8px;
+				float: left;
+				margin-top: 20px;
+			}
+			
+			
+			
+			#chooseAddress {
+				background: white;
+			}
+			
+			.line {
+				width: 100%;
+				height: 1px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				background: gainsboro;
+			}
+			/*.mui-table-view {
+				margin-top: 10px;
+				border: none;
+			}*/
+			
+			h5 {
+				color: black;
+			}
+			
+			#bottomButton {
+				width: 150px;
+				height: 40px;
+				background: url(images/bg_red_bt.png) no-repeat;
+				background-size: contain;
+				color: white;
+				border: none;
+				position: fixed;
+				bottom: 5px;
+				left: 100px;
+			}
+			.firstrow span {
+				color: grey;
+				margin-left: 5px;
+			}
+			.firstrow{
+				margin-bottom: 10px;
+			}
+			
+			.firstrow img {
+				height: 15px;
+				width: 15px;
+				margin-left: 5px;
+			}
+		}
+		</style>
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row firstrow">
+				<img src="images/ic_order_done.png"/><span id="prompt"></span>
+			</div>
+			<div id="chooseAddress">
+				<img src="images/bg_address.png" class="bg-address" />
+				<div>
+					<div class="mui-row">
+						<div class="mui-col-sm-1 mui-col-xs-1">
+							<img src="images/ic_nav_9.png" class="nav-img" />
+						</div>
+						<div class="mui-col-sm-11 mui-col-xs-11">
+							<div>
+								<h5 id="name" class="mui-pull-left"></h5>
+								<h5 id="phoneNumber" class="mui-pull-right"></h4>
+							</div>
+							<div>
+							<h5 id="address" class="mui-pull-left"> </h5>
+							</div>
+						</div>
+					</div>
+					<!--<div id="noAddr" class="mui-text-center">
+						<img src="images/ic_nav_9.png" class="nav-img" /> 请选择服务地址
+					</div>-->
+				</div>
+				<img src="images/bg_address.png" class="bg-address" />
+			</div>
+			<div class="mui-row" id="chooseTime">
+				服务时间
+				<div class="mui-pull-right" id="time"></div>
+			</div>
+			<div class="mui-row" id="serverPeople">
+				服务人员
+				<div class="mui-pull-right" id="server"></div>
+			</div>
+			<div class="mui-row">
+				<div id="goodName"></div>
+				<div class="line"></div>
+				<div id="goodIntro"></div>
+			</div>
+			<div class="mui-row">
+				备注
+				<div class="mui-pull-left" id="remark"></div>
+			</div>
+
+			<!--<div class="mui-row">
+			<input placeholder="如有特殊需求,请给商家留言" />
+		</div>-->
+			<!--<div class="mui-row">
+			
+		</div>-->
+			<!--<div class="mui-row"></div>
+		</div>-->
+			<button type="button" class="mui-btn mui-pull-right mui-hidden" id="bottomButton">提交修改</button>
+			<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
+    <!-- 可选择菜单 -->
+    <ul class="mui-table-view">
+      <li class="mui-table-view-cell">
+        <a href="#">选错服务</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">不想购买服务了</a>
+      </li>
+       <li class="mui-table-view-cell">
+        <a href="#">商家不接单</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">重复预约</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">服务地址填写有误</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">无法支付订单</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">其他</a>
+      </li>
+    </ul>
+</div>
+		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<!--<script type="text/javascript" src="js/mui.dtpicker.js" ></script>-->
+		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				if(self.order_id) {
+					getOrderInfo(self.order_id);
+				}
+			})
+
+			function getOrderInfo(ob_id) {
+				var getOrderParam = {
+					service: 'Hlbr365app.Order.GetOrderInfo',
+					ob_id: ob_id
+				};
+				wAjax(getOrderParam, function(result) {
+					var info = result.data.info;
+					document.getElementById('name').innerHTML = '联系人：' + info.user_contacts_name;
+					document.getElementById('phoneNumber').innerHTML = '联系电话：' + info.user_contacts_phone;
+					document.getElementById('address').innerHTML = '联系地址：' + info.user_contacts_province_name +
+						info.user_contacts_city_name + info.user_contacts_county_name + info.user_contacts_address;
+					document.getElementById('time').innerHTML = new Date(1000 * info.user_predict_work_time).toLocaleString();
+					document.getElementById('server').innerHTML = info.customer_user_name;
+					document.getElementById('goodName').innerHTML = info.company_name;
+					document.getElementById('goodIntro').innerHTML = info.goods.og_goods_name;
+					document.getElementById('remark').innerHTML = info.ob_comment_remark;
+
+					var bottomBtn = document.getElementById('bottomButton');
+					var prompt = document.getElementById('prompt');
+					var serverPeople = document.getElementById('serverPeople');
+					if(info.ob_status == 1 || info.ob_status == 2) {
+						bottomBtn.setAttribute('class', 'mui-btn mui-pull-right');
+						serverPeople.setAttribute('class', 'mui-hidden');
+						bottomBtn.innerHTML = '取消订单';
+						prompt.innerHTML = '等待商家确认订单,请耐心等候.';
+						bottomBtn.addEventListener('tap', function(){
+							mui('#sheet1').popover('show');
+						})
+					} else if(info.ob_status == 6 || info.ob_status == 7) {
+						bottomBtn.setAttribute('class', 'mui-btn mui-pull-right');
+						bottomBtn.innerHTML = '去评价';
+						prompt.innerHTML = '待评价';
+					} else if(info.ob_status == 5) {
+						bottomBtn.setAttribute('class', 'mui-btn mui-pull-right');
+						bottomBtn.innerHTML = '去支付';
+						prompt.innerHTML = '待付款';
+					} else if(info.ob_status == 3) {
+						prompt.innerHTML = '商家已指派工作人员.';
+					} else if(info.ob_status == 4) {
+						prompt.innerHTML = '工作人员已在工作中.';
+					} else if(info.ob_status == 8 || info.ob_status == 14) {
+						prompt.innerHTML = '已完成！';
+					} else if(info.ob_status == 12) {
+						prompt.innerHTML = '商家已取消订单！' + info.ob_enterprise_cancel_remark;
+						serverPeople.setAttribute('class', 'mui-hidden');
+					} else if(info.ob_status == 13) {
+						prompt.innerHTML = '用户已取消订单！' + info.ob_client_cancel_remark;
+						serverPeople.setAttribute('class', 'mui-hidden');
+					}
+				})
+			}
+			
+			function cancelOrder(reason){
+				var self = plus.webview.currentWebview();
+				var ob_id = self.order_id || '';
+				var cacelParam = {
+					service: 'Hlbr365app.Order.CancelOrder',
+					ob_id: ob_id,
+					remark: reason
+				}
+				wAjax(cacelParam, function(){
+					var orderList = self.opener();
+					orderList.reload();
+					mui.back();
+				})
+			}
+			
+			mui("#sheet1").on('tap', 'a', function(e) {
+				var reason = this.innerHTML;
+				cancelOrder(reason);
+			});
+
 		</script>
 	</body>
 

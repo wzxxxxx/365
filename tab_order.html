@@ -43,26 +43,60 @@
 				margin-left: 10px;
 				margin-right: 10px;
 			}
+			.mui-row button{
+				background: red;
+				border-radius: 25px;
+				color: white;
+				margin-right: 10px;
+			}
+			.mui-content{
+				background: white;
+			}
+			.status{
+				color: red;
+				line-height: 50px;
+				margin-right: 10px;
+			}
+			.mui-segmented-control-positive{
+				height: 50px;
+			}
+			.mui-slider-group .mui-control-content{
+				height: 500px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
 			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-positive">
+				<div class="mui-scroll">
 				<a class="mui-control-item  mui-active" href="#item1">全部</a>
 				<a class="mui-control-item" href="#item2">待服务</a>
 				<a class="mui-control-item" href="#item3">待支付</a>
 				<a class="mui-control-item" href="#item4">待评价</a>
+				</div>
 			</div>
 			<div class="mui-slider-group">
-				<div id="item1" class="mui-slider-item mui-control-content mui-active">
-					<!--<div id="scroll" class="mui-scroll-wrapper">-->
-					<div class="mui-scroll item1_1" id="mui-template">
+			<div id="item1" class="mui-slider-item mui-control-content mui-active">
+					<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll" id="mui-template">
 						<script type="text/template" id="temp">
 							<% for(var i in record){ var item=record[i]; %>
+							<div class="mui-content" id="<%=item.ob_id%>">
 							<div>
 								<img src="images/ic_shop_company.png" />
 								<span id="shijian"><%=item.company_name%></span>
+								<% if(item.ob_status==6 || item.ob_status == 7){%>
+								<div class="mui-pull-right status">待评价</div>
+								<%} else if(item.ob_status==5){%>
+								<div class="mui-pull-right status">待付款</div>
+								<%} else if(item.ob_status==14 || item.ob_status==8){%>
+								<div class="mui-pull-right status">已完成</div>
+								<%} else if(item.ob_status==1 || item.ob_status==2){%>
+								<div class="mui-pull-right status">待服务</div>
+								<%} else if(item.ob_status==12 || item.ob_status==13){%>
+								<div class="mui-pull-right status">已取消</div>
+								<%}%>
 							</div>
 							<div class="line"></div>
 							<div class="mui-row">
@@ -83,25 +117,268 @@
 							<div class="mui-row">备注:
 								<%=item.ob_remark%>
 							</div>
-							<div class="mui-slider-handle">
-								<span class="mui-btn mui-btn-outlined mui-pull-right" id="dingdangenzong">去评价</span>
+							<% if(item.ob_status==1 || item.ob_status == 2){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
 							</div>
 							<%}%>
+							<% if(item.ob_status==6 || item.ob_status == 7){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==5){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
+							</div>
+							<%}%>
+							<div class="line"></div>
+							</div>
+							<%}%>
+							
 						</script>
+						
 						<div id="item1_1_null" class="display-none">
 							<div class="mui-content-padded wutu" style="text-align:center;padding-top:1.8rem;">
 								<!--<div><img src="../../image/dingdan/wudingdan.png" /></div>-->
 								<p>您还没有此类订单</p>
 							</div>
 						</div>
+						
 					</div>
+					
 				</div>
-				<!--</div>-->
+				</div>
+			
+			<div id="item2" class="mui-slider-item mui-control-content">
+					<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll item1_1" id="mui-template2">
+						<script type="text/template2" id="temp2">
+							<% for(var i in record){ var item=record[i]; %>
+							<% if(item.ob_status==1 || item.ob_status == 2){%>
+							<div class="mui-content" id="<%=item.ob_id%>">
+							<div>
+								<img src="images/ic_shop_company.png" />
+								<span id="shijian"><%=item.company_name%></span>
+								<% if(item.ob_status==6 || item.ob_status == 7){%>
+								<div class="mui-pull-right status">待评价</div>
+								<%} else if(item.ob_status==5){%>
+								<div class="mui-pull-right status">待付款</div>
+								<%} else if(item.ob_status==14 || item.ob_status==8){%>
+								<div class="mui-pull-right status">已完成</div>
+								<%} else if(item.ob_status==1 || item.ob_status==2){%>
+								<div class="mui-pull-right status">待服务</div>
+								<%} else if(item.ob_status==12 || item.ob_status==13){%>
+								<div class="mui-pull-right status">已取消</div>
+								<%}%>
+							</div>
+							<div class="line"></div>
+							<div class="mui-row">
+								<%=item.goods.og_goods_name%>
+							</div>
+							<div class="mui-row">
+								预约时间:
+								<%=item.user_predict_work_time%>
+							</div>
+							<div class="mui-row">下单时间:
+								<%=item.ob_time%>
+							</div>
+
+							<div class="mui-row">
+								<%=item.user_contacts_name%>&nbsp;&nbsp;
+								<%=item.user_contacts_phone%>
+							</div>
+							<div class="mui-row">备注:
+								<%=item.ob_remark%>
+							</div>
+							<% if(item.ob_status==1 || item.ob_status == 2){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==6 || item.ob_status == 7){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==5){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
+							</div>
+							<%}%>
+							<div class="line"></div>
+							</div>
+							<%}%>
+							<%}%>
+						</script>
+						
+						<div id="item1_1_null" class="display-none">
+							<div class="mui-content-padded wutu" style="text-align:center;padding-top:1.8rem;">
+								<!--<div><img src="../../image/dingdan/wudingdan.png" /></div>-->
+								<p>您还没有此类订单</p>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				</div>
+			
+			<div id="item3" class="mui-slider-item mui-control-content">
+					<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll item1_1" id="mui-template3">
+						<script type="text/template" id="temp3">
+							<% for(var i in record){ var item=record[i]; %>
+							<% if(item.ob_status==5){%>
+							<div class="mui-content" id="<%=item.ob_id%>">
+							<div>
+								<img src="images/ic_shop_company.png" />
+								<span id="shijian"><%=item.company_name%></span>
+								<% if(item.ob_status==6 || item.ob_status == 7){%>
+								<div class="mui-pull-right status">待评价</div>
+								<%} else if(item.ob_status==5){%>
+								<div class="mui-pull-right status">待付款</div>
+								<%} else if(item.ob_status==14 || item.ob_status==8){%>
+								<div class="mui-pull-right status">已完成</div>
+								<%} else if(item.ob_status==1 || item.ob_status==2){%>
+								<div class="mui-pull-right status">待服务</div>
+								<%} else if(item.ob_status==12 || item.ob_status==13){%>
+								<div class="mui-pull-right status">已取消</div>
+								<%}%>
+							</div>
+							<div class="line"></div>
+							<div class="mui-row">
+								<%=item.goods.og_goods_name%>
+							</div>
+							<div class="mui-row">
+								预约时间:
+								<%=item.user_predict_work_time%>
+							</div>
+							<div class="mui-row">下单时间:
+								<%=item.ob_time%>
+							</div>
+
+							<div class="mui-row">
+								<%=item.user_contacts_name%>&nbsp;&nbsp;
+								<%=item.user_contacts_phone%>
+							</div>
+							<div class="mui-row">备注:
+								<%=item.ob_remark%>
+							</div>
+							<% if(item.ob_status==1 || item.ob_status == 2){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==6 || item.ob_status == 7){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==5){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
+							</div>
+							<%}%>
+							<div class="line"></div>
+							</div>
+							<%}%>
+							<%}%>
+							
+						</script>
+						
+						<div id="item1_1_null" class="display-none">
+							<div class="mui-content-padded wutu" style="text-align:center;padding-top:1.8rem;">
+								<!--<div><img src="../../image/dingdan/wudingdan.png" /></div>-->
+								<p>您还没有此类订单</p>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				</div>
+			
+			<div id="item4" class="mui-slider-item mui-control-content">
+					<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll item1_1" id="mui-template4">
+						<script type="text/template" id="temp4">
+							<% for(var i in record){ var item=record[i]; %>
+							<% if(item.ob_status==6 || item.ob_status==7){%>
+							<div class="mui-content" id="<%=item.ob_id%>">
+							<div>
+								<img src="images/ic_shop_company.png" />
+								<span id="shijian"><%=item.company_name%></span>
+								<% if(item.ob_status==6 || item.ob_status == 7){%>
+								<div class="mui-pull-right status">待评价</div>
+								<%} else if(item.ob_status==5){%>
+								<div class="mui-pull-right status">待付款</div>
+								<%} else if(item.ob_status==14 || item.ob_status==8){%>
+								<div class="mui-pull-right status">已完成</div>
+								<%} else if(item.ob_status==1 || item.ob_status==2){%>
+								<div class="mui-pull-right status">待服务</div>
+								<%} else if(item.ob_status==12 || item.ob_status==13){%>
+								<div class="mui-pull-right status">已取消</div>
+								<%}%>
+							</div>
+							<div class="line"></div>
+							<div class="mui-row">
+								<%=item.goods.og_goods_name%>
+							</div>
+							<div class="mui-row">
+								预约时间:
+								<%=item.user_predict_work_time%>
+							</div>
+							<div class="mui-row">下单时间:
+								<%=item.ob_time%>
+							</div>
+
+							<div class="mui-row">
+								<%=item.user_contacts_name%>&nbsp;&nbsp;
+								<%=item.user_contacts_phone%>
+							</div>
+							<div class="mui-row">备注:
+								<%=item.ob_remark%>
+							</div>
+							<% if(item.ob_status==1 || item.ob_status == 2){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==6 || item.ob_status == 7){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==5){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
+							</div>
+							<%}%>
+							<div class="line"></div>
+							</div>
+							<%}%>
+							<%}%>
+						</script>
+						
+						<div id="item1_1_null" class="display-none">
+							<div class="mui-content-padded wutu" style="text-align:center;padding-top:1.8rem;">
+								<!--<div><img src="../../image/dingdan/wudingdan.png" /></div>-->
+								<p>您还没有此类订单</p>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				</div>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
+			<script type="text/javascript" src="js/mui.pullToRefresh.js"></script>
+		<script type="text/javascript" src="js/mui.pullToRefresh.material.js"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
 				var loginData = JSON.parse(localStorage.getItem('login'));
@@ -129,11 +406,22 @@
 									list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
 									list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
 								}
-								//									console.log(orders);
 								var str = template('temp', {
 									"record": list
 								});
 								document.getElementById("mui-template").innerHTML = str;
+								var str2 = template('temp2', {
+									"record": list
+								});
+								document.getElementById("mui-template2").innerHTML = str2;
+								var str3 = template('temp3', {
+									"record": list
+								});
+								document.getElementById("mui-template3").innerHTML = str3;
+								var str4 = template('temp4', {
+									"record": list
+								});
+								document.getElementById("mui-template4").innerHTML = str4;
 							}
 						}
 					},
@@ -144,6 +432,18 @@
 						//							return callback('网络连接错误');
 					}
 				});
+			});
+			
+			mui("#mui-template").on('tap', '.mui-content', function(e) {
+				var order_id = this.getAttribute("id");
+				mui.openWindow({
+					url: 'order_detail.html',
+					id: 'order_detail.html',
+					extras: {
+						order_id: order_id
+					}
+				})
+
 			});
 		</script>
 	</body>

@@ -32,6 +32,22 @@
 				width: 95%;
 				margin-left: 10px;
 				margin-top: 20px;
+				border-radius: 10px;
+				-webkit-box-shadow: 0 0 5px antiquewhite;
+				-moz-box-shadow: 0 0 5px antiquewhite;
+				box-shadow: 0 0 5px antiquewhite;
+			}
+			
+			.mui-table-view:before {
+				height: 0;
+			}
+			
+			.mui-table-view:after {
+				height: 0;
+			}
+			
+			#relogin {
+				color: red;
 			}
 		</style>
 
@@ -40,8 +56,8 @@
 	<body>
 		<div class="mui-content">
 			<div class="mui-content bg">
-				<img src="images/头像.png" />
-				<span class="span-center">test</span>
+				<img src="images/头像.png" id="avatar" />
+				<span class="span-center" id="name">test</span>
 			</div>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
@@ -70,45 +86,68 @@
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-					<a id="relogin" class="mui-navigate-right">
-						登录/退出登录
+					<a id="relogin" class=" mui-text-center">
+						退出登录
 					</a>
 				</li>
 
 			</ul>
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript">
-			mui.init();
-			var settingsBox = document.getElementById('settings');
-			var reloginBox = document.getElementById('relogin');
-			var collectionBox = document.getElementById('collection');
-			var noticeBox = document.getElementById('notice');
-			settingsBox.addEventListener('tap', function(event) {
-				mui.openWindow({
-					url: 'settings.html',
-					id: 'settings.html'
-					
+			mui.plusReady(function() {
+				var settingsBox = document.getElementById('settings');
+				var reloginBox = document.getElementById('relogin');
+				var collectionBox = document.getElementById('collection');
+				var noticeBox = document.getElementById('notice');
+				settingsBox.addEventListener('tap', function(event) {
+					mui.openWindow({
+						url: 'settings.html',
+						id: 'settings.html'
+
+					});
 				});
-			});
-			reloginBox.addEventListener('tap', function() {
-				mui.openWindow({
-					url: 'login.html',
-					id: 'login.html'
+				reloginBox.addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'login.html',
+						id: 'login.html'
+					})
+				});
+				collectionBox.addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'collections.html',
+						id: 'collections.html'
+					})
+				});
+				noticeBox.addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'edit_profile.html',
+						id: 'edit_profile.html'
+					})
 				})
-			});
-			collectionBox.addEventListener('tap', function(){
-				mui.openWindow({
-					url: 'collections.html',
-					id: 'collections.html'
-				})
-			});
-			noticeBox.addEventListener('tap', function(){
-				mui.openWindow({
-					url: 'notice.html',
-					id: 'notice.html'
-				})
+
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_id = loginData.data.info.mbi_id;
+				getProfile(mbi_id);
 			})
+
+			function getProfile(id) {
+				var profileParam = {
+					service: 'Hlbr365app.Member.GetInfo',
+					mbi_id: id
+				}
+				wAjax(profileParam, function(result) {
+					var info = result.data.info;
+					document.getElementById('name').innerHTML = info.mei_real_name || '未命名';
+					if(info.mei_head) {
+						document.getElementById('avatar').src = info.mei_head;
+					}
+				})
+			}
 		</script>
 	</body>
 

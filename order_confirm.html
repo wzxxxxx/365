@@ -232,7 +232,15 @@
 				}
 
 				function submitOrder(good_id, mbi_id) {
+					if(!addrId){
+						plus.nativeUI.toast('请选择地址！');
+						return;
+					}
 					var timeText = document.getElementById('time').innerHTML;
+					if(!timeText){
+						plus.nativeUI.toast('请选择服务时间！');
+						return;
+					}
 					var orderDate = new Date(timeText.replace(/-/g, "/"));
 					var submitParam = {
 						service: 'Hlbr365app.Order.AddOrder',
@@ -243,7 +251,7 @@
 					}
 					var remark = document.getElementById('remark').value;
 					if(remark) {
-						submitParam.remark = remark;
+						submitParam.ob_remark = remark;
 					}
 					wAjax(submitParam, function(result){
 						mui.back();

@@ -15,6 +15,9 @@
 	makeurl = function(data, isGetToken) {
 		if(!isGetToken) {
 			data.gateway = "App.Site.gatewayapp";
+//			data.Proj_ID = 2;
+//			data.Proj_Key = 'MzY15pm65oWn5a625pS/MTUzMzI2NjM0OA==';
+//			data.Proj_Secret ='NTdhZjg3YTg1ZThmYTYwMWRlOTc2YmQwNjcyNTMxNDMxNTMzMjY2MzQ4';
 			if(localStorage.getItem('token')) {
 				data.g_token = JSON.parse(localStorage.getItem('token')).data.info.g_token;
 				data.g_mark = JSON.parse(localStorage.getItem('token')).data.info.g_mark;
