@@ -90,7 +90,7 @@
 		</div>
 		<div class="mui-content-padded">
 			<nav class="mui-bar mui-bar-tab">
-				<a class="mui-tab-item">
+				<a class="mui-tab-item" id="shopInfo">
 					<span class="iconstyle mui-icon ">
 							<img src="images/商家.png" />
 						</span>
@@ -116,7 +116,9 @@
 				var self = plus.webview.currentWebview();
 				var good_id = self.good_id;
 				if(good_id) {
-					getGoodInfo(good_id);
+					setTimeout(function() {
+						getGoodInfo(good_id);
+					}, 200);
 				}
 				var loginData = JSON.parse(localStorage.getItem('login'));
 				if(!loginData) {
@@ -143,6 +145,8 @@
 						}
 					});
 				})
+				
+				
 			})
 
 			function getGoodInfo(good_id) {
@@ -158,6 +162,17 @@
 					document.getElementById('price').innerHTML = info.jg_price;
 					document.getElementById('start_price').innerHTML = info.jg_price_start;
 					isCollect = info.isCollect;
+					
+					document.getElementById('shopInfo').addEventListener('tap', function(){
+					mui.openWindow({
+						url: 'shop_info.html',
+						id: 'shop_info.html',
+						extras: {
+							shop_id: info.jci_id
+						}
+					})
+				})
+
 					if(isCollect == 1) {
 						collectImg.src = "images/收藏2.png";
 					} else if(isCollect == 2) {
@@ -171,12 +186,7 @@
 			}
 
 			function collectGood(mbi_id, good_id) {
-				var action = 1;
-				if(isCollect == 1) {
-					action = 2;
-				} else if(isCollect == 2){
-					action = 1;
-				}
+				var action = (isCollect == 1) ? 2 : 1;
 				var collectParam = {
 					service: 'Hlbr365app.Goods.SetCollect',
 					mbi_id: mbi_id,
@@ -185,12 +195,12 @@
 					action: action
 				};
 				wAjax(collectParam, function(result) {
-					if(isCollect == 1) {
-						collectImg.src = "images/收藏1.png";
-						isCollect = 2;
-					} else if(isCollect == 2) {
+					if(action == 1) {
 						collectImg.src = "images/收藏2.png";
 						isCollect = 1;
+					} else if(action == 2) {
+						collectImg.src = "images/收藏1.png";
+						isCollect = 2;
 					}
 					//					isCollect = !isCollect;
 				})

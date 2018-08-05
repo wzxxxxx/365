@@ -6,8 +6,10 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<link href="css/style.css" rel="stylesheet" />
 		<style>
+			body{
+				background: white;
+			}
 			.area {
 				margin: 20px auto 0px auto;
 			}
@@ -41,12 +43,12 @@
 			
 			.mui-content {
 				background: white;
-				padding-top: 50px;
+				padding-top: 100px;
 			}
 			
 			.mui-pull-left {
 				color: red;
-				margin-top: 10px;
+				margin-top: 30px;
 			}
 			
 			form {
@@ -59,6 +61,37 @@
 				right: 20px;
 				color: red;
 			}
+			#reg{
+				background-image: url(images/bg_bt1.png);
+				background-size: 100% 100%;
+				border: none;
+				color: white;
+			}
+			.left-img{
+				position: fixed;
+				left: 15px;
+				height: 20px;
+				width: 15px;
+				margin-top: 7px;
+			}
+			.left-img img{
+				height: 100%;
+			}
+			#title{
+				width: 30%;
+				margin-left: 20px;
+			}
+			input.ly-input {
+				
+	border-top: hidden;
+	border-bottom-color: red;
+	width: 95%;
+	margin-left: 10px;
+	border-left: hidden;
+	border-right: hidden;
+	text-indent: 15px;
+	
+}
 		</style>
 	</head>
 
@@ -67,21 +100,30 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
 		<div class="mui-content">
-			<img src="images/注册账号.png" width="30%" style="margin-left: 10px;" />
+			<img src="images/注册账号.png" id="title" />
 			<form>
 				<div class="mui-input-row">
-					<input id='account' type="tel" class="ly-input" placeholder="请输入手机号">
+					<div class="left-img">
+					<img  src="images/手机(1).png"/>
+					</div>
+					<input id='account' type="tel" class="ly-input" placeholder="请输入手机号" />
 				</div>
 				<div class="mui-input-row">
-					<input id="yanzhengma" type="tel" class="ly-input" placeholder="请输入验证码">
+					<div class="left-img">
+					<img  src="images/验证码.png" />
+					</div>
+					<input id="yanzhengma" type="tel" class="ly-input" placeholder="请输入验证码" />
 					<span id="getyanzhengma" class="yanzhengma">获取验证码</span>
 				</div>
 				<div class="mui-input-row">
-					<input id='password' type="password" class="ly-input" placeholder="请输入密码（密码不少于6位）">
+					<div class="left-img">
+					<img  src="images/密码.png"/>
+					</div>
+					<input id='password' type="password" class="ly-input" placeholder="请输入密码（密码不少于6位）" />
 				</div>
 			</form>
 			<div class="mui-content-padded">
-				<button id='reg' class="mui-btn mui-btn-block mui-btn-danger">完成并登陆</button>
+				<button id='reg' class="mui-btn mui-btn-block">完成并登陆</button>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>

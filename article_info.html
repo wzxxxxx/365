@@ -14,7 +14,7 @@
 			}
 			
 			#title {
-				margin-left: 10px;
+				margin: 10px;
 			}
 			
 			#time {
@@ -27,6 +27,14 @@
 				float: right;
 				margin-right: 10px;
 			}
+			p{
+				color: black;
+				margin: 10px;
+				font-size: large;
+			}
+			#img{
+				width: 100%;
+			}
 		</style>
 	</head>
 
@@ -36,12 +44,12 @@
 			<h1 class="mui-title">小课堂</h1>
 		</header>
 		<div class="mui-content">
-			<h1 id="title"></h1>
+			<h1 id="title" class="mui-text-center"></h1>
 			<div class="mui-row">
 				<span id="time"></span>
 				<span id="read"></span>
 			</div>
-			<h3 id="content"></h3>
+			<div id="content"></div>
 			<img id="img" />
 		</div>
 
@@ -72,7 +80,7 @@
 							console.log(JSON.stringify(data));
 							var info = data.data.info;
 							document.getElementById('title').innerHTML = info.ar_title;
-							document.getElementById('time').innerHTML = info.ar_time;
+							document.getElementById('time').innerHTML = new Date(1000 * info.ar_time).toLocaleDateString();
 							document.getElementById('read').innerHTML = info.ar_reads + ' 阅览';
 							document.getElementById('content').innerHTML = info.ar_content;
 							document.getElementById('img').src = info.ar_image;

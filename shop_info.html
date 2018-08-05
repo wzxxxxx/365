@@ -6,12 +6,187 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-tab-item {
+				width: 50px!important;
+			}
+			
+			.mui-content img {
+				width: 100%;
+			}
+			
+			.line {
+				width: 100%;
+				height: 1px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				background: gainsboro;
+			}
+			
+			.img-juxing {
+				max-width: 5px;
+				height: 15px;
+				margin-right: 10px;
+				margin-top: 5px;
+			}
+			
+			.mui-row {
+				background: white!important;
+				margin-top: 10px;
+				padding: 10px;
+			}
+			
+			#arrange {
+				width: 150px;
+				height: 40px;
+				background: url(images/bg_red_bt.png) no-repeat;
+				background-size: contain;
+				color: white;
+				border: none;
+				margin-right: 20px;
+			}
+		</style>
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">服务</h1>
+			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">
+				<img id='noticeImg' src="images/分享(2).png" />
+			</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content">
+				<img id="good_img" />
+			</div>
+			<div class="mui-row">
+				<div id="good_name">
+				</div>
+				<span id="good_intro" style="color: darkgrey;"></span>
+			</div>
+			<!--<div class="mui-row" >
+				
+			</div>
+			<div class="mui-row" id="youhuiquan"></div>-->
+			<div class="mui-row">
+				<div><img src="images/矩形20.png" class="img-juxing" />服务流程</div>
+				<div class="line"></div>
+				<div id="price"></div>
+			</div>
+			<div class="mui-row">
+				<div><img src="images/矩形20.png" class="img-juxing" />服务项目</div>
+				<div class="line"></div>
+				<!--<div id="info"></div>-->
+			</div>
+		</div>
+		</div>
+		<div class="mui-content-padded mui-hidden">
+			<nav class="mui-bar mui-bar-tab">
+				<a class="mui-tab-item">
+					<span class="iconstyle mui-icon ">
+							<img src="images/商家.png" />
+						</span>
+					<span class="mui-tab-label">商家</span>
+				</a>
+				<a class="mui-tab-item" id="collect">
+					<span class="iconstyle mui-icon ">
+							<img src="images/收藏1.png" id="collectImg"/>
+						</span>
+					<span class="mui-tab-label">收藏</span>
+				</a>
+				<span id="start_price" style="line-height: 58px; color: red;"> </span>
+				<button type="button" class="mui-btn mui-pull-right" id="arrange">立即预约</button>
+			</nav>
+		</div>
+		</div>
 		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			var isCollect = 1;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var shop_id = self.shop_id;
+				if(shop_id) {
+					setTimeout(function() {
+						getShopInfo(shop_id);
+					}, 200);
+				}
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_id = loginData.data.info.mbi_id;
+
+				var collectImg = document.getElementById('collectImg');
+				document.getElementById('collect').addEventListener('tap', function() {
+					collectGood(mbi_id, shop_id);
+					//					if(isCollect){
+					//						collectImg.src = "images/收藏1.png";
+					//					}else{
+					//						collectImg.src = "images/收藏2.png";
+					//					}
+				})
+
+//				document.getElementById('arrange').addEventListener('tap', function() {
+//					mui.openWindow({
+//						url: 'order_confirm.html',
+//						id: 'order_confirm.html',
+//						extras: {
+//							good_id: good_id
+//						}
+//					});
+//				})
+			})
+
+			function getShopInfo(shop_id) {
+				var getGoodParam = {
+					service: 'Hlbr365app.Goods.GetCompanyInfo',
+					jci_id: shop_id
+				}
+				wAjax(getGoodParam, function(result) {
+					var info = result.data.info;
+					document.getElementById('title').innerHTML = info.jci_name;
+					document.getElementById('good_img').src = info.jci_logo;
+//					document.getElementById('good_name').innerHTML = info.jci_name;
+					document.getElementById('good_intro').innerHTML = info.jci_intro;
+//					document.getElementById('price').innerHTML = info.jg_price;
+//					document.getElementById('start_price').innerHTML = info.jg_price_start;
+					isCollect = info.isCollect;
+
+					if(isCollect == 1) {
+						collectImg.src = "images/收藏2.png";
+					} else if(isCollect == 2) {
+						collectImg.src = "images/收藏1.png";
+					}
+					// 实体字符转换
+//					var ele = document.createElement('div');
+//					ele.innerHTML = info.jg_content;
+//					document.getElementById('info').innerHTML = ele.innerText;
+				})
+			}
+
+			function collectGood(mbi_id, good_id) {
+				var action = (isCollect == 1) ? 2 : 1;
+				var collectParam = {
+					service: 'Hlbr365app.Goods.SetCollect',
+					mbi_id: mbi_id,
+					jc_type: 1,
+					jc_wid: good_id,
+					action: action
+				};
+				wAjax(collectParam, function(result) {
+					if(action == 1) {
+						collectImg.src = "images/收藏2.png";
+						isCollect = 1;
+					} else if(action == 2) {
+						collectImg.src = "images/收藏1.png";
+						isCollect = 2;
+					}
+					//					isCollect = !isCollect;
+				})
+			}
 		</script>
 	</body>
 

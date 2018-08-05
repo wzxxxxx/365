@@ -7,7 +7,17 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-
+			.service-li {
+				list-style-position: inside;
+				height: 130px;
+				border-bottom: 3px solid gainsboro;
+			}
+			
+			.img_left {
+				line-height: 100px!important;
+				max-width: 100px!important;
+				height: 100px!important;
+			}
 		</style>
 	</head>
 
@@ -27,6 +37,12 @@
 								<%=item.jg_name%>
 								<p class='mui-ellipsis'>
 									<%=item.jg_intro%>
+								</p>
+								<p class="mui-ellipsis">
+									_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+								</p>
+								<p class="mui-ellipsis">
+									<%=item.jci_name%>
 								</p>
 								<!--<p class="mui-ellipsis">
 									<%=item.ar_reads%>
@@ -65,6 +81,22 @@
 					});
 					document.getElementById("mui-template").innerHTML = str;
 				})
+
+				mui("#mui-template").on('tap', 'a', function(e) {
+					var id = this.getAttribute("id");
+						mui.openWindow({
+						url: 'goods_info.html',
+						id: 'goods_info.html',
+						extras: {
+							good_id: id
+						} //自定义扩展参数
+					});
+//					type_id = id;
+//					getGoodsList();
+//					document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
+//					mui('#popover2').popover('hide');
+
+				});
 
 			})
 		</script>

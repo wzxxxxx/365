@@ -44,7 +44,7 @@
 			</ul>
 			<ul class="mui-table-view" >
 				<li class="mui-table-view-cell">
-					<a id="settings" class="mui-navigate-right">
+					<a id="changePwd" class="mui-navigate-right">
 						修改密码
 					</a>
 				</li>
@@ -84,6 +84,14 @@
 					mui.openWindow({
 						url: "my_address.html",
 						id: "my_address.html"
+					})
+				})
+				
+				var changePwd = document.getElementById('changePwd');
+				changePwd.addEventListener('tap', function(){
+					mui.openWindow({
+						url: "change_password.html",
+						id: "change_password.html"
 					})
 				})
 			})

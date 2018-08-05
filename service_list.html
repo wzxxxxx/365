@@ -67,8 +67,8 @@
 						<span class="fengeline">|</span>
 					</a>
 				</div>
-				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="shop">
-					<a class="mui-btn mui-btn-block">店铺</a>
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" >
+					<a class="mui-btn mui-btn-block" id="shopOrgood">店铺</a>
 
 				</div>
 			</div>
@@ -103,13 +103,13 @@
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
 						<li class="mui-table-view-cell mui-media service-li">
-							<% if(item.isGoods == 1){%>
-							<a href="javascript:;" id="<%=item.jg_id%>">
-								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img%>">
+							<% if(item.isGoods == 1 || !item.isGoods){%>
+							<a href="javascript:;" id="<%=item.jg_id || item.jci_id%>">
+								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img || item.jci_logo%>">
 								<div class="mui-media-body">
-									<%=item.jg_name%>
+									<%=item.jg_name || item.jci_name%>
 									<p class='mui-ellipsis'>
-										<%=item.jg_intro%>
+										<%=item.jg_intro || item.jci_intro%>
 									</p>
 									<p class="mui-ellipsis">
 									_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
@@ -155,6 +155,17 @@
 					document.getElementById('firstrow').hidden = "true";
 					getGoodsList();
 				}
+				
+				var shopOrgood = document.getElementById('shopOrgood');
+				shopOrgood.addEventListener('tap', function(){
+					if(shopOrgood.innerHTML == '店铺'){
+						getShopList();
+						shopOrgood.innerHTML ='服务';
+					} else if(shopOrgood.innerHTML == '服务'){
+						getGoodsList();
+						shopOrgood.innerHTML = '店铺';
+					}
+				})
 
 			})
 
@@ -231,17 +242,31 @@
 				}
 				wAjax(goodsParam, function(result) {
 					var goodsList = result.data.list;
-					console.log(JSON.stringify(goodsList));
-					//					for(var i = 0; i < goodsList.length; i++) {
-					//						var goodsWithInfo = getGoodsInfo(goodsList[i].jg_id) || {};
-					//						goodsListWithInfo.push(goodsWithInfo);
-					//					}
 
 					var str = template('temp', {
 						'record': goodsList
 					});
 					document.getElementById("mui-template").innerHTML = str;
 
+				})
+			}
+			
+			function getShopList(){
+				var shopListParam = {
+					service: 'Hlbr365app.Goods.GetCompanyList',
+					two_type_id: type_id,
+					city_id: country_id,
+					firstRow: 1,
+					listRows: 20
+				}
+				wAjax(shopListParam, function(result){
+					
+					var shopList = result.data.list;
+
+					var str = template('temp', {
+						'record': shopList
+					});
+					document.getElementById("mui-template").innerHTML = str;
 				})
 			}
 

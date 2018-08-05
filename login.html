@@ -47,6 +47,12 @@
 				display: block;
 				margin-top: 25px;
 				text-align: center;
+				margin-top: 100px;
+				
+			}
+			.link-area a{
+				color: red;
+				text-decoration: underline
 			}
 			
 			.spliter {
@@ -91,11 +97,25 @@
 				margin-right: 10px;
 				margin-bottom: 10px;
 			}
+			#logo{
+				width: 50%;
+			}
+			#login{
+				background-image: url(images/bg_bt1.png);
+				background-size: 100% 100%;
+				border: none;
+				color: white;
+			}
+			#login-form{
+				margin-top: 100px;
+			}
 		</style>
 
 	</head>
 
 	<body style="padding-top: 100px; background: white;">
+		<div class="mui-text-center">
+		<img src="images/365.png" id="logo"/></div>
 		<form id='login-form'>
 			<div>
 				<input class="ly-input" id='account' type="tel" placeholder="请输手机号">
@@ -116,9 +136,9 @@
 				</ul>
 			</form>-->
 		<div class="mui-content-padded">
-			<button id='login' class="mui-btn mui-btn-block mui-btn-danger">登录</button>
-			<div class="link-area" style="margin-top: 100px;">
-				<a id='reg' style="color: red;">注册新账号</a>
+			<button id='login' class="mui-btn mui-btn-block">登录</button>
+			<div class="link-area"  >
+				<a id='reg' >注册新账号</a>
 				<!--<span class="spliter">|</span>-->
 				<!--<a id='forgetPassword'>忘记密码</a>-->
 			</div>
