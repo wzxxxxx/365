@@ -9,6 +9,7 @@
 	document.write("<script language=javascript src='js/md5.js'></script>");
 
 	var serverUrl = "http://365gateway.lanyukj.cn/public/index.php";
+//	var serverUrl = 'http://365gateway.0470365.com/public/index.php';
 	var ipUrl = 'http://members.3322.org/dyndns/getip';
 
 	//url拼接(包含sign)
@@ -18,6 +19,7 @@
 //			data.Proj_ID = 2;
 //			data.Proj_Key = 'MzY15pm65oWn5a625pS/MTUzMzI2NjM0OA==';
 //			data.Proj_Secret ='NTdhZjg3YTg1ZThmYTYwMWRlOTc2YmQwNjcyNTMxNDMxNTMzMjY2MzQ4';
+//			data.g_mark = uuid;
 			if(localStorage.getItem('token')) {
 				data.g_token = JSON.parse(localStorage.getItem('token')).data.info.g_token;
 				data.g_mark = JSON.parse(localStorage.getItem('token')).data.info.g_mark;
@@ -105,7 +107,7 @@
 		if(loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
-		console.log(localStorage.getItem('token'));
+//		console.log(localStorage.getItem('token'));
 		//		var ip = getIp();
 		//		if(!ip) {
 		//			plus.nativeUI.toast('未能获取手机IP地址');
