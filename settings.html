@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-			.mui-table-view{
+			.mui-table-view {
 				width: 95%;
 				margin-left: 10px;
 				margin-top: 20px;
@@ -28,13 +28,13 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" >
+		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">设置</h1>
 		</header>
 		<div class="mui-content">
-			
-			<ul class="mui-table-view" >
+
+			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<a id="address" class="mui-navigate-right">
 						地址管理
@@ -42,7 +42,7 @@
 				</li>
 
 			</ul>
-			<ul class="mui-table-view" >
+			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<a id="changePwd" class="mui-navigate-right">
 						修改密码
@@ -50,7 +50,7 @@
 				</li>
 
 			</ul>
-			<ul class="mui-table-view" >
+			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<a id="settings" class="mui-navigate-right">
 						关于我们
@@ -58,15 +58,15 @@
 				</li>
 
 			</ul>
-			<ul class="mui-table-view" >
+			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-					<a id="settings" class="mui-navigate-right">
+					<a id="clearCache" class="mui-navigate-right">
 						清除缓存
 					</a>
 				</li>
 
 			</ul>
-			<ul class="mui-table-view" >
+			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
 					<a id="settings" class="mui-navigate-right">
 						检查新版本
@@ -76,25 +76,61 @@
 			</ul>
 		</div>
 		<script src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/xiachenshi.js" ></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script type="text/javascript">
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				var address = document.getElementById('address');
-				address.addEventListener('tap', function(){
+				address.addEventListener('tap', function() {
 					mui.openWindow({
 						url: "my_address.html",
 						id: "my_address.html"
 					})
 				})
-				
+
 				var changePwd = document.getElementById('changePwd');
-				changePwd.addEventListener('tap', function(){
+				changePwd.addEventListener('tap', function() {
 					mui.openWindow({
 						url: "change_password.html",
 						id: "change_password.html"
 					})
 				})
+
+				initCacheSize();
+				
+				var clearCache = document.getElementById('clearCache');
+				clearCache.addEventListener('tap', function(){
+					plus.cache.clear(function(){
+						plus.nativeUI.toast("缓存已清除");
+						initCacheSize();
+					})
+				})
+
 			})
+			
+			function initCacheSize(){
+				plus.cache.calculate(function(size) {
+					document.getElementById('clearCache').innerHTML = '清除缓存 (' + formatSize(size) + ')';
+				})
+			}
+
+			function formatSize(size) {
+				var fileSizeString;
+				size = parseInt(size);
+				if(size == 0) {
+					fileSizeString = "0B";
+				} else if(size < 1024) {
+					fileSizeString = size + "B";
+				} else if(size < 1048576) {
+					fileSizeString = (size / 1024).toFixed(2) + "KB";
+				} else if(size < 1073741824) {
+					console.log("Mb" + size);
+					fileSizeString = (size / 1048576).toFixed(2) + "MB";
+					console.log("/ after" + fileSizeString);
+				} else {
+					fileSizeString = (size / 1073741824).toFixed(2) + "GB";
+				}
+				return fileSizeString;
+			}
 		</script>
 	</body>
 

@@ -45,8 +45,6 @@
 				margin-top: 20px;
 			}
 			
-			
-			
 			#chooseAddress {
 				background: white;
 			}
@@ -78,11 +76,13 @@
 				bottom: 5px;
 				left: 100px;
 			}
+			
 			.firstrow span {
 				color: grey;
 				margin-left: 5px;
 			}
-			.firstrow{
+			
+			.firstrow {
 				margin-bottom: 10px;
 			}
 			
@@ -102,7 +102,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-row firstrow">
-				<img src="images/ic_order_done.png"/><span id="prompt"></span>
+				<img src="images/ic_order_done.png" /><span id="prompt"></span>
 			</div>
 			<div id="chooseAddress">
 				<img src="images/bg_address.png" class="bg-address" />
@@ -155,31 +155,31 @@
 		</div>-->
 			<button type="button" class="mui-btn mui-pull-right mui-hidden" id="bottomButton">提交修改</button>
 			<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action ">
-    <!-- 可选择菜单 -->
-    <ul class="mui-table-view">
-      <li class="mui-table-view-cell">
-        <a href="#">选错服务</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a href="#">不想购买服务了</a>
-      </li>
-       <li class="mui-table-view-cell">
-        <a href="#">商家不接单</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a href="#">重复预约</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a href="#">服务地址填写有误</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a href="#">无法支付订单</a>
-      </li>
-      <li class="mui-table-view-cell">
-        <a href="#">其他</a>
-      </li>
-    </ul>
-</div>
+				<!-- 可选择菜单 -->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#">选错服务</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">不想购买服务了</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">商家不接单</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">重复预约</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">服务地址填写有误</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">无法支付订单</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">其他</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>
@@ -219,7 +219,7 @@
 						serverPeople.setAttribute('class', 'mui-hidden');
 						bottomBtn.innerHTML = '取消订单';
 						prompt.innerHTML = '等待商家确认订单,请耐心等候.';
-						bottomBtn.addEventListener('tap', function(){
+						bottomBtn.addEventListener('tap', function() {
 							mui('#sheet1').popover('show');
 						})
 					} else if(info.ob_status == 6 || info.ob_status == 7) {
@@ -245,8 +245,8 @@
 					}
 				})
 			}
-			
-			function cancelOrder(reason){
+
+			function cancelOrder(reason) {
 				var self = plus.webview.currentWebview();
 				var ob_id = self.order_id || '';
 				var cacelParam = {
@@ -254,22 +254,21 @@
 					ob_id: ob_id,
 					remark: reason
 				}
-				wAjax(cacelParam, function(){
+				wAjax(cacelParam, function() {
 					var orderList = self.opener();
 					orderList.reload();
 					mui.back();
 				})
 			}
-			
-			function payOrder(){
-				
+
+			function payOrder() {
+
 			}
-			
+
 			mui("#sheet1").on('tap', 'a', function(e) {
 				var reason = this.innerHTML;
 				cancelOrder(reason);
 			});
-
 		</script>
 	</body>
 

@@ -36,15 +36,28 @@
 			.mui-ellipsis {
 				line-height: 100px;
 			}
-			.timeImg{
+			
+			.timeImg {
 				height: 10px!important;
 				width: 10px;
 				margin-right: 5px;
 			}
-			.readImg{
+			
+			.readImg {
 				height: 10px!important;
 				width: 15px;
 				margin-right: 5px;
+			}
+			
+			.nocontent {
+				text-align: center;
+				padding-top: 1.8rem;
+				padding-top: 150px;
+			}
+			
+			.nocontent img {
+				width: 100px;
+				height: 100px;
 			}
 		</style>
 	</head>
@@ -62,6 +75,7 @@
 					</div>
 				</script>
 			</div>
+
 			<ul class="mui-table-view" id="mui-template2">
 				<script type="text/template" id="temp2">
 					<% for(var i in record){ var item=record[i]; %>
@@ -71,8 +85,10 @@
 							<div class="mui-media-body">
 								<%=item.ar_content%>
 								<p class='mui-ellipsis'>
-									<img src="images/ic_xkk_time.png" class="timeImg"/><%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
-									<img src="images/ic_xkk_look.png" class="readImg"/><%=item.ar_reads%>
+									<img src="images/ic_xkk_time.png" class="timeImg" />
+									<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
+									<img src="images/ic_xkk_look.png" class="readImg" />
+									<%=item.ar_reads%>
 								</p>
 							</div>
 						</a>
@@ -80,6 +96,12 @@
 					<%}%>
 				</script>
 			</ul>
+			<div id="no_content" class="mui-hidden">
+				<div class="mui-content-padded nocontent">
+					<img src="images/normal_no_data.png" />
+					<p>暂无内容</p>
+				</div>
+			</div>
 		</div>
 
 		<script src="js/mui.min.js"></script>
@@ -157,6 +179,7 @@
 						if(isRequestSuccess(data)) {
 							var list = data.data.list;
 							if(list && list.length > 0) {
+								document.getElementById('no_content').setAttribute('class', 'mui-hidden');
 								for(var i = 0; i < list.length; i++) {
 									list[i].ar_time = new Date(1000 * list[i].ar_time).toLocaleDateString();
 									articles.push(list[i]);
@@ -170,7 +193,11 @@
 								var str = template('temp2', {
 									"record": articles
 								});
+
 								document.getElementById("mui-template2").innerHTML = str;
+
+							} else {
+								document.getElementById('no_content').setAttribute('class', '');
 							}
 						}
 					},

@@ -63,12 +63,19 @@
 				border: hidden;
 				background: gainsboro;
 			}
+			#firstTypeIcon{
+				max-height: 200px;
+				 width: 100%;
+			}
+			.mui-row{
+				background: white;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<div class="mui-row" style="background: white;">
+			<div class="mui-row">
 				<div class="mui-col-sm-3 mui-col-xs-3" id="mui-template">
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
@@ -80,8 +87,8 @@
 					</script>
 				</div>
 				<div class="mui-col-sm-9 mui-col-xs-9">
-					<div <div>
-						<img id="firstTypeIcon" style="max-height: 200px; width: 100%;" />
+					<div>
+						<img id="firstTypeIcon" src="images/bg_ad.png"  />
 					</div>
 					<div>
 						<span id="firstTypeName"></span>
@@ -204,7 +211,10 @@
 				};
 				wAjax(adParam, function(result) {
 					var adList = result.data.list;
-					document.getElementById('firstTypeIcon').src = adList.ar_img;
+					if(adList.ar_img){
+						document.getElementById('firstTypeIcon').src = adList.ar_img;
+					}
+					
 					//						var str = template('temp', {
 					//							"record": adList
 					//						});

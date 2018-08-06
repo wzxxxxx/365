@@ -147,7 +147,6 @@
 				font-weight: bold;
 				background-color: gainsboro;
 			}
-			
 			/*.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li.active:after {
 				position: absolute;
 				right: 16px;
@@ -159,11 +158,24 @@
 				transform: scaleY(0.5);
 				-webkit-transform: scaleY(0.5);
 			}*/
-			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li>img{
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li>img {
 				max-width: 100px;
 				height: 150px;
 				/*padding: 10px 10px;*/
 				background-size: cover;
+			}
+			
+			#adTitle {
+				background: black;
+				opacity: 0.4;
+				position: absolute;
+				bottom: 0;
+				text-indent: 10px;
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				color: white;
 			}
 		</style>
 	</head>
@@ -215,6 +227,10 @@
 					<!--<div class="mui-indicator"></div>-->
 					<!--<div class="mui-indicator"></div>
 					<div class="mui-indicator"></div>-->
+					
+				</div>
+				<div id="adTitle">
+
 				</div>
 			</div>
 			<div id="mui-template2" class="mui-row">
@@ -323,8 +339,11 @@
 							var adList = result.data.list.top;
 							var middleAd = result.data.list.middle;
 							var middleAdImg = document.getElementById('middleAd');
+							var adTitle = document.getElementById('adTitle');
+							adTitle.innerHTML = adList[0].ar_title;
 							if(middleAd) {
 								middleAdImg.src = middleAd.ar_img;
+
 								middleAdImg.addEventListener('tap', function() {
 									mui.openWindow({
 										url: 'ad_info.html',
@@ -483,7 +502,7 @@
 					mui('#popover').popover('hide');
 
 				});
-				
+
 				mui("#mui-template4").on('tap', 'li', function(e) {
 					var id = this.getAttribute("id");
 					var param = {
@@ -493,13 +512,13 @@
 					var classPage = plus.webview.getWebviewById('tab_class.html');
 					mui.fire(main, 'toClass', param);
 					mui.fire(classPage, 'toClass', param);
-//					mui.openWindow({
-//						url: 'goods_info.html',
-//						id: 'goods_info.html',
-//						extras: {
-//							good_id: id
-//						}
-//					});
+					//					mui.openWindow({
+					//						url: 'goods_info.html',
+					//						id: 'goods_info.html',
+					//						extras: {
+					//							good_id: id
+					//						}
+					//					});
 				});
 
 				mui("#mui-template5").on('tap', 'img', function(e) {
@@ -512,8 +531,6 @@
 						}
 					});
 				});
-				
-				
 
 				window.addEventListener('changeCity', function(event) {
 					if(event) {

@@ -6,6 +6,24 @@
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<style>
+			.head-img{
+				height: 80px;
+				width: 80px;
+				/*margin-right: 20px;*/
+			}
+			#head_photo{
+				line-height: 80px;
+			}
+			.mui-navigate-right{
+				margin-right: 20px;
+			}
+			#save{
+				color: red;
+				margin-top: 20px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -13,11 +31,129 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">会员信息</h1>
 		</header>
-		<div class="mui-contents"></div> 
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="zhaoxiang">
+					<a ><span id="head_photo">头像</span>
+						<span class="mui-pull-right head mui-navigate-right">
+							<img class="head-img mui-action-preview" id="head_image" src="images/头像.png" />
+						</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="geren_name">名字<span class="mui-pull-right mui-navigate-right" id="user_name"></span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#forward" id="leixing">性别<span class="mui-pull-right mui-navigate-right" id='sex'></span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="birthday">出生日期<span class="mui-pull-right mui-navigate-right" id="birth"></span></a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" id="save">
+				<li class="mui-table-view-cell">
+					<div class="mui-text-center">保存修改</div>
+				</li>
+			</ul>
+		</div>
+		<div id="forward" class="mui-popover mui-popover-bottom mui-popover-action ">
+				<!-- 可选择菜单 -->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#">男</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#">女</a>
+					</li>
+				</ul>
+			</div>
+		<!--<div id="forward" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" id="male">
+						<div style="background-position: -0px 12px; line-height: 20px;background-size: 40px;position: absolute;left: 40%;width: 100px;">男</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" id="female">
+						<div style="background-position: -0px -0.88rem;  line-height: 20px;background-size: 40px;position: absolute;left: 40%;width: 100px;">女</div>
+					</a>
+				</li>
+			</ul>
+		</div>-->
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="js/app.js" ></script>
 		<script type="text/javascript" src="js/xiachenshi.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.plusReady(function(){
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_id = loginData.data.info.mbi_id;
+				getProfile(mbi_id);
+			})
+			
+			// 姓名
+document.getElementById("geren_name").addEventListener("tap", function() {
+	var oldName = document.getElementById('user_name').innerHTML;
+	mui.prompt(' ', oldName, '请输入', ['取消', '确定'], function(event){
+		if(event.value && event.index == 1){
+			document.getElementById('user_name').innerHTML = event.value;
+		}
+	})
+//	var geren_name = localStorage.getItem('GEREN_NAME') == null ? "" : localStorage.getItem('GEREN_NAME');
+	// 设定等待动画框，新页面加载完毕后再显示
+//	var nwaiting = plus.nativeUI.showWaiting();
+//	var webviewShow = plus.webview.create('name.html', 'name');
+//	var name = plus.webview.getWebviewById('name');
+//	name.addEventListener('loaded', function() {
+//		mui.fire(name, "user_name", {
+//			GEREN_NAME: geren_name
+//		});
+//	});
+
+});
+
+function getProfile(id) {
+				var profileParam = {
+					service: 'Hlbr365app.Member.GetInfo',
+					mbi_id: id
+				}
+				wAjax(profileParam, function(result) {
+					var info = result.data.info;
+					document.getElementById('user_name').innerHTML = info.mei_real_name;
+					if(info.mei_head) {
+						document.getElementById('avatar').src = info.mei_head;
+					}
+					if(info.mei_sex == 1){
+						document.getElementById('sex').innerHTML = '男';
+					} else if(info.mei_sex == 2){
+						document.getElementById('sex').innerHTML = '女';
+					}
+					document.getElementById('birth').innerHTML = new Date(1000 * info.mei_birth).toLocaleDateString(); 
+					
+				})
+			}
+
+document.getElementById('birthday').addEventListener('tap', function(){
+	var dtPicker = new mui.DtPicker({
+		'type': 'date',
+		'beginDate': new Date(1900, 01, 01),
+	});
+//	dtPicker.setSelectedValue(new Date(1990,01,01))
+	dtPicker.show(function(selectItems) {
+							document.getElementById('birth').innerHTML = selectItems.text;
+						})
+})
+			
+			mui("#forward").on('tap', 'a', function(e) {
+				var sex = this.innerHTML;
+				document.getElementById('sex').innerHTML = sex;
+				mui('#forward').popover('hide');
+//				cancelOrder(reason);
+			});
 		</script>
 	</body>
 

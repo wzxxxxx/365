@@ -156,6 +156,9 @@
 				});
 				$.plusReady(function() {
 					plus.screen.lockOrientation("portrait-primary");
+					plus.webview.currentWebview().setStyle({
+                        'popGesture': 'none'
+                    });
 					var settings = app.getSettings();
 					var state = app.getState();
 					var mainPage = plus.webview.getWebviewById("main");

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<title>名字</title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back  mui-btn-link mui-pull-left" id="cancel">取消</a>
+			<h1 class="mui-title">名字</h1>
+			<a class="mui-btn-link mui-pull-right" id="save">保存</a>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row mui-content-padded">
+				<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入名字" maxlength="4">
+			</div>
+			<div class="mui-content-padded">
+				<p class="mui-pull-right">名字最多4个字</p>
+			</div>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			mui.plusReady(function() {
+	// 加载完毕后关闭等待框，并展示页面
+	var currentView = plus.webview.currentWebview();
+	currentView.show('slide-in-right', 200);
+	plus.nativeUI.closeWaiting();
+});
+
+// 接收geren_message页面中传递过来的姓名
+window.addEventListener('user_name', function(event) {
+	var geren_name = event.detail.GEREN_NAME;
+	document.getElementById('account').value = geren_name;
+});
+
+		</script>
+	</body>
+
+</html>

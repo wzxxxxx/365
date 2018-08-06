@@ -172,12 +172,6 @@
 			mui("#mui-template").on('tap', 'a', function(e) {
 				var id = this.getAttribute("id");
 				var name = this.getAttribute('name');
-				//				for(var i = 0; i < typeList.length; i++) {
-				//					if(typeList[i].si_id == id) {
-				//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
-				//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
-				//					}
-				//				}
 				if(name == 'isGood') {
 					mui.openWindow({
 						url: 'ad_info.html',
@@ -234,7 +228,7 @@
 					firstRow: 1,
 					listRows: 20
 				}
-				if(name != '') {
+				if(name != '') {7
 					goodsParam.name = name;
 				} else {
 					goodsParam.two_type_id = type_id;
