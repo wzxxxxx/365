@@ -11,6 +11,8 @@
 	var serverUrl = "http://365gateway.lanyukj.cn/public/index.php";
 //	var serverUrl = 'http://365gateway.0470365.com/public/index.php';
 	var ipUrl = 'http://members.3322.org/dyndns/getip';
+	
+	var imageServerUrl = 'https://365image.lanyukj.cn/index.php/Upload/jzUpload';
 
 	//url拼接(包含sign)
 	makeurl = function(data, isGetToken) {
@@ -39,6 +41,8 @@
 		str += "&sign=" + hex_md5(str2);
 		return serverUrl + str.replace(/&/, "?");
 	}
+	
+	
 
 	//判断是否请求成功
 	isRequestSuccess = function(data) {
@@ -55,7 +59,7 @@
 
 	wAjax = function(data, success) {
 		mui.ajax(makeurl(data), {
-			type: 'get', //HTTP请求类型
+			type: 'post', //HTTP请求类型
 			timeout: 10000, //超时时间设置为10秒；
 			success: function(data) {
 				if(isRequestSuccess(data)) {

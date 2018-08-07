@@ -45,6 +45,12 @@
 				border: none;
 				margin-right: 20px;
 			}
+			.mui-card {
+				margin: 10px 10px;
+			}
+			.mui-content{
+				padding-bottom: 50px;
+			}
 		</style>
 	</head>
 
@@ -57,7 +63,7 @@
 			</button>
 		</header>
 		<div class="mui-content">
-			<div class="mui-content">
+			<div>
 				<img id="good_img" />
 			</div>
 			<div class="mui-row">
@@ -85,6 +91,35 @@
 				<div class="line"></div>
 				<div id="comment"></div>
 			</div>
+			<div class="mui-row">
+				<div><img src="images/矩形20.png" class="img-juxing" />推荐</div>
+				<div class="line"></div>
+				<div class="mui-row" id="mui-template">
+						<script type="text/template" id="temp">
+							<% for(var i in record){ var item=record[i]; %>
+							<div class="mui-col-sm-6 mui-col-xs-6">
+								<div class="mui-card">
+									<div class="mui-card-content">
+										<img id="<%=item.jg_id%>" src="<%=item.jg_img%>" style="max-height: 100px;" />
+									</div>
+									<div class="mui-card-footer">
+										<%=item.jg_name%>
+									</div>
+									<div class="mui-card-footer">
+										<h5><%=item.jg_intro%></h5>
+									</div>
+								</div>
+							</div>
+							<%}%>
+						</script>
+						<!--<div class="mui-col-sm-6">
+						<div class="mui-card">
+							<div class="mui-card-content"><img src="images/矩形30拷贝2.png" /></div>
+							<div class="mui-card-footer">专业家电维修，各种热水器维修</div>
+						</div>
+					</div>-->
+					</div>
+				</div>
 
 		</div>
 		</div>
@@ -110,30 +145,65 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js" ></script>
 		<script type="text/javascript">
 			var isCollect = 1;
 			mui.plusReady(function() {
-				var self = plus.webview.currentWebview();
-				var good_id = self.good_id;
-				if(good_id) {
-					setTimeout(function() {
-						getGoodInfo(good_id);
-					}, 200);
-				}
 				var loginData = JSON.parse(localStorage.getItem('login'));
 				if(!loginData) {
 					return;
 				}
 				var mbi_id = loginData.data.info.mbi_id;
+				var self = plus.webview.currentWebview();
+				var good_id = self.good_id;
+				if(good_id) {
+					setTimeout(function() {
+						getGoodInfo(good_id, mbi_id);
+						getCommentList(good_id);
+					}, 200);
+				}
+				
 
+				
+				
+				
+			})
+			
+			function getCommentList(good_id){
+				var commentParam = {
+					service: 'Hlbr365app.Goods.GetCommentList',
+					jg_id: good_id,
+					firstRow: 1,
+					listRows: 20
+				}
+				wAjax(commentParam, function(result){
+					
+				})
+			}
+			
+			function getSameGoods(good_id, type_id){
+				var sameGoodsParam = {
+					service: 'Hlbr365app.Goods.GetSameServiceList',
+					jg_id: good_id,
+					two_type_id: type_id,
+					city_id: 150702,
+					firstRow: 1,
+					listRows: 20
+				}
+				wAjax(sameGoodsParam, function(result){
+					var goodsList =  result.data.list;
+					var str = template('temp', {
+							'record': goodsList
+						});
+					document.getElementById('mui-template').innerHTML = str;
+				})
+			}
+
+			function getGoodInfo(good_id, mbi_id) {
+				
 				var collectImg = document.getElementById('collectImg');
 				document.getElementById('collect').addEventListener('tap', function() {
 					collectGood(mbi_id, good_id);
-					//					if(isCollect){
-					//						collectImg.src = "images/收藏1.png";
-					//					}else{
-					//						collectImg.src = "images/收藏2.png";
-					//					}
 				})
 
 				document.getElementById('arrange').addEventListener('tap', function() {
@@ -146,10 +216,6 @@
 					});
 				})
 				
-				
-			})
-
-			function getGoodInfo(good_id) {
 				var getGoodParam = {
 					service: 'Hlbr365app.Goods.GetGoodsInfo',
 					jg_id: good_id
@@ -162,6 +228,8 @@
 					document.getElementById('price').innerHTML = info.jg_price;
 					document.getElementById('start_price').innerHTML = info.jg_price_start;
 					isCollect = info.isCollect;
+					var type_id = info.two_type_id;
+					getSameGoods(good_id, type_id);
 					
 					document.getElementById('shopInfo').addEventListener('tap', function(){
 					mui.openWindow({
@@ -205,6 +273,21 @@
 					//					isCollect = !isCollect;
 				})
 			}
+			
+			mui("#mui-template").on('tap', 'img', function(e) {
+					var id = this.getAttribute("id");
+					getGoodInfo(id);
+//					mui.refresh();
+//					plus.webview.currentWebview().reload();
+					
+//					mui.openWindow({
+//						url: 'goods_info.html',
+//						id: 'goods_info.html',
+//						extras: {
+//							good_id: id
+//						}
+//					});
+				});
 		</script>
 	</body>
 

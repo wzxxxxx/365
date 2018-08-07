@@ -8,18 +8,21 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
 		<style>
-			.head-img{
+			.head-img {
 				height: 80px;
 				width: 80px;
 				/*margin-right: 20px;*/
 			}
-			#head_photo{
+			
+			#head_photo {
 				line-height: 80px;
 			}
-			.mui-navigate-right{
+			
+			.mui-navigate-right {
 				margin-right: 20px;
 			}
-			#save{
+			
+			#save {
 				color: red;
 				margin-top: 20px;
 			}
@@ -34,7 +37,7 @@
 		<div class="mui-content">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" id="zhaoxiang">
-					<a ><span id="head_photo">头像</span>
+					<a><span id="head_photo">头像</span>
 						<span class="mui-pull-right head mui-navigate-right">
 							<img class="head-img mui-action-preview" id="head_image" src="images/头像.png" />
 						</span>
@@ -57,16 +60,16 @@
 			</ul>
 		</div>
 		<div id="forward" class="mui-popover mui-popover-bottom mui-popover-action ">
-				<!-- 可选择菜单 -->
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-						<a href="#">男</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a href="#">女</a>
-					</li>
-				</ul>
-			</div>
+			<!-- 可选择菜单 -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#">男</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">女</a>
+				</li>
+			</ul>
+		</div>
 		<!--<div id="forward" class="mui-popover mui-popover-action mui-popover-bottom">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
@@ -81,42 +84,97 @@
 				</li>
 			</ul>
 		</div>-->
+		<!--<div id="showEdit">
+        <header class="mui-bar mui-bar-nav mui-nav-bg" style="background:none; position:absolute; top:0;">
+            <a class="mui-icon iconfont icon-roundclosefill mui-pull-left" style="color:#ffffff; font-size:36px;" onclick="closeEdit();"></a>
+            <a class="mui-icon iconfont icon-roundcheckfill mui-pull-right" style="color:#ffffff; font-size:36px;" onclick="confirm();"></a>
+        </header>
+        <div id="report"></div>
+    </div>-->
+		
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/mui.picker.min.js"></script>
-		<script type="text/javascript" src="js/app.js" ></script>
-		<script type="text/javascript" src="js/xiachenshi.js" ></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/exif.js" ></script>
+		<script type="text/javascript" src="js/mobileBUGFix.mini.js" ></script>
+		<!--<script type="text/javascript" src="js/cropper.js" ></script>-->
 		<script type="text/javascript">
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				var loginData = JSON.parse(localStorage.getItem('login'));
 				if(!loginData) {
 					return;
 				}
 				var mbi_id = loginData.data.info.mbi_id;
 				getProfile(mbi_id);
+				
+				var avatarData = localStorage.getItem('HEAD_PHOTO'); 
+				
+				//保存修改
+			document.getElementById('save').addEventListener('tap', function(){
+				
+				uploadImg(avatarData);
+				
+//				var profileParam = {
+//					service: 'Hlbr365app.Member.Edit',
+//					mbi_id: mbi_id,
+//					mei_real_name: document.getElementById('user_name').innerHTML,
+//					mei_head: avatarData,
+//					mei_sex: document.getElementById('sex').innerHTML == '男' ? 1 : 2,
+//					mei_birth: Date.parse(new Date(document.getElementById('birth').innerHTML)) / 1000
+//				}
+//				wAjax(profileParam, function(){
+//					mui.back()
+//				})
 			})
+			})
+			function uploadImg(img64){
+//		wAjax(img64, )
+		mui.ajax('https://365image.lanyukj.cn/index.php/Upload/jzUpload', {
+//			dataType: 'json',
+			type: 'post', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+			data: img64,
+//			headers: {
+//				'Content-Type': 'application/json'
+//			},
+			success: function(data) {
+				if(data) {
+					return data;
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+				//异常处理；
+				console.log(type);
+				return;
+			}
+		});
+	}
 			
+			
+
 			// 姓名
-document.getElementById("geren_name").addEventListener("tap", function() {
-	var oldName = document.getElementById('user_name').innerHTML;
-	mui.prompt(' ', oldName, '请输入', ['取消', '确定'], function(event){
-		if(event.value && event.index == 1){
-			document.getElementById('user_name').innerHTML = event.value;
-		}
-	})
-//	var geren_name = localStorage.getItem('GEREN_NAME') == null ? "" : localStorage.getItem('GEREN_NAME');
-	// 设定等待动画框，新页面加载完毕后再显示
-//	var nwaiting = plus.nativeUI.showWaiting();
-//	var webviewShow = plus.webview.create('name.html', 'name');
-//	var name = plus.webview.getWebviewById('name');
-//	name.addEventListener('loaded', function() {
-//		mui.fire(name, "user_name", {
-//			GEREN_NAME: geren_name
-//		});
-//	});
+			document.getElementById("geren_name").addEventListener("tap", function() {
+				var oldName = document.getElementById('user_name').innerHTML;
+				mui.prompt(' ', oldName, '请输入', ['取消', '确定'], function(event) {
+					if(event.value && event.index == 1) {
+						document.getElementById('user_name').innerHTML = event.value;
+					}
+				})
+				//	var geren_name = localStorage.getItem('GEREN_NAME') == null ? "" : localStorage.getItem('GEREN_NAME');
+				// 设定等待动画框，新页面加载完毕后再显示
+				//	var nwaiting = plus.nativeUI.showWaiting();
+				//	var webviewShow = plus.webview.create('name.html', 'name');
+				//	var name = plus.webview.getWebviewById('name');
+				//	name.addEventListener('loaded', function() {
+				//		mui.fire(name, "user_name", {
+				//			GEREN_NAME: geren_name
+				//		});
+				//	});
 
-});
+			});
 
-function getProfile(id) {
+			function getProfile(id) {
 				var profileParam = {
 					service: 'Hlbr365app.Member.GetInfo',
 					mbi_id: id
@@ -125,35 +183,259 @@ function getProfile(id) {
 					var info = result.data.info;
 					document.getElementById('user_name').innerHTML = info.mei_real_name;
 					if(info.mei_head) {
-						document.getElementById('avatar').src = info.mei_head;
+						document.getElementById('head_image').src = info.mei_head;
 					}
-					if(info.mei_sex == 1){
+					if(info.mei_sex == 1) {
 						document.getElementById('sex').innerHTML = '男';
-					} else if(info.mei_sex == 2){
+					} else if(info.mei_sex == 2) {
 						document.getElementById('sex').innerHTML = '女';
 					}
-					document.getElementById('birth').innerHTML = new Date(1000 * info.mei_birth).toLocaleDateString(); 
-					
+					document.getElementById('birth').innerHTML = new Date(1000 * info.mei_birth).toLocaleDateString();
+
 				})
 			}
 
-document.getElementById('birthday').addEventListener('tap', function(){
-	var dtPicker = new mui.DtPicker({
-		'type': 'date',
-		'beginDate': new Date(1900, 01, 01),
-	});
-//	dtPicker.setSelectedValue(new Date(1990,01,01))
-	dtPicker.show(function(selectItems) {
-							document.getElementById('birth').innerHTML = selectItems.text;
-						})
-})
-			
+			document.getElementById('birthday').addEventListener('tap', function() {
+				var dtPicker = new mui.DtPicker({
+					'type': 'date',
+					'beginDate': new Date(1900, 01, 01),
+				});
+				//	dtPicker.setSelectedValue(new Date(1990,01,01))
+				dtPicker.show(function(selectItems) {
+					document.getElementById('birth').innerHTML = selectItems.text;
+				})
+			})
+
 			mui("#forward").on('tap', 'a', function(e) {
 				var sex = this.innerHTML;
 				document.getElementById('sex').innerHTML = sex;
 				mui('#forward').popover('hide');
-//				cancelOrder(reason);
+				//				cancelOrder(reason);
 			});
+
+			//头像
+			document.getElementById('zhaoxiang').addEventListener('tap', function() {
+				if(mui.os.plus) {
+					var a = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+					plus.nativeUI.actionSheet({
+						/*title: "修改用户头像",*/
+						cancel: "取消",
+						buttons: a
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(); /*拍照*/
+								break;
+							case 2:
+								galleryImg(); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}, false);
+
+
+
+			// 上传文件
+			function upload(path) {
+//				if(files.length <= 0) {
+//					plus.nativeUI.alert("没有添加上传文件！");
+//					return;
+//				}
+//				outSet("开始上传：")
+				var wt = plus.nativeUI.showWaiting();
+				var task = plus.uploader.createUpload('https://365image.lanyukj.cn/index.php/Upload/jzUpload', {
+						method: "POST"
+					},
+					function(t, status) { //上传完成
+						if(status == 200) {
+//							outLine("上传成功：" + t.responseText);
+//							plus.storage.setItem("uploader", t.responseText);
+//							var w = plus.webview.create("uploader_ret.html", "uploader_ret.html", {
+//								scrollIndicator: 'none',
+//								scalable: false
+//							});
+//							w.addEventListener("loaded", function() {
+								wt.close();
+//								w.show("slide-in-right", 300);
+//							}, false);
+						} else {
+							outLine("上传失败：" + status);
+							wt.close();
+						}
+					}
+				);
+//				task.addData("client", "HelloH5+");
+//				task.addData("uid", getUid());
+//				for(var i = 0; i < files.length; i++) {
+//					var f = files[i];
+				task.addFile(path, null);
+//						key: f.name
+//					});
+//				}
+				task.start();
+			}
+//function cutImg(){  
+//   document.getElementById("showEdit").fadeIn();
+//  var $image = $('#report > img');
+//  $image.cropper({
+//    aspectRatio: 1 / 1,
+//    autoCropArea: 0.8
+//  });
+//}
+
+			// 选择拍照
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+//						 document.getElementById("report").innerHTML = '<img src="'+entry.toLocalURL()+'">';
+//      cutImg();
+//      mui('#picture').popover('toggle');
+						
+						var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+						uploadHead(s); /*上传图片*/
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/head.png"
+				})
+			}
+
+			// 本地相册选择 
+			function galleryImg() {
+				plus.gallery.pick(function(a) {
+					plus.io.resolveLocalFileSystemURL(a, function(entry) {
+						plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+							
+//							 var localurl = entry.toLocalURL();//
+//          $("#report").html('<img src="'+localurl+'">');
+//          cutImg();
+//          mui('#picture').popover('toggle');
+							
+							root.getFile("head.png", {}, function(file) {
+								//文件已存在 
+								file.remove(function() {
+									entry.copyTo(root, 'head.png', function(e) {
+											var e = e.fullPath + "?version=" + new Date().getTime();
+											uploadHead(e); /*上传图片*/
+											//变更大图预览的src 
+											//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
+										},
+										function(e) {
+											console.log('copy image fail:' + e.message);
+										});
+								}, function() {
+									console.log("delete image fail:" + e.message);
+								});
+							}, function() {
+								//文件不存在 
+								entry.copyTo(root, 'head.png', function(e) {
+										var path = e.fullPath + "?version=" + new Date().getTime();
+										uploadHead(path); /*上传图片*/
+									},
+									function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+							});
+						}, function(e) {
+							console.log("get _www folder fail");
+						})
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(a) {}, {
+					filter: "image"
+				})
+			};
+			//上传图片 
+function uploadHead(imgPath) {
+	head_image.src = imgPath;
+	head_image.style.width = 80;
+	head_image.style.height = 80;
+	
+	plus.zip.compressImage({
+			src: "_doc/head.png" ,
+			dst: "_doc/head2.png",
+			quality:20
+		},
+		function() {
+			upload("_doc/head2.png");
+		},function(error) {
+			alert("Compress error!");
+	});
+	
+
+//	var image = new Image();
+//	image.src = imgPath;
+//	image.onload = function() {
+//		
+////		upload(imgPath);
+//		getBase64Image(image);
+//	};
+}
+
+//将图片压缩转成base64 
+function getBase64Image(img) {
+
+	var expectWidth = 80;
+	var expectHeight = 80;
+	// 设定等待动画框，新页面加载完毕后再显示
+	var nwaiting = plus.nativeUI.showWaiting();
+
+	var canvas = document.createElement("canvas");
+	setTimeout(function() {
+		var ctx = canvas.getContext("2d");
+		canvas.width = expectWidth;
+		canvas.height = expectHeight;
+		ctx.drawImage(img, 0, 0, expectWidth, expectHeight);
+
+		var mpImg = new MegaPixImage(img);
+		EXIF.getData(img, function() {
+			EXIF.getAllTags(this);
+			/**
+			 * 图片的旋转方向信息
+			 * 1、图片没有发生旋转
+			 * 6、顺时针90°
+			 * 8、逆时针90°
+			 * 3、180° 旋转
+			 */
+			var Orientation = EXIF.getTag(this, 'Orientation');
+			if(Orientation != "" && Orientation != null) {
+				// 方向信息，canvas 显示形式，canvas 对象，that,宽度，高度
+				mpImg.render(canvas, {
+					maxWidth: 80,
+					maxHeight: 80,
+					quality: 1,
+					orientation: Orientation
+				});
+			}
+			var dataURL = canvas.toDataURL("image/png", 1);
+//			imgData_new = dataURL.replace("data:image/png;base64,", "");
+			localStorage.setItem('HEAD_PHOTO', dataURL);
+//			var list = plus.webview.currentWebview().opener();
+//			mui.fire(list, "refresh", {
+//				HEAD_PHOTO: imgData_new
+//			});
+			setTimeout(function() {
+				// 加载完毕后关闭等待框，并展示页面
+				plus.nativeUI.closeWaiting();
+			}, 2000);
+		});
+	}, 1000);
+
+}
 		</script>
 	</body>
 
