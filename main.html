@@ -229,6 +229,7 @@
 
 				window.addEventListener('changeCity', function(event) {
 					if(event) {
+						var cityName = event.detail.cityName; //市名称
 						document.getElementById('openPopover').innerHTML = cityName;
 					}
 				});

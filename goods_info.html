@@ -23,6 +23,12 @@
 				background: gainsboro;
 			}
 			
+			.line2{
+				width: 100%;
+				height: 1px;
+				background: gainsboro;
+			}
+			
 			.img-juxing {
 				max-width: 5px;
 				height: 15px;
@@ -89,16 +95,20 @@
 			<div class="mui-row">
 				<div><img src="images/矩形20.png" class="img-juxing" />用户评论</div>
 				<div class="line"></div>
-				<div id="comment" id="mui-template2">
+				<div id="mui-template2">
 					<script type="text/template" id="temp2">
 					<% for(var i in record){ var item=record[i]; %>
+						
+						<div class="mui-row">
 					<div class="mui-pull-left">
-						<img  src="<%=item.mbi_photo_thum%>"/>
+						<img src="<%=item.mbi_photo_thum%>"/>
 					</div>
-					<div class="mui-pull-right">
+					<!--<div class="mui-pull-right">-->
 						<div></div>
 						<div><%=item.jzc_content%></div>
+					<!--</div>-->
 					</div>
+					<div class="line2"></div>
 					<%}%>
 					</script>
 				</div>
@@ -174,11 +184,6 @@
 						getCommentList(good_id);
 					}, 200);
 				}
-				
-
-				
-				
-				
 			})
 			
 			function getCommentList(good_id){

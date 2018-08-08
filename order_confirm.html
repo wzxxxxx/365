@@ -254,6 +254,7 @@
 						submitParam.ob_remark = remark;
 					}
 					wAjax(submitParam, function(result){
+						plus.webview.getWebviewById('tab_order.html').reload();
 						mui.back();
 					})
 				}

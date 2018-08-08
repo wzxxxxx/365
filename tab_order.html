@@ -73,12 +73,14 @@
 			.mui-btn {
 				border: none;
 			}
-			.nocontent{
-				text-align:center;
-				padding-top:1.8rem;
+			
+			.nocontent {
+				text-align: center;
+				padding-top: 1.8rem;
 				padding-top: 150px;
 			}
-			.nocontent img{
+			
+			.nocontent img {
 				width: 100px;
 				height: 100px;
 			}
@@ -95,7 +97,7 @@
 					<a class="mui-control-item" href="#item4">待评价</a>
 				</div>
 			</div>
-			<div class="mui-slider-group">
+			<div class="mui-slider-group" id="pullrefresh">
 				<div id="item1" class="mui-slider-item mui-control-content mui-active">
 					<div id="scroll" class="mui-scroll-wrapper">
 						<div class="mui-scroll" id="mui-template">
@@ -157,15 +159,13 @@
 
 							</script>
 
-							
-
 						</div>
-<div id="item1_1_null" class="display-none">
-								<div class="mui-content-padded " id="nocontent">
-									<img src="images/normal_no_data.png" />
-									<p>暂无内容</p>
-								</div>
+						<div id="item1_1_null" class="display-none">
+							<div class="mui-content-padded " id="nocontent">
+								<img src="images/normal_no_data.png" />
+								<p>暂无内容</p>
 							</div>
+						</div>
 					</div>
 				</div>
 
@@ -231,15 +231,13 @@
 								<%}%>
 							</script>
 
-							
-
 						</div>
-<div id="item1_2_null" class="display-none">
-								<div class="mui-content-padded " style="text-align:center;padding-top:1.8rem;">
-									<div><img src="images/normal_no_data.png" /></div>
-									<p>暂无内容</p>
-								</div>
+						<div id="item1_2_null" class="display-none">
+							<div class="mui-content-padded " style="text-align:center;padding-top:1.8rem;">
+								<div><img src="images/normal_no_data.png" /></div>
+								<p>暂无内容</p>
 							</div>
+						</div>
 					</div>
 				</div>
 
@@ -305,15 +303,14 @@
 								<%}%>
 							</script>
 
-							
 						</div>
-					
-					<div id="item1_3_null" class="display-none">
-								<div class="mui-content-padded nocontent">
-									<img src="images/normal_no_data.png" />
-									<p>暂无内容</p>
-								</div>
+
+						<div id="item1_3_null" class="display-none">
+							<div class="mui-content-padded nocontent">
+								<img src="images/normal_no_data.png" />
+								<p>暂无内容</p>
 							</div>
+						</div>
 					</div>
 				</div>
 
@@ -379,18 +376,16 @@
 								<%}%>
 							</script>
 
-							
-
 						</div>
 
-<div id="item1_4_null" class="display-none">
-								<div class="mui-content-padded nocontent">
-									<img src="images/normal_no_data.png" />
-									<p>暂无内容</p>
-								</div>
+						<div id="item1_4_null" class="display-none">
+							<div class="mui-content-padded nocontent">
+								<img src="images/normal_no_data.png" />
+								<p>暂无内容</p>
 							</div>
+						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -400,14 +395,33 @@
 		<script type="text/javascript" src="js/mui.pullToRefresh.js"></script>
 		<script type="text/javascript" src="js/mui.pullToRefresh.material.js"></script>
 		<script type="text/javascript">
+			
+			
+			mui.init({
+				pullRefresh: {
+					container: "#pullrefresh", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+					down: {
+						style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+						auto: false, //可选,默认false.首次加载自动上拉刷新一次
+						callback: getOrder//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					}
+				}
+			});
+			
+			var mbi_number;
 			mui.plusReady(function() {
 				var loginData = JSON.parse(localStorage.getItem('login'));
 				if(!loginData) {
 					return;
 				}
-				var mbi_number = loginData.data.info.mbi_id;
+			 mbi_number = loginData.data.info.mbi_id;
 
 				var orders = [];
+				getOrder();
+
+			});
+
+			function getOrder() {
 				var data = {
 					service: 'Hlbr365app.Member.GetMyOrderList',
 					mbi_number: mbi_number,
@@ -420,6 +434,8 @@
 					success: function(data) {
 						console.log(JSON.stringify(data));
 						if(isRequestSuccess(data)) {
+							
+//							 mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 							var list = data.data.list;
 							if(list && list.length > 0) {
 								for(var i = 0; i < list.length; i++) {
@@ -454,6 +470,7 @@
 									document.getElementById('item1_4_null').setAttribute('class', '');
 								}
 								document.getElementById("mui-template4").innerHTML = str4;
+								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 							}
 						}
 					},
@@ -464,7 +481,7 @@
 						//							return callback('网络连接错误');
 					}
 				});
-			});
+			}
 
 			mui("#mui-template").on('tap', '.mui-content', function(e) {
 				var order_id = this.getAttribute("id");
