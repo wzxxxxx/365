@@ -18,6 +18,16 @@
 				max-width: 100px!important;
 				height: 100px!important;
 			}
+			.nocontent {
+				text-align: center;
+				padding-top: 1.8rem;
+				padding-top: 150px;
+			}
+			
+			.nocontent img {
+				width: 100px;
+				height: 100px;
+			}
 		</style>
 	</head>
 
@@ -53,6 +63,12 @@
 					<%}%>
 				</script>
 			</ul>
+			<div id="no_content" class="mui-hidden">
+				<div class="mui-content-padded nocontent">
+					<img src="images/normal_no_data.png" />
+					<p>暂无内容</p>
+				</div>
+			</div>
 		</div>
 		</div>
 		<script src="js/mui.min.js"></script>
@@ -76,10 +92,17 @@
 				}
 				wAjax(collectionParam, function(result) {
 					var collectionList = result.data.list;
-					var str = template('temp', {
+					if(collectionList.length < 1){
+						document.getElementById('mui-template').setAttribute('class', 'mui-hidden');
+						document.getElementById('no_content').setAttribute('class', '');
+					} else {
+						var str = template('temp', {
 						'record': collectionList
 					});
+					
 					document.getElementById("mui-template").innerHTML = str;
+					}
+					
 				})
 
 				mui("#mui-template").on('tap', 'a', function(e) {

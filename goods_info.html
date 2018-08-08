@@ -64,7 +64,7 @@
 		</header>
 		<div class="mui-content">
 			<div>
-				<img id="good_img" />
+				<img id="good_img"/>
 			</div>
 			<div class="mui-row">
 				<div id="good_name">
@@ -222,7 +222,7 @@
 				}
 				wAjax(getGoodParam, function(result) {
 					var info = result.data.info;
-					document.getElementById('good_img').src = info.jg_img;
+					document.getElementById('good_img').src = info.jg_img || 'images/ic_bg_normal.png';
 					document.getElementById('good_name').innerHTML = info.jg_name;
 					document.getElementById('good_intro').innerHTML = info.jg_intro;
 					document.getElementById('price').innerHTML = info.jg_price;

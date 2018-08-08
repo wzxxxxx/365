@@ -17,7 +17,8 @@
 			
 			.mui-active {
 				color: #FF6C00!important;
-				border-bottom-color: #FF6C00!important;
+				border-bottom: solid #FF6C00;
+				/*border-bottom-color: #FF6C00!important;*/
 			}
 			
 			.mui-slider-indicator {
@@ -29,7 +30,7 @@
 				height: 100px!important;
 			}
 			
-			li {
+			.mui-media {
 				height: 120px;
 			}
 			
@@ -59,43 +60,101 @@
 				width: 100px;
 				height: 100px;
 			}
+			
+			.inc-scroll-landscape-container {
+				position: fixed;	
+				top: 0px;
+				/*z-index: 999;*/
+				width: 100%;
+				height: 40px;
+				overflow: hidden;
+				background-color: #FFF;
+				/*margin-bottom: 10px;*/
+			}
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content {
+				padding-bottom: 60px;
+				/* 当内容宽度小于容器宽度时，会出现横向滚动条。将横向滚动条溢出至容器外，保证横向滚动条不可见 */
+				white-space: nowrap;
+				overflow: hidden;
+				overflow-x: scroll;
+				/* 1 */
+				-webkit-backface-visibility: hidden;
+				-webkit-perspective: 1000;
+				-webkit-overflow-scrolling: touch;
+				/* 2 */
+				text-align: justify;
+				/* 3 */
+				&::-webkit-scrollbar {
+					display: none;
+				}
+			}
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul {
+				padding-left: 10px;
+				margin: 0px;
+				height: 40px!important;
+			}
+			
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li {
+				width: 100px;
+				height: 40px!important;
+				line-height: 40px;
+				position: relative;
+				display: inline-block;
+				text-align: center;
+				font-size: 13px;
+				/*color: #666;*/
+				/*font-weight: bold;*/
+				/*background-color: gainsboro;*/
+			}
+			.mui-row{
+				margin-bottom: 40px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<div id="mui-template">
+			<div id="mui-template" class="mui-row">
 				<script type="text/template" id="temp">
-					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-positive">
-						<% for(var i in record){ var item=record[i]; %>
-						<a class="mui-control-item" name="<%=item.at_id%>">
-							<%=item.at_name%>
-						</a>
-						<%}%>
+					<div class="mui-slider-indicator  inc-scroll-landscape-container">
+						<!--<div class="inc-scroll-landscape-container">-->
+							<div class="inc-scroll-landscape-content">
+								<ul>
+									<% for(var i in record){ var item=record[i]; %>
+									<li class="fuck" name="<%=item.at_id%>">
+										<%=item.at_name%>
+									</li>
+									<%}%>
+								</ul>
+							<!--</div>-->
+						</div>
 					</div>
 				</script>
 			</div>
-
-			<ul class="mui-table-view" id="mui-template2">
-				<script type="text/template" id="temp2">
-					<% for(var i in record){ var item=record[i]; %>
-					<li class="mui-table-view-cell mui-media" name="<%=item.ar_id%>">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-left" src="<%=item.ar_image_thum%>">
-							<div class="mui-media-body">
-								<%=item.ar_content%>
-								<p class='mui-ellipsis'>
-									<img src="images/ic_xkk_time.png" class="timeImg" />
-									<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
-									<img src="images/ic_xkk_look.png" class="readImg" />
-									<%=item.ar_reads%>
-								</p>
-							</div>
-						</a>
-					</li>
-					<%}%>
-				</script>
-			</ul>
+			<div class="mui-row">
+				<ul class="mui-table-view" id="mui-template2">
+					<script type="text/template" id="temp2">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell mui-media" name="<%=item.ar_id%>">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="<%=item.ar_image_thum%>">
+								<div class="mui-media-body">
+									<%=item.ar_content%>
+									<p class='mui-ellipsis'>
+										<img src="images/ic_xkk_time.png" class="timeImg" />
+										<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
+										<img src="images/ic_xkk_look.png" class="readImg" />
+										<%=item.ar_reads%>
+									</p>
+								</div>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
 			<div id="no_content" class="mui-hidden">
 				<div class="mui-content-padded nocontent">
 					<img src="images/normal_no_data.png" />
@@ -116,12 +175,12 @@
 				if(event) {
 					for(var i = 0; i < types.length; i++) {
 						if(types[i].at_id == event.detail.typeId) {
-							var eleArr = document.querySelectorAll(".mui-control-item");
+							var eleArr = document.querySelectorAll(".fuck");
 							for(var i = 0; i < eleArr.length; i++) {
-								eleArr[i].setAttribute('class', 'mui-control-item');
+								eleArr[i].setAttribute('class', 'fuck');
 							}
 							var ele = document.getElementsByName(event.detail.typeId)[0];
-							ele.setAttribute('class', 'mui-control-item mui-active');
+							ele.setAttribute('class', 'fuck mui-active');
 							mui.trigger(ele, 'tap');
 						}
 					}
@@ -149,7 +208,7 @@
 									"record": types
 								});
 								document.getElementById("mui-template").innerHTML = str;
-								document.querySelector('.mui-control-item').setAttribute('class', 'mui-control-item mui-active');
+								document.querySelector('.fuck').setAttribute('class', 'fuck mui-active');
 								getArticleList(types[0].at_id);
 							}
 						}
@@ -209,7 +268,7 @@
 
 			}
 
-			mui(".mui-content").on('tap', 'li', function(e) {
+			mui("#mui-template2").on('tap', 'li', function(e) {
 				var id = this.getAttribute("name");
 				mui.openWindow({
 					url: 'article_info.html',
@@ -227,7 +286,14 @@
 				});
 			});
 
-			mui(".mui-content").on('tap', '.mui-control-item', function(e) {
+			mui(".mui-content").on('tap', '.fuck', function(e) {
+				var eleArr = document.querySelectorAll(".fuck");
+							for(var i = 0; i < eleArr.length; i++) {
+								eleArr[i].setAttribute('class', 'fuck');
+							}
+//							var ele = document.getElementsByName(event.detail.typeId)[0];
+							this.setAttribute('class', 'fuck mui-active');
+//							mui.trigger(ele, 'tap');
 				document.getElementById("mui-template2").innerHTML = '';
 				var id = this.getAttribute("name");
 				getArticleList(id);

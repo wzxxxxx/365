@@ -220,24 +220,26 @@
 				window.addEventListener('toSerive', function(event) {
 					if(event) {
 						mui.trigger(document.getElementById('service'), 'tap');
+						document.getElementById('shouye').setAttribute('class', 'mui-tab-item');
+						document.getElementById('service').setAttribute('class', 'mui-tab-item mui-active');
+						
 					}
 
 				});
 
 				window.addEventListener('changeCity', function(event) {
 					if(event) {
-						var cityName = event.detail.cityName; //市id
 						document.getElementById('openPopover').innerHTML = cityName;
 					}
 				});
 
 				window.addEventListener('toClass', function(event) {
 					if(event){
-						mui.trigger(document.getElementById('class'), 'tap');
-					}
-					//					document.getElementById('class').setAttribute('');
+							mui.trigger(document.getElementById('class'), 'tap');
+							document.getElementById('shouye').setAttribute('class', 'mui-tab-item');
+						document.getElementById('class').setAttribute('class', 'mui-tab-item mui-active');
 					
-
+					}
 				});
 
 				function preloadMainPage() {

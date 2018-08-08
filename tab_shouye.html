@@ -64,8 +64,9 @@
 			}
 			
 			.ad {
-				margin-top: 20px;
-				height: 100px;
+				/*margin-top: 20px;*/
+				width: 100%;
+				height: 120px;
 			}
 			
 			.mui-navigate-right {
@@ -208,7 +209,7 @@
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-slider-item">
 							<a href="#" id="<%=item.ar_id%>">
-								<img src="<%=item.ar_img%>" style="width: 100%;max-height: 200px;">
+								<img src="<%=item.ar_img || 'images/ic_bg_normal.png' %>" style="width: 100%;max-height: 200px;">
 							</a>
 						</div>
 						<%}%>
@@ -227,7 +228,7 @@
 					<!--<div class="mui-indicator"></div>-->
 					<!--<div class="mui-indicator"></div>
 					<div class="mui-indicator"></div>-->
-					
+
 				</div>
 				<div id="adTitle">
 
@@ -248,7 +249,7 @@
 				<script type="text/template" id="temp3">
 					<% for(var i in record){ var item=record[i]; %>
 					<div class="mui-col-sm-55 mui-col-xs-55">
-						<img class="sml-aligncenter" src="<%=item.si_icon%>" id="<%=item.si_id%>" name="<%=item.si_pid%>" sname="<%=item.si_name%>" />
+						<img class="sml-aligncenter" src="<%=item.si_icon || 'images/ic_bg_normal.png'%>" id="<%=item.si_id%>" name="<%=item.si_pid%>" sname="<%=item.si_name%>" />
 						<span class="span-center"><%=item.si_name%></span>
 					</div>
 					<%}%>
@@ -256,7 +257,7 @@
 			</div>
 			<div style="height: 5px; background: gainsboro;"></div>
 			<div class="mui-row">
-				<img src="images/广告位.png" class="aligncenter ad" id="middleAd" />
+				<img src="images/ic_bg_normal.png" class="aligncenter ad" id="middleAd" />
 			</div>
 			<div style="height: 5px; background: gainsboro;"></div>
 			<div class="mui-row">
@@ -275,7 +276,7 @@
 									<% for(var i in record){ var item=record[i]; %>
 									<li id="<%=item.at_id%>">
 										<h5><%=item.at_name%></h5>
-										<img src="<%=item.at_image%>" />
+										<img src="<%=item.at_image %>" />
 									</li>
 									<%}%>
 								</ul>
@@ -316,6 +317,7 @@
 					</div>
 				</div>
 			</div>
+			</div>
 			<script type="text/javascript" src="js/arttmpl.js"></script>
 			<script src="js/mui.min.js"></script>
 			<script type="text/javascript" src="js/app.js"></script>
@@ -354,6 +356,11 @@
 									})
 								});
 							}
+//							for(var i = 0; i< adList.length;i++){
+//								if(adList[i].ar_img == ''){
+//									adList[i].ar_img = "images/ic_bg_normal.png"
+//								}
+//							}
 
 							var str = template('temp', {
 								"record": adList
