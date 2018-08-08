@@ -89,7 +89,19 @@
 			<div class="mui-row">
 				<div><img src="images/矩形20.png" class="img-juxing" />用户评论</div>
 				<div class="line"></div>
-				<div id="comment"></div>
+				<div id="comment" id="mui-template2">
+					<script type="text/template" id="temp2">
+					<% for(var i in record){ var item=record[i]; %>
+					<div class="mui-pull-left">
+						<img  src="<%=item.mbi_photo_thum%>"/>
+					</div>
+					<div class="mui-pull-right">
+						<div></div>
+						<div><%=item.jzc_content%></div>
+					</div>
+					<%}%>
+					</script>
+				</div>
 			</div>
 			<div class="mui-row">
 				<div><img src="images/矩形20.png" class="img-juxing" />推荐</div>
@@ -177,7 +189,11 @@
 					listRows: 20
 				}
 				wAjax(commentParam, function(result){
-					
+					var clist = result.data.list;
+					var str = template('temp2', {
+									"record": clist
+								});
+								document.getElementById("mui-template2").innerHTML = str;
 				})
 			}
 			
