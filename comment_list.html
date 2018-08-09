@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.avatar {
+				clear: both;
+				display: block;
+				margin: auto;
+				border-radius: 30px;
+				width: 60px!important;
+				height: 60px;
+				margin-right: 20px;
+			}
+			
+			.stars {
+				width: 15px!important;
+				height: 15px;
+			}
+			.mui-row{
+				margin-top: 30px;
+				padding-left: 10px;
+			}
+			.commImg{
+				margin-top: 10px;
+				width: 50%;
+				height: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">评论列表</h1>
+		</header>
+		<div class="mui-content">
+			<div id="mui-template">
+				<script type="text/template" id="temp">
+					<% for(var i in record){ var item=record[i]; %>
+
+					<div class="mui-row">
+						<div class="mui-pull-left">
+							<img src="<%=item.mbi_photo_thum || 'images/头像.png'%>" class="avatar" />
+						</div>
+						<div><img src="images/收藏2.png" class="stars" />
+							<img src="images/收藏2.png" class="stars" />
+							<img src="images/收藏2.png" class="stars" />
+							<img src="images/收藏2.png" class="stars" />
+							<img src="images/收藏2.png" class="stars" /></div>
+						<div>
+							<%=item.jzc_content%>
+						</div>
+						<div>
+							<img src="<%=item.jzc_pic[0]%>" class="commImg"/>
+						</div>
+						<!--</div>-->
+					</div>
+					<%}%>
+				</script>
+			</div>
+		</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var good_id = self.good_id || '';
+				getCommentList(good_id);
+			});
+
+			function getCommentList(good_id) {
+				var commentParam = {
+					service: 'Hlbr365app.Goods.GetCommentList',
+					jg_id: good_id,
+					firstRow: 1,
+					listRows: 20
+				}
+				wAjax(commentParam, function(result) {
+					var clist = result.data.list;
+					var str = template('temp', {
+						"record": clist
+					});
+					document.getElementById("mui-template").innerHTML = str;
+				})
+			}
+		</script>
+	</body>
+
+</html>

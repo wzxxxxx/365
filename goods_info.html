@@ -57,6 +57,29 @@
 			.mui-content{
 				padding-bottom: 50px;
 			}
+			.avatar {
+				clear: both;
+				display: block;
+				margin: auto;
+				border-radius: 30px;
+				width: 60px!important;
+				height: 60px;
+				margin-right: 20px;
+			}
+			.stars{
+				width: 15px!important;
+				height: 15px;
+			}
+			.mui-card-content img{
+				max-height: 100px;
+			}
+			.comment{
+				padding: 0px;
+			}
+			#commentNo{
+				margin-right: 20px;
+				color: gainsboro;
+			}
 		</style>
 	</head>
 
@@ -92,23 +115,36 @@
 				<div id="info"></div>
 			</div>
 
-			<div class="mui-row">
-				<div><img src="images/矩形20.png" class="img-juxing" />用户评论</div>
-				<div class="line"></div>
+			<div class="mui-row comment">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="toClass">
+							<img src="images/矩形20.png" class="img-juxing" />用户评论<span class="mui-pull-right" id="commentNo"></span>
+						</a>
+					</li>
+				</ul>
+				<!--<div>-->
+				<!--<img src="images/矩形20.png" class="img-juxing" />用户评论</div>-->
+				<!--<div class="line"></div>-->
 				<div id="mui-template2">
 					<script type="text/template" id="temp2">
 					<% for(var i in record){ var item=record[i]; %>
 						
 						<div class="mui-row">
 					<div class="mui-pull-left">
-						<img src="<%=item.mbi_photo_thum%>"/>
+						<img src="<%=item.mbi_photo_thum || 'images/头像.png'%>" class="avatar" />
+						<!--<img src="<%=item.mbi_photo_thum%>"/>-->
 					</div>
 					<!--<div class="mui-pull-right">-->
-						<div></div>
+						<div><img src="images/收藏2.png" class="stars"/>
+						<img src="images/收藏2.png" class="stars"/>
+						<img src="images/收藏2.png" class="stars"/>
+						<img src="images/收藏2.png" class="stars"/>
+						<img src="images/收藏2.png" class="stars"/></div>
 						<div><%=item.jzc_content%></div>
 					<!--</div>-->
 					</div>
-					<div class="line2"></div>
+					<!--<div class="line2"></div>-->
 					<%}%>
 					</script>
 				</div>
@@ -122,7 +158,7 @@
 							<div class="mui-col-sm-6 mui-col-xs-6">
 								<div class="mui-card">
 									<div class="mui-card-content">
-										<img id="<%=item.jg_id%>" src="<%=item.jg_img%>" style="max-height: 100px;" />
+										<img id="<%=item.jg_id%>" src="<%=item.jg_img%>" />
 									</div>
 									<div class="mui-card-footer">
 										<%=item.jg_name%>
@@ -193,12 +229,24 @@
 					firstRow: 1,
 					listRows: 20
 				}
+				var commentNo = document.getElementById('commentNo');
+				commentNo.addEventListener('tap', function(){
+						mui.openWindow({
+							url: 'comment_list.html',
+							id: 'comment_list.html',
+							extras: {
+								good_id: good_id
+							}
+						})
+					})
 				wAjax(commentParam, function(result){
 					var clist = result.data.list;
+					
+					commentNo.innerHTML = "" + clist.length + '条评论';
 					var str = template('temp2', {
 									"record": clist
 								});
-								document.getElementById("mui-template2").innerHTML = str;
+					document.getElementById("mui-template2").innerHTML = str;
 				})
 			}
 			

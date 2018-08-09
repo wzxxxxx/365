@@ -19,6 +19,7 @@
 			.bg-address {
 				height: 5px;
 				width: 100%;
+				position: fixed;
 			}
 			
 			.mui-content {
@@ -74,7 +75,14 @@
 				border: none;
 				position: fixed;
 				bottom: 5px;
-				left: 100px;
+				right: 100px;
+			}
+			
+			#price{
+				position: fixed;
+				bottom: 20px;
+				color: red;
+				left: 50px;
 			}
 			
 			.firstrow span {
@@ -152,6 +160,7 @@
 				备注
 				<div class="mui-pull-left" id="remark"></div>
 			</div>
+			<div id="submitOrder"></div>
 
 			<!--<div class="mui-row">
 			<input placeholder="如有特殊需求,请给商家留言" />
@@ -226,7 +235,7 @@
 						plus.device.dial(info.staff.os_staff_phone, false);
 					})
 					if(info.pay){
-						document.getElementById('price').innerHTML = info.pay.op_actual_price;
+						document.getElementById('price').innerHTML = info.pay.op_actual_price + '元';
 					}
 
 					var bottomBtn = document.getElementById('bottomButton');
@@ -244,6 +253,7 @@
 						bottomBtn.setAttribute('class', 'mui-btn mui-pull-right');
 						bottomBtn.innerHTML = '去评价';
 						prompt.innerHTML = '待评价';
+						document.getElementById('price').setAttribute('class', 'mui-hidden');
 					} else if(info.ob_status == 5) {
 						bottomBtn.setAttribute('class', 'mui-btn mui-pull-right');
 						bottomBtn.innerHTML = '去支付';
@@ -291,11 +301,17 @@
 				var createOrderParam = {
 					service: 'Hlbr365app.Order.PayOrder',
 					ob_number: ob_number,
-					op_pay_mode: 1
+					op_pay_mode: 3
 				}
 				wAjax(createOrderParam, function(result){
-					aliUrl = result.data.info.ali;
-					payOrder(ob_number);
+					var html = result.data.info;
+					console.log(html);
+					document.getElementById('submitOrder').innerHTML = html;
+					setTimeout(function(){
+						document.forms['alipaysubmit'].submit();
+					}, 500);
+//					aliUrl = result.data.info.ali;
+//					payOrder(ob_number);
 				})
 			}
 

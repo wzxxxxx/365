@@ -84,6 +84,9 @@
 				width: 100px;
 				height: 100px;
 			}
+			#pullrefresh{
+				margin-top: 40px;
+			}
 		</style>
 	</head>
 
@@ -97,10 +100,10 @@
 					<a class="mui-control-item" href="#item4">待评价</a>
 				</div>
 			</div>
-			<div class="mui-slider-group" id="pullrefresh">
-				<div id="item1" class="mui-slider-item mui-control-content mui-active">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<div class="mui-scroll" id="mui-template">
+			<div class="mui-slider-group mui-scroll-wrapper" id="pullrefresh">
+				<div id="item1" class="mui-slider-item mui-control-content mui-scroll mui-active">
+					<!--<div id="scroll" class="mui-scroll-wrapper">-->
+						<div  id="mui-template">
 							<script type="text/template" id="temp">
 								<% for(var i in record){ var item=record[i]; %>
 								<div class="mui-content" id="<%=item.ob_id%>">
@@ -166,12 +169,12 @@
 								<p>暂无内容</p>
 							</div>
 						</div>
-					</div>
+					<!--</div>-->
 				</div>
 
-				<div id="item2" class="mui-slider-item mui-control-content">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<div class="mui-scroll item1_1" id="mui-template2">
+				<div id="item2" class="mui-slider-item mui-control-content mui-scrol">
+					<!--<div id="scroll" class="mui-scroll-wrapper">-->
+						<div class=" item1_1" id="mui-template2">
 							<script type="text/template2" id="temp2">
 								<% for(var i in record){ var item=record[i]; %>
 								<% if(item.ob_status==1 || item.ob_status == 2){%>
@@ -238,12 +241,11 @@
 								<p>暂无内容</p>
 							</div>
 						</div>
-					</div>
 				</div>
 
-				<div id="item3" class="mui-slider-item mui-control-content">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<div class="mui-scroll item1_1" id="mui-template3">
+				<div id="item3" class="mui-slider-item mui-control-content mui-scroll">
+					<!--<div id="scroll" class="mui-scroll-wrapper">-->
+						<div class=" item1_1" id="mui-template3">
 							<script type="text/template" id="temp3">
 								<% for(var i in record){ var item=record[i]; %>
 								<% if(item.ob_status==5){%>
@@ -311,12 +313,11 @@
 								<p>暂无内容</p>
 							</div>
 						</div>
-					</div>
 				</div>
 
-				<div id="item4" class="mui-slider-item mui-control-content">
-					<div id="scroll" class="mui-scroll-wrapper">
-						<div class="mui-scroll item1_1" id="mui-template4">
+				<div id="item4" class="mui-slider-item mui-control-content mui-scroll">
+					<!--<div id="scroll" class="mui-scroll-wrapper">-->
+						<div class=" item1_1" id="mui-template4">
 							<script type="text/template" id="temp4">
 								<% for(var i in record){ var item=record[i]; %>
 								<% if(item.ob_status==6 || item.ob_status==7){%>
@@ -384,7 +385,6 @@
 								<p>暂无内容</p>
 							</div>
 						</div>
-					</div>
 
 				</div>
 			</div>
@@ -447,6 +447,8 @@
 								});
 								if(!(str.trim())) {
 									document.getElementById('item1_1_null').setAttribute('class', '');
+								}else {
+									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
 								}
 								document.getElementById("mui-template").innerHTML = str;
 								var str2 = template('temp2', {
@@ -454,6 +456,8 @@
 								});
 								if(!(str2.trim())) {
 									document.getElementById('item1_2_null').setAttribute('class', '');
+								}else {
+									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
 								}
 								document.getElementById("mui-template2").innerHTML = str2;
 								var str3 = template('temp3', {
@@ -461,6 +465,8 @@
 								});
 								if(!(str3.trim())) {
 									document.getElementById('item1_3_null').setAttribute('class', '');
+								}else {
+									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
 								}
 								document.getElementById("mui-template3").innerHTML = str3;
 								var str4 = template('temp4', {
@@ -468,6 +474,8 @@
 								});
 								if(!(str4.trim())) {
 									document.getElementById('item1_4_null').setAttribute('class', '');
+								} else {
+									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
 								}
 								document.getElementById("mui-template4").innerHTML = str4;
 								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -503,7 +511,6 @@
 						order_id: order_id
 					}
 				})
-
 			});
 			mui("#mui-template3").on('tap', '.mui-content', function(e) {
 				var order_id = this.getAttribute("id");
