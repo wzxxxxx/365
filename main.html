@@ -135,13 +135,20 @@
 		<script src="js/app.js"></script>
 		<script>
 			(function($, doc) {
-				$.init();
+//				$.init(preloadMainPage);
 				var settings = app.getSettings();
 				var account = doc.getElementById('account');
-				//				window.addEventListener('show', function() {
-				//					var state = app.getState();
-				//					account.innerText = state.account;
-				//				}, false);
+								window.addEventListener('show', function() {
+									setTimeout(function(){
+										mui.trigger(document.getElementById('shouye'), 'tap');
+										document.getElementById('shouye').setAttribute('class', 'mui-tab-item mui-active');
+										document.getElementById('mine').setAttribute('class', 'mui-tab-item ');
+	
+//						plus.webview.show('tab_shouye.html');
+					}, 200)
+//									var state = app.getState();
+//									account.innerText = state.account;
+								}, false);
 
 				var subpages = ['tab_shouye.html', 'tab_service.html', 'tab_class.html', 'tab_order.html', 'tab_mine.html'];
 				//				var subpage_style = {
@@ -151,7 +158,8 @@
 				var topoffset = tiaozhengTOP();
 				var subpage_style = {
 					top: topoffset,
-					bottom: '51px'
+					bottom: '51px',
+					render: 'always'
 				};
 				var aniShow = {};
 				var title = doc.getElementById("title");
@@ -242,37 +250,36 @@
 					
 					}
 				});
-
-				function preloadMainPage() {
-					var temp = {};
-					var self = plus.webview.currentWebview();
-					var screenHeight = document.body.clientHeight - 44 - 50;
-					var pageExtras = {
-						"pageHeight": screenHeight
-					};
-					var sub = plus.webview.create(subpages[0], subpages[0], subpage_style, pageExtras);
-					temp[subpages[0]] = "true";
-					$.extend(aniShow, temp); //将两个对象合并在一起
-				}
+//
+//				function preloadMainPage() {
+//					
+////					var temp = {};
+////					var self = plus.webview.currentWebview();
+//					var screenHeight = document.body.clientHeight - 44 - 50;
+//					var pageExtras = {
+//						"pageHeight": screenHeight
+//					};
+//					var shouye = $.preload({
+//								url: subpages[0],
+//								id: subpages[0],
+//								styles: subpage_style,
+//								extras: {
+//							"pageHeight": screenHeight,
+//						}
+//					})
+////					var sub = plus.webview.create(subpages[0], subpages[0], subpage_style, pageExtras);
+////					temp[subpages[0]] = "true";
+////					$.extend(aniShow, temp); //将两个对象合并在一起
+//				}
 
 				function preloadOtherPages() {
 					var screenHeight = doc.body.clientHeight - 44 - 50;
-					var pageExtras = [{
+					var pageExtras = {
 							"pageHeight": screenHeight,
-						},
-						{
-							"pageHeight": screenHeight
-						},
-						{
-							"pageHeight": screenHeight
-						},
-						{
-							"pageHeight": screenHeight,
-						}
-					];
-					setTimeout(function() {
-						var self = plus.webview.currentWebview();
-						for(var i = 1; i < 5; i++) {
+					};
+//					setTimeout(function() {
+//						var self = plus.webview.currentWebview();
+						for(var i = 0; i < 5; i++) {
 							var productView = $.preload({
 								url: subpages[i],
 								id: subpages[i],
@@ -280,7 +287,7 @@
 								extras: pageExtras[i]
 							});
 						}
-					}, 500);
+//					}, 200);
 				}
 
 				function getConutryList() {
@@ -298,10 +305,10 @@
 				}
 
 				$.plusReady(function() {
-					//					var settingPage = $.preload({
-					//						"id": 'setting',
-					//						"url": 'setting.html'
-					//					});
+//										var shouye = $.preload({
+//											"id": 'tab_shouye.html',
+//											"url": 'tab_shouye.html'
+//										});
 					//					//设置
 					//					var settingButton = doc.getElementById('setting');
 					//					//settingButton.style.display = settings.autoLogin ? 'block' : 'none';
@@ -335,8 +342,11 @@
 					//					};
 					//					
 					//					getConutryList();
-					preloadMainPage();
+//					preloadMainPage();
 					preloadOtherPages();
+					setTimeout(function(){
+						plus.webview.show('tab_shouye.html');
+					}, 200);
 
 					var searchButton = document.getElementById('searchBtn');
 					searchButton.addEventListener('tap', function(event) {

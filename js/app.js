@@ -52,7 +52,7 @@
 			return true;
 		} else {
 			console.log(JSON.stringify(data));
-			//			plus.nativeUI.toast(data.data.msg);
+						plus.nativeUI.toast(data.data.msg);
 			return false;
 		}
 	}
@@ -106,9 +106,13 @@
 		loginInfo.account = loginInfo.account || '';
 		loginInfo.password = loginInfo.password || '';
 		if(loginInfo.account.length < 11) {
+//			plus.nativeUI.toast('手机号最短为 11 个字符');
+//			return;
 			return callback('手机号最短为 11 个字符');
 		}
 		if(loginInfo.password.length < 6) {
+//			plus.nativeUI.toast('密码最短为 6 个字符');
+//			return;
 			return callback('密码最短为 6 个字符');
 		}
 //		console.log(localStorage.getItem('token'));
