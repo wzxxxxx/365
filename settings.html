@@ -52,7 +52,7 @@
 			</ul>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-					<a id="settings" class="mui-navigate-right">
+					<a id="aboutus" class="mui-navigate-right">
 						关于我们
 					</a>
 				</li>
@@ -92,6 +92,13 @@
 					mui.openWindow({
 						url: "change_password.html",
 						id: "change_password.html"
+					})
+				})
+				
+				document.getElementById('aboutus').addEventListener('tap', function(){
+					mui.openWindow({
+						url: "about_us.html",
+						id: "about_us.html"
 					})
 				})
 

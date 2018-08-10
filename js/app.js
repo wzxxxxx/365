@@ -13,9 +13,30 @@
 	var ipUrl = 'http://members.3322.org/dyndns/getip';
 	
 	var imageServerUrl = 'https://365image.lanyukj.cn/index.php/Upload/jzUpload';
+	
+	Date.prototype.format = function(fmt) { 
+     var o = { 
+        "M+" : this.getMonth()+1,                 //月份 
+        "d+" : this.getDate(),                    //日 
+        "h+" : this.getHours(),                   //小时 
+        "m+" : this.getMinutes(),                 //分 
+        "s+" : this.getSeconds(),                 //秒 
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度 
+        "S"  : this.getMilliseconds()             //毫秒 
+    }; 
+    if(/(y+)/.test(fmt)) {
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+    }
+     for(var k in o) {
+        if(new RegExp("("+ k +")").test(fmt)){
+             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+         }
+     }
+    return fmt; 
+}        
 
 	//url拼接(包含sign)
-	makeurl = function(data, isGetToken) {
+	makeurl = function(data, isGetToken, isUploadImg) {
 		if(!isGetToken) {
 			data.gateway = "App.Site.gatewayapp";
 //			data.Proj_ID = 2;
@@ -39,7 +60,13 @@
 			str2 += data[arr[i]];
 		}
 		str += "&sign=" + hex_md5(str2);
-		return serverUrl + str.replace(/&/, "?");
+		var signValue = hex_md5(str2);
+		if(isUploadImg){
+			data.sign = signValue;
+			return data;
+		}else {
+			return serverUrl + str.replace(/&/, "?");
+		}
 	}
 	
 	
@@ -51,8 +78,16 @@
 		if(ret && ret == 200 && code && code == 1) {
 			return true;
 		} else {
-			console.log(JSON.stringify(data));
-						plus.nativeUI.toast(data.data.msg);
+			if(typeof data == 'string'){
+				var data = JSON.parse(data);
+			}
+			if(data){
+				if(data.data && data.data.msg){
+				plus.nativeUI.toast(data.data.msg);
+			} else if(data.msg){
+				plus.nativeUI.toast(data.msg);
+			}
+			}
 			return false;
 		}
 	}
@@ -73,29 +108,54 @@
 			}
 		});
 	}
-
-	//获取公网IP地址
-	getIp = function() {
-		mui.ajax(ipUrl, {
-			dataType: 'json',
-			type: 'get', //HTTP请求类型
-			timeout: 10000, //超时时间设置为10秒；
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			success: function(data) {
-				if(data) {
-					console.log(data);
-					return data;
-				}
-			},
-			error: function(xhr, type, errorThrown) {
-				//异常处理；
-				console.log(type);
-				return;
-			}
-		});
-	}
+	
+//	uploadImg = function(imgData){
+//		var param = {
+//			service: 'Publics.UploadImg.Uploadimg',
+//			imgdata: imgData
+//		}
+//		var url = makeurl(param, false, true);
+//		mui.ajax(serverUrl, {
+//			type: 'post', //HTTP请求类型
+//			timeout: 10000, //超时时间设置为10秒；
+//			data: url,
+//			success: function(data) {
+//				if(isRequestSuccess(data)) {
+//					return success(data);
+//				}
+//			},
+//			error: function(xhr, type, errorThrown) {
+//				//异常处理；
+//				console.log(type);
+//				return;
+//			}
+//		});
+//		
+//		
+//	}
+//
+//	//获取公网IP地址
+//	getIp = function() {
+//		mui.ajax(ipUrl, {
+//			dataType: 'json',
+//			type: 'get', //HTTP请求类型
+//			timeout: 10000, //超时时间设置为10秒；
+//			headers: {
+//				'Content-Type': 'application/json'
+//			},
+//			success: function(data) {
+//				if(data) {
+//					console.log(data);
+//					return data;
+//				}
+//			},
+//			error: function(xhr, type, errorThrown) {
+//				//异常处理；
+//				console.log(type);
+//				return;
+//			}
+//		});
+//	}
 	
 	/**
 	 * 用户登录
