@@ -25,16 +25,16 @@
 				padding: 2px;
 			}
 			
-			body {
+			/*body {
 				background: white;
-			}
+			}*/
 			
 			.line {
 				width: 100%;
 				height: 1px;
 				margin-top: 10px;
 				margin-bottom: 10px;
-				background: gainsboro;
+				background: #F2F2F2;
 			}
 			
 			img {
@@ -63,7 +63,8 @@
 			}
 			
 			.mui-segmented-control-positive {
-				height: 50px;
+				height: 40px;
+				border-bottom: gainsboro 1px solid!important;
 			}
 			
 			.mui-slider-group .mui-control-content {
@@ -108,7 +109,7 @@
 								<% for(var i in record){ var item=record[i]; %>
 								<div class="mui-content" id="<%=item.ob_id%>">
 									<div>
-										<img src="images/ic_shop_company.png" />
+										<img src="images/img24.png" />
 										<span id="shijian"><%=item.company_name%></span>
 										<% if(item.ob_status==6 || item.ob_status == 7){%>
 										<div class="mui-pull-right status">待评价</div>
@@ -165,7 +166,7 @@
 						</div>
 						<div id="item1_1_null" class="display-none">
 							<div class="mui-content-padded " id="nocontent">
-								<img src="images/normal_no_data.png" />
+								<img src="images/img34.png" />
 								<p>暂无内容</p>
 							</div>
 						</div>
@@ -180,7 +181,7 @@
 								<% if(item.ob_status==1 || item.ob_status == 2){%>
 								<div class="mui-content" id="<%=item.ob_id%>">
 									<div>
-										<img src="images/ic_shop_company.png" />
+										<img src="images/img24.png" />
 										<span id="shijian"><%=item.company_name%></span>
 										<% if(item.ob_status==6 || item.ob_status == 7){%>
 										<div class="mui-pull-right status">待评价</div>
@@ -237,7 +238,7 @@
 						</div>
 						<div id="item1_2_null" class="display-none">
 							<div class="mui-content-padded " style="text-align:center;padding-top:1.8rem;">
-								<div><img src="images/normal_no_data.png" /></div>
+								<div><img src="images/img34.png" /></div>
 								<p>暂无内容</p>
 							</div>
 						</div>
@@ -251,7 +252,7 @@
 								<% if(item.ob_status==5){%>
 								<div class="mui-content" id="<%=item.ob_id%>">
 									<div>
-										<img src="images/ic_shop_company.png" />
+										<img src="images/img24.png" />
 										<span id="shijian"><%=item.company_name%></span>
 										<% if(item.ob_status==6 || item.ob_status == 7){%>
 										<div class="mui-pull-right status">待评价</div>
@@ -309,7 +310,7 @@
 
 						<div id="item1_3_null" class="display-none">
 							<div class="mui-content-padded nocontent">
-								<img src="images/normal_no_data.png" />
+								<img src="images/img34.png" />
 								<p>暂无内容</p>
 							</div>
 						</div>
@@ -323,7 +324,7 @@
 								<% if(item.ob_status==6 || item.ob_status==7){%>
 								<div class="mui-content" id="<%=item.ob_id%>">
 									<div>
-										<img src="images/ic_shop_company.png" />
+										<img src="images/img24.png" />
 										<span id="shijian"><%=item.company_name%></span>
 										<% if(item.ob_status==6 || item.ob_status == 7){%>
 										<div class="mui-pull-right status">待评价</div>
@@ -381,7 +382,7 @@
 
 						<div id="item1_4_null" class="display-none">
 							<div class="mui-content-padded nocontent">
-								<img src="images/normal_no_data.png" />
+								<img src="images/img34.png" />
 								<p>暂无内容</p>
 							</div>
 						</div>

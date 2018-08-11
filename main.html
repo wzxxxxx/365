@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
-
 		<style>
 			ul {
 				font-size: 14px;
@@ -16,10 +15,9 @@
 			.mui-btn {
 				padding: 10px;
 			}
-			
-			.mui-pull-right {
+			/*.mui-pull-right {
 				background-image: ;
-			}
+			}*/
 			
 			.mui-bar-nav {
 				padding-right: 15px;
@@ -41,7 +39,7 @@
 				height: 30px;
 				margin: 7px;
 				border-radius: 20px;
-				color: gainsboro;
+				color: #F2F2F2;
 				border: none;
 			}
 			
@@ -71,12 +69,12 @@
 		<header class="mui-bar mui-bar-nav">
 			<button id="chooseCity" class="mui-btn  mui-btn-link mui-pull-left">
 					<a id="openPopover">海拉尔区</a>
-					<img src="images/地区选择.png" />
+					<img src="images/img103.png" />
 			</button>
 			<h1 id="title" class="mui-title"></h1>
-			<button id="searchBtn"><img src="images/搜索.png" style="margin-bottom: -4px; margin-right: 5px;"／>服务分类 服务内容</button>
+			<button id="searchBtn"><img src="images/img61.png" style="margin-bottom: -4px; margin-right: 5px;"／>服务分类 服务内容</button>
 			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">
-				<img id='noticeImg' src="images/message1.png" />
+				<img id='noticeImg' src="images/img32.png" />
 			</button>
 
 		</header>
@@ -98,31 +96,31 @@
 				<nav class="mui-bar mui-bar-tab" style="background-color: #fff;">
 					<a id="shouye" class="mui-tab-item mui-active" href="tab_shouye.html">
 						<span class="iconstyle mui-icon iconfont">
-							<img src="images/首页icon.png"  class="tab-icon"/>
+							<img src="images/img90.png"  class="tab-icon"/>
 						</span>
 						<span class="mui-tab-label">首页</span>
 					</a>
 					<a id="service" class="mui-tab-item" href="tab_service.html">
 						<span class="iconstyle mui-icon iconfont">
-							<img src="images/服务icon2.png"  class="tab-icon"/>
+							<img src="images/img95.png"  class="tab-icon"/>
 						</span>
 						<span class="mui-tab-label">服务</span>
 					</a>
 					<a id="class" class="mui-tab-item " href="tab_class.html">
 						<span class="iconstyle mui-icon iconfont">
-							<img src="images/课堂(2).png"  class="tab-icon"/>
+							<img src="images/img50.png"  class="tab-icon"/>
 						</span>
 						<span class="mui-tab-label">小课堂</span>
 					</a>
 					<a id="order" class="mui-tab-item" href="tab_order.html">
 						<span class="iconstyle mui-icon iconfont">
-							<img src="images/订单2.png"  class="tab-icon"/>
+							<img src="images/img82.png"  class="tab-icon"/>
 						</span>
 						<span class="mui-tab-label">订单</span>
 					</a>
 					<a id="mine" class="mui-tab-item" href="tab_mine.html">
 						<span class="iconstyle mui-icon iconfont">
-							<img src="images/我的icon2.png"  class="tab-icon"/>
+							<img src="images/img94.png"  class="tab-icon"/>
 						</span>
 						<span class="mui-tab-label">我的</span>
 					</a>
@@ -135,26 +133,14 @@
 		<script src="js/app.js"></script>
 		<script>
 			(function($, doc) {
-//				$.init(preloadMainPage);
-				var settings = app.getSettings();
 				var account = doc.getElementById('account');
-								window.addEventListener('show', function() {
-									setTimeout(function(){
-										mui.trigger(document.getElementById('shouye'), 'tap');
-										document.getElementById('shouye').setAttribute('class', 'mui-tab-item mui-active');
-										document.getElementById('mine').setAttribute('class', 'mui-tab-item ');
-	
-//						plus.webview.show('tab_shouye.html');
-					}, 200)
-//									var state = app.getState();
-//									account.innerText = state.account;
-								}, false);
+				window.addEventListener('show', function() {
+						mui.trigger(document.getElementById('shouye'), 'tap');
+						document.getElementById('shouye').setAttribute('class', 'mui-tab-item mui-active');
+						document.getElementById('mine').setAttribute('class', 'mui-tab-item ');
+				}, false);
 
 				var subpages = ['tab_shouye.html', 'tab_service.html', 'tab_class.html', 'tab_order.html', 'tab_mine.html'];
-				//				var subpage_style = {
-				//					top: '44px',
-				//					bottom: '50px'
-				//				};
 				var topoffset = tiaozhengTOP();
 				var subpage_style = {
 					top: topoffset,
@@ -165,19 +151,6 @@
 				var title = doc.getElementById("title");
 				//激活当前项
 				var activeTab = subpages[0];
-
-				//				window.addEventListener('changeCity', function(event) {
-				//					if(event) {
-				//						var provinceCode = event.detail.provinceCode; //省id
-				//						var provinceName = event.detail.provinceName; //省名称
-				//						var cityCode = event.detail.cityCode; //市id
-				//						var cityName = event.detail.cityName; //市名称
-				//						var areaCode = event.detail.areaCode; //区id
-				//						var areaName = event.detail.areaName; //区名称
-				//
-				//						document.getElementById("city_name").innerText = cityName;
-				//					}
-				//				});
 
 				document.getElementById('chooseCity').addEventListener('tap', function() {
 					var shouye = plus.webview.getWebviewById('tab_shouye.html');
@@ -230,7 +203,7 @@
 						mui.trigger(document.getElementById('service'), 'tap');
 						document.getElementById('shouye').setAttribute('class', 'mui-tab-item');
 						document.getElementById('service').setAttribute('class', 'mui-tab-item mui-active');
-						
+
 					}
 
 				});
@@ -243,51 +216,27 @@
 				});
 
 				window.addEventListener('toClass', function(event) {
-					if(event){
-							mui.trigger(document.getElementById('class'), 'tap');
-							document.getElementById('shouye').setAttribute('class', 'mui-tab-item');
+					if(event) {
+						mui.trigger(document.getElementById('class'), 'tap');
+						document.getElementById('shouye').setAttribute('class', 'mui-tab-item');
 						document.getElementById('class').setAttribute('class', 'mui-tab-item mui-active');
-					
+
 					}
 				});
-//
-//				function preloadMainPage() {
-//					
-////					var temp = {};
-////					var self = plus.webview.currentWebview();
-//					var screenHeight = document.body.clientHeight - 44 - 50;
-//					var pageExtras = {
-//						"pageHeight": screenHeight
-//					};
-//					var shouye = $.preload({
-//								url: subpages[0],
-//								id: subpages[0],
-//								styles: subpage_style,
-//								extras: {
-//							"pageHeight": screenHeight,
-//						}
-//					})
-////					var sub = plus.webview.create(subpages[0], subpages[0], subpage_style, pageExtras);
-////					temp[subpages[0]] = "true";
-////					$.extend(aniShow, temp); //将两个对象合并在一起
-//				}
 
 				function preloadOtherPages() {
 					var screenHeight = doc.body.clientHeight - 44 - 50;
 					var pageExtras = {
-							"pageHeight": screenHeight,
+						"pageHeight": screenHeight,
 					};
-//					setTimeout(function() {
-//						var self = plus.webview.currentWebview();
-						for(var i = 0; i < 5; i++) {
-							var productView = $.preload({
-								url: subpages[i],
-								id: subpages[i],
-								styles: subpage_style,
-								extras: pageExtras[i]
-							});
-						}
-//					}, 200);
+					for(var i = 0; i < 5; i++) {
+						var productView = $.preload({
+							url: subpages[i],
+							id: subpages[i],
+							styles: subpage_style,
+							extras: pageExtras[i]
+						});
+					}
 				}
 
 				function getConutryList() {
@@ -305,48 +254,10 @@
 				}
 
 				$.plusReady(function() {
-//										var shouye = $.preload({
-//											"id": 'tab_shouye.html',
-//											"url": 'tab_shouye.html'
-//										});
-					//					//设置
-					//					var settingButton = doc.getElementById('setting');
-					//					//settingButton.style.display = settings.autoLogin ? 'block' : 'none';
-					//					settingButton.addEventListener('tap', function(event) {
-					//						$.openWindow({
-					//							id: 'setting',
-					//							show: {
-					//								aniShow: 'pop-in'
-					//							},
-					//							styles: {
-					//								popGesture: 'hide'
-					//							},
-					//							waiting: {
-					//								autoShow: false
-					//							}
-					//						});
-					//					});
-					//					$.oldBack = mui.back;
-					//					var backButtonPress = 0;
-					//					$.back = function(event) {
-					//						backButtonPress++;
-					//						if(backButtonPress > 1) {
-					//							plus.runtime.quit();
-					//						} else {
-					//							plus.nativeUI.toast('再按一次退出应用');
-					//						}
-					//						setTimeout(function() {
-					//							backButtonPress = 0;
-					//						}, 1000);
-					//						return false;
-					//					};
-					//					
-					//					getConutryList();
-//					preloadMainPage();
 					preloadOtherPages();
-					setTimeout(function(){
-						plus.webview.show('tab_shouye.html');
-					}, 200);
+//					setTimeout(function() {
+//						plus.webview.show('tab_shouye.html');
+//					}, 200);
 
 					var searchButton = document.getElementById('searchBtn');
 					searchButton.addEventListener('tap', function(event) {

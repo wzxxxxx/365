@@ -1295,7 +1295,7 @@ input[type=submit]:enabled:active {
 	top: 0;
 	-webkit-box-shadow: 0 1px 6px #ccc;
 	box-shadow: 0 1px 6px #ccc;
-	background-image: url(../images/bg_header.png);
+	background-image: url(../images/img10.png);
 	background-size: 100% 100% ;
 	/*margin-top: -10px;*/
 }
@@ -1658,22 +1658,22 @@ input[type=submit]:enabled:active {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 1px;
+	height: 0px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc
+	background-color: gainsboro
 }
 
 .mui-table-view:before {
 	position: absolute;
 	right: 0;
 	left: 0;
-	height: 1px;
+	height: 0px;
 	content: '';
 	-webkit-transform: scaleY(.5);
 	transform: scaleY(.5);
-	background-color: #c8c7cc;
+	background-color: gainsboro;
 	top: -1px
 }
 

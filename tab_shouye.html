@@ -75,7 +75,7 @@
 			
 			.mui-pull-right {
 				margin-right: 25px;
-				color: gainsboro;
+				color: #F2F2F2;
 			}
 			
 			.mui-table-view:before {
@@ -108,7 +108,7 @@
 			
 			.inc-scroll-landscape-container {
 				width: 100%;
-				height: 150px;
+				height: 130px;
 				overflow: hidden;
 				background-color: #FFF;
 				margin-bottom: 10px;
@@ -137,16 +137,17 @@
 			}
 			
 			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li {
-				width: 100px;
-				height: 150px;
-				line-height: 150px;
+				width: 80px;
+				height: 130px;
+				line-height: 130px;
 				position: relative;
 				display: inline-block;
 				text-align: center;
 				font-size: 13px;
 				color: #666;
 				font-weight: bold;
-				background-color: gainsboro;
+				background-color: #F2F2F2;
+				margin-right: 5px;
 			}
 			/*.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li.active:after {
 				position: absolute;
@@ -161,10 +162,13 @@
 			}*/
 			
 			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li>img {
-				max-width: 100px;
-				height: 150px;
+				max-width: 80px;
+				height: 130px;
 				/*padding: 10px 10px;*/
 				background-size: cover;
+			}
+			.inc-scroll-landscape-container>.inc-scroll-landscape-content>ul>li>h5{
+				font-size: 12px;
 			}
 			
 			#adTitle {
@@ -178,12 +182,30 @@
 				line-height: 40px;
 				color: white;
 			}
+			#mui-template5{
+				background: #F2F2F2;
+			}
+			.mui-card{
+				border: none;
+				border-radius: 0;
+			}
+			.mui-card-footer{
+				margin: 2px;	
+			}
+			.mui-card-content img{
+				width: 100%;
+				height: 100px;
+			}
+			#openPopover{
+				height: 0px;
+				z-index: -999;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="mui-content">
-			<a class="mui-bar mui-bar-nav" href="#popover" id="openPopover" style="height: 1px;"></a>
+			<a class="mui-bar mui-bar-nav" href="#popover" id="openPopover" ></a>
 			<div id="popover" class="mui-popover">
 				<ul class="mui-table-view" id="mui-template0">
 					<script type="text/template" id="temp0">
@@ -203,20 +225,20 @@
 						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 						<!--<div class="mui-slider-item mui-slider-item-duplicate">
 							<a href="#">
-								<img src="images/广告.png">
+								<img src="images/img59.png">
 							</a>
 						</div>-->
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-slider-item">
 							<a href="#" id="<%=item.ar_id%>">
-								<img src="<%=item.ar_img || 'images/ic_bg_normal.png' %>" style="width: 100%;max-height: 200px;">
+								<img src="<%=item.ar_img || 'images/img16.png' %>" style="width: 100%;max-height: 200px;">
 							</a>
 						</div>
 						<%}%>
 						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 						<!--<div class="mui-slider-item mui-slider-item-duplicate">
 							<a href="#">
-								<img src="images/广告.png">
+								<img src="images/img59.png">
 							</a>
 						</div>-->
 					</script>
@@ -244,22 +266,22 @@
 					<%}%>
 				</script>
 			</div>
-			<div style="height: 1px; background: gainsboro;"></div>
+			<div style="height: 1px; background: #F2F2F2;"></div>
 			<div id="mui-template3" class="mui-row second">
 				<script type="text/template" id="temp3">
 					<% for(var i in record){ var item=record[i]; %>
 					<div class="mui-col-sm-55 mui-col-xs-55">
-						<img class="sml-aligncenter" src="<%=item.si_icon || 'images/ic_bg_normal.png'%>" id="<%=item.si_id%>" name="<%=item.si_pid%>" sname="<%=item.si_name%>" />
+						<img class="sml-aligncenter" src="<%=item.si_icon || 'images/img16.png'%>" id="<%=item.si_id%>" name="<%=item.si_pid%>" sname="<%=item.si_name%>" />
 						<span class="span-center"><%=item.si_name%></span>
 					</div>
 					<%}%>
 				</script>
 			</div>
-			<div style="height: 5px; background: gainsboro;"></div>
+			<div style="height: 5px; background: #F2F2F2;"></div>
 			<div class="mui-row">
-				<img src="images/ic_ad_normal.png" class="aligncenter ad" id="middleAd" />
+				<img src="images/img15.png" class="aligncenter ad" id="middleAd" />
 			</div>
-			<div style="height: 5px; background: gainsboro;"></div>
+			<div style="height: 5px; background: #F2F2F2;"></div>
 			<div class="mui-row">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
@@ -285,9 +307,9 @@
 					</script>
 
 				</div>
-				<div style="height: 5px; background: gainsboro;"></div>
+				<div style="height: 5px; background: #F2F2F2;"></div>
 				<div class="mui-row span-center hot">
-					<img src="images/热门.png" style="margin-right: 5px; height: 20px;width: 20px;">热门精选
+					<img src="images/img67.png" style="margin-right: 5px; height: 20px;width: 20px;">热门精选
 				</div>
 				<div class="mui-row" style=" padding-top: 50px;">
 					<div class="mui-row" id="mui-template5">
@@ -296,7 +318,7 @@
 							<div class="mui-col-sm-6 mui-col-xs-6">
 								<div class="mui-card">
 									<div class="mui-card-content">
-										<img id="<%=item.jg_id%>" src="<%=item.jg_img%>" style="max-height: 100px;" />
+										<img id="<%=item.jg_id%>" src="<%=item.jg_img%>" />
 									</div>
 									<div class="mui-card-footer">
 										<%=item.jg_name%>
@@ -310,7 +332,7 @@
 						</script>
 						<!--<div class="mui-col-sm-6">
 						<div class="mui-card">
-							<div class="mui-card-content"><img src="images/矩形30拷贝2.png" /></div>
+							<div class="mui-card-content"><img src="images/img87.png" /></div>
 							<div class="mui-card-footer">专业家电维修，各种热水器维修</div>
 						</div>
 					</div>-->
@@ -358,7 +380,7 @@
 							}
 //							for(var i = 0; i< adList.length;i++){
 //								if(adList[i].ar_img == ''){
-//									adList[i].ar_img = "images/ic_bg_normal.png"
+//									adList[i].ar_img = "images/img16.png"
 //								}
 //							}
 

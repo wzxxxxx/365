@@ -13,12 +13,12 @@
 			/*.line {
 				width: 100%;
 				height: 1px;
-				background: gainsboro;
+				background: #F2F2F2;
 			}
 			*/
 			/*.fengeline {
 				float: right;
-				color: gainsboro;
+				color: #F2F2F2;
 			}*/
 			
 			.img-gray {
@@ -56,12 +56,13 @@
 			}
 			
 			#mui-template {
-				background: gainsboro;
+				background: #F2F2F2;
 			}
 			
 			button {
 				border: hidden;
-				background: gainsboro;
+				background: #F2F2F2;
+				width: 90%;
 			}
 			#firstTypeIcon{
 				max-height: 200px;
@@ -88,7 +89,7 @@
 				</div>
 				<div class="mui-col-sm-9 mui-col-xs-9">
 					<div>
-						<img id="firstTypeIcon" src="images/bg_ad.png"  />
+						<img id="firstTypeIcon" src="images/img6.png"  />
 					</div>
 					<div>
 						<span id="firstTypeName"></span>
@@ -143,7 +144,11 @@
 						type_id: id,
 						first_id: first_id,
 						name: name
-					}
+					},
+					show: {
+											autoShow: false, //页面loaded事件发生后自动显示，默认为true
+											event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
+										}
 				});
 			});
 

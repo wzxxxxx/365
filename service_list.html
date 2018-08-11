@@ -18,13 +18,13 @@
 			
 			.fengeline {
 				float: right;
-				color: gainsboro;
+				color: #F2F2F2;
 			}
 			
 			.service-li {
 				list-style-position: inside;
 				height: 130px;
-				border-bottom: 3px solid gainsboro;
+				/*border-bottom: 3px solid #F2F2F2;*/
 			}
 			
 			.img_left {
@@ -38,13 +38,28 @@
 				background: white;
 				border-radius: 0px;
 			}
-			.list-down-img{
+			
+			.list-down-img {
 				width: 8px;
 				height: 5px;
 				margin-bottom: 3px;
 				margin-left: 5px;
 			}
 			
+			#mui-template .mui-table-view-cell:before {
+				height: 0px;
+			}
+			
+			#mui-template .mui-table-view-cell:after {
+				height: 10px;
+				width: 100%;
+				left: 0px;
+				background-color: #F2F2F2;
+			}
+			
+			.mui-table-view:before {
+				height: 1px;
+			}
 		</style>
 	</head>
 
@@ -57,18 +72,18 @@
 			<div class="mui-row" id="firstrow">
 				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="city_name">
 					<a href="#popover" id="openPopover" class="mui-btn mui-btn-block">海拉尔
-						<img src="images/ic_list_down.png" class="list-down-img" />
+						<img src="images/img18.png" class="list-down-img" />
 						<span class="fengeline">|</span>
 					</a>
 				</div>
 				<!--<div class="mui-text-center fengeline">|</div>-->
 				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="service_name">
 					<a href="#popover2" id="openPopove2r" class="mui-btn mui-btn-block">家庭保洁
-						<img src="images/ic_list_down.png" class="list-down-img"/>
+						<img src="images/img18.png" class="list-down-img" />
 						<span class="fengeline">|</span>
 					</a>
 				</div>
-				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" >
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center">
 					<a class="mui-btn mui-btn-block" id="shopOrgood">店铺</a>
 
 				</div>
@@ -113,11 +128,11 @@
 										<%=item.jg_intro || item.jci_intro%>
 									</p>
 									<p class="mui-ellipsis">
-									_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-								</p>
-								<p class="mui-ellipsis">
-									 <%=item.jci_name%>
-								</p>
+										_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+									</p>
+									<p class="mui-ellipsis">
+										<%=item.jci_name%>
+									</p>
 								</div>
 							</a>
 							<%} else if(item.isGoods == 2 && item.Ad){%>
@@ -143,9 +158,11 @@
 			var name = '';
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
+				self.show('slide-in-right', 200);
+				plus.nativeUI.closeWaiting();
 				getConutryList();
 				if(self.type_id && self.first_id && self.name) {
-					document.getElementById('openPopove2r').innerHTML = self.name + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
+					document.getElementById('openPopove2r').innerHTML = self.name + '<img src="images/img18.png" class="list-down-img"/><span class="fengeline">|</span>';
 					type_id = self.type_id;
 					getGoodsList();
 					getSecondTypeList(self.first_id);
@@ -156,13 +173,13 @@
 					document.getElementById('firstrow').hidden = "true";
 					getGoodsList();
 				}
-				
+
 				var shopOrgood = document.getElementById('shopOrgood');
-				shopOrgood.addEventListener('tap', function(){
-					if(shopOrgood.innerHTML == '店铺'){
+				shopOrgood.addEventListener('tap', function() {
+					if(shopOrgood.innerHTML == '店铺') {
 						getShopList();
-						shopOrgood.innerHTML ='服务';
-					} else if(shopOrgood.innerHTML == '服务'){
+						shopOrgood.innerHTML = '服务';
+					} else if(shopOrgood.innerHTML == '服务') {
 						getGoodsList();
 						shopOrgood.innerHTML = '店铺';
 					}
@@ -187,7 +204,11 @@
 						id: 'goods_info.html',
 						extras: {
 							good_id: id
-						} //自定义扩展参数
+						}, //自定义扩展参数
+						show: {
+							autoShow: false, //页面loaded事件发生后自动显示，默认为true
+							event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
+						}
 					});
 				}
 			});
@@ -202,7 +223,7 @@
 				//				}
 				type_id = id;
 				getGoodsList();
-				document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
+				document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<img src="images/img18.png" class="list-down-img"/><span class="fengeline">|</span>';
 				mui('#popover2').popover('hide');
 
 			});
@@ -217,7 +238,7 @@
 				//				}
 				country_id = id;
 				getGoodsList();
-				document.getElementById('openPopover').innerHTML = this.innerHTML + '<img src="images/ic_list_down.png" class="list-down-img"/><span class="fengeline">|</span>';
+				document.getElementById('openPopover').innerHTML = this.innerHTML + '<img src="images/img18.png" class="list-down-img"/><span class="fengeline">|</span>';
 				mui('#popover').popover('hide');
 
 			});
@@ -229,7 +250,8 @@
 					firstRow: 1,
 					listRows: 20
 				}
-				if(name != '') {7
+				if(name != '') {
+					7
 					goodsParam.name = name;
 				} else {
 					goodsParam.two_type_id = type_id;
@@ -245,8 +267,8 @@
 
 				})
 			}
-			
-			function getShopList(){
+
+			function getShopList() {
 				var shopListParam = {
 					service: 'Hlbr365app.Goods.GetCompanyList',
 					two_type_id: type_id,
@@ -254,8 +276,8 @@
 					firstRow: 1,
 					listRows: 20
 				}
-				wAjax(shopListParam, function(result){
-					
+				wAjax(shopListParam, function(result) {
+
 					var shopList = result.data.list;
 
 					var str = template('temp', {

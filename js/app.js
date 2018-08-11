@@ -109,31 +109,6 @@
 		});
 	}
 	
-//	uploadImg = function(imgData){
-//		var param = {
-//			service: 'Publics.UploadImg.Uploadimg',
-//			imgdata: imgData
-//		}
-//		var url = makeurl(param, false, true);
-//		mui.ajax(serverUrl, {
-//			type: 'post', //HTTP请求类型
-//			timeout: 10000, //超时时间设置为10秒；
-//			data: url,
-//			success: function(data) {
-//				if(isRequestSuccess(data)) {
-//					return success(data);
-//				}
-//			},
-//			error: function(xhr, type, errorThrown) {
-//				//异常处理；
-//				console.log(type);
-//				return;
-//			}
-//		});
-//		
-//		
-//	}
-//
 //	//获取公网IP地址
 //	getIp = function() {
 //		mui.ajax(ipUrl, {
@@ -160,58 +135,7 @@
 	/**
 	 * 用户登录
 	 **/
-	owner.login = function(loginInfo, callback) {
-		callback = callback || $.noop;
-		loginInfo = loginInfo || {};
-		loginInfo.account = loginInfo.account || '';
-		loginInfo.password = loginInfo.password || '';
-		if(loginInfo.account.length < 11) {
-//			plus.nativeUI.toast('手机号最短为 11 个字符');
-//			return;
-			return callback('手机号最短为 11 个字符');
-		}
-		if(loginInfo.password.length < 6) {
-//			plus.nativeUI.toast('密码最短为 6 个字符');
-//			return;
-			return callback('密码最短为 6 个字符');
-		}
-//		console.log(localStorage.getItem('token'));
-		//		var ip = getIp();
-		//		if(!ip) {
-		//			plus.nativeUI.toast('未能获取手机IP地址');
-		//			return;
-		//		}
-		var ip = '192.168.0.100';
-		var data = {
-			service: "Hlbr365app.Member.Landed",
-			mbi_login_phone: loginInfo.account,
-			mbi_login_pwd: loginInfo.password,
-			mln_type: 3,
-			mln_ip: ip
-		};
 
-		mui.ajax(makeurl(data), {
-			dataType: 'json',
-			type: 'get', //HTTP请求类型
-			timeout: 10000, //超时时间设置为10秒；
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			success: function(data) {
-				if(isRequestSuccess(data)) {
-					owner.createState(loginInfo.account, callback);
-					localStorage.setItem('login', JSON.stringify(data));
-				}
-				return callback();
-			},
-			error: function(xhr, type, errorThrown) {
-				//异常处理；
-				console.log(type);
-				return callback();
-			}
-		});
-
-	};
 
 	owner.createState = function(name, callback) {
 		var state = owner.getState();

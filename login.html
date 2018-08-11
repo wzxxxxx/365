@@ -48,9 +48,9 @@
 				margin-top: 25px;
 				text-align: center;
 				margin-top: 100px;
-				
 			}
-			.link-area a{
+			
+			.link-area a {
 				color: red;
 				text-decoration: underline
 			}
@@ -97,16 +97,19 @@
 				margin-right: 10px;
 				margin-bottom: 10px;
 			}
-			#logo{
+			
+			#logo {
 				width: 50%;
 			}
-			#login{
-				background-image: url(images/bg_bt1.png);
+			
+			#login {
+				background-image: url(images/img8.png);
 				background-size: 100% 100%;
 				border: none;
 				color: white;
 			}
-			#login-form{
+			
+			#login-form {
 				margin-top: 100px;
 			}
 		</style>
@@ -115,7 +118,7 @@
 
 	<body style="padding-top: 100px; background: white;">
 		<div class="mui-text-center">
-		<img src="images/365.png" id="logo"/></div>
+			<img src="images/img2.png" id="logo" /></div>
 		<form id='login-form'>
 			<div>
 				<input class="ly-input" id='account' type="tel" placeholder="请输手机号">
@@ -137,8 +140,8 @@
 			</form>-->
 		<div class="mui-content-padded">
 			<button id='login' class="mui-btn mui-btn-block">登录</button>
-			<div class="link-area"  >
-				<a id='reg' >注册新账号</a>
+			<div class="link-area">
+				<a id='reg'>注册新账号</a>
 				<!--<span class="spliter">|</span>-->
 				<!--<a id='forgetPassword'>忘记密码</a>-->
 			</div>
@@ -157,10 +160,9 @@
 				$.plusReady(function() {
 					plus.screen.lockOrientation("portrait-primary");
 					plus.webview.currentWebview().setStyle({
-                        'popGesture': 'none'
-                    });
-					var settings = app.getSettings();
-					var state = app.getState();
+						'popGesture': 'none'
+					});
+//					var state = app.getState();
 					var mainPage = plus.webview.getWebviewById("main");
 					var main_loaded_flag = false;
 					if(!mainPage) {
@@ -204,7 +206,7 @@
 							timeout: 10000, //超时时间设置为10秒；
 							success: function(data) {
 								//在这里将后台传过来判断是否可以自动登陆的字符串存到缓存中
-								if(isRequestSuccess(data)){
+								if(isRequestSuccess(data)) {
 									localStorage.setItem('token', JSON.stringify(data));
 								}
 
@@ -215,76 +217,40 @@
 							}
 						});
 					}
-
-					//检查 "登录状态/锁屏状态" 开始
-//					if(settings.autoLogin && state.token && settings.gestures) {
-//						$.openWindow({
-//							url: 'unlock.html',
-//							id: 'unlock',
-//							show: {
-//								aniShow: 'pop-in'
-//							},
-//							waiting: {
-//								autoShow: false
-//							}
-//						});
-					if(state.token) {
+					if(localStorage.getItem('login')) {
 						toMain();
 					}
-//					} else {
-						//						app.setState(null);
-						//						//第三方登录
-						//						var authBtns = ['qihoo', 'weixin', 'sinaweibo', 'qq']; //配置业务支持的第三方登录
-						//						var auths = {};
-						//						var oauthArea = doc.querySelector('.oauth-area');
-						//						plus.oauth.getServices(function(services) {
-						//							for(var i in services) {
-						//								var service = services[i];
-						//								auths[service.id] = service;
-						//								if(~authBtns.indexOf(service.id)) {
-						//									var isInstalled = app.isInstalled(service.id);
-						//									var btn = document.createElement('div');
-						//									//如果微信未安装，则为不启用状态
-						//									btn.setAttribute('class', 'oauth-btn' + (!isInstalled && service.id === 'weixin' ? (' disabled') : ''));
-						//									btn.authId = service.id;
-						//									btn.style.backgroundImage = 'url("images/' + service.id + '.png")'
-						//									oauthArea.appendChild(btn);
-						//								}
-						//							}
-						//							$(oauthArea).on('tap', '.oauth-btn', function() {
-						//								if(this.classList.contains('disabled')) {
-						//									plus.nativeUI.toast('您尚未安装微信客户端');
-						//									return;
-						//								}
-						//								var auth = auths[this.authId];
-						//								var waiting = plus.nativeUI.showWaiting();
-						//								auth.login(function() {
-						//									waiting.close();
-						//									plus.nativeUI.toast("登录认证成功");
-						//									auth.getUserInfo(function() {
-						//										plus.nativeUI.toast("获取用户信息成功");
-						//										var name = auth.userInfo.nickname || auth.userInfo.name;
-						//										app.createState(name, function() {
-						//											toMain();
-						//										});
-						//									}, function(e) {
-						//										plus.nativeUI.toast("获取用户信息失败：" + e.message);
-						//									});
-						//								}, function(e) {
-						//									waiting.close();
-						//									plus.nativeUI.toast("登录认证失败：" + e.message);
-						//								});
-						//							});
-						//						}, function(e) {
-						//							oauthArea.style.display = 'none';
-						//							plus.nativeUI.toast("获取登录认证失败：" + e.message);
-						//						});
-//					}
-					// close splash
-					setTimeout(function() {
-						//关闭 splash
-						plus.navigator.closeSplashscreen();
-					}, 600);
+
+					var login = function(loginInfo) {
+						loginInfo = loginInfo || {};
+						loginInfo.account = loginInfo.account || '';
+						loginInfo.password = loginInfo.password || '';
+						if(loginInfo.account.length < 11) {
+							plus.nativeUI.toast('手机号最短为 11 个字符');
+							return;
+						}
+						if(loginInfo.password.length < 6) {
+							plus.nativeUI.toast('密码最短为 6 个字符');
+							return;
+						}
+						var ip = '192.168.0.100';
+						var data = {
+							service: "Hlbr365app.Member.Landed",
+							mbi_login_phone: loginInfo.account,
+							mbi_login_pwd: loginInfo.password,
+							mln_type: 3,
+							mln_ip: ip
+						};
+
+						wAjax(data, function(result) {
+//							app.createState(loginInfo.account, callback);
+							localStorage.setItem('login', JSON.stringify(result));
+							toMain();
+						})
+					};
+					//					setTimeout(function() {
+					//						plus.navigator.closeSplashscreen();
+					//					}, 600);
 					//检查 "登录状态/锁屏状态" 结束
 					var loginButton = doc.getElementById('login');
 					var accountBox = doc.getElementById('account');
@@ -296,25 +262,11 @@
 							account: accountBox.value,
 							password: passwordBox.value
 						};
-						app.login(loginInfo, function(err) {
-							if(err){
-								plus.nativeUI.toast(err);
-								return;
-							}
-							toMain();
-						});
+						login(loginInfo);
 					});
 					$.enterfocus('#login-form input', function() {
 						$.trigger(loginButton, 'tap');
 					});
-					//					autoLoginButton.classList[settings.autoLogin ? 'add' : 'remove']('mui-active')
-					//					autoLoginButton.addEventListener('toggle', function(event) {
-					//						setTimeout(function() {
-					//							var isActive = event.detail.isActive;
-					//							settings.autoLogin = isActive;
-					//							app.setSettings(settings);
-					//						}, 50);
-					//					}, false);
 					regButton.addEventListener('tap', function(event) {
 						$.openWindow({
 							url: 'reg.html',
@@ -347,24 +299,19 @@
 							}
 						});
 					}, false);
-					//
-					//					window.addEventListener('resize', function() {
-					//						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';
-					//					}, false);
-					//
-					var backButtonPress = 0;
-					$.back = function(event) {
-						backButtonPress++;
-						if(backButtonPress > 1) {
-							plus.runtime.quit();
-						} else {
-							plus.nativeUI.toast('再按一次退出应用');
-						}
-						setTimeout(function() {
-							backButtonPress = 0;
-						}, 1000);
-						return false;
-					};
+					//					var backButtonPress = 0;
+					//					$.back = function(event) {
+					//						backButtonPress++;
+					//						if(backButtonPress > 1) {
+					//							plus.runtime.quit();
+					//						} else {
+					//							plus.nativeUI.toast('再按一次退出应用');
+					//						}
+					//						setTimeout(function() {
+					//							backButtonPress = 0;
+					//						}, 1000);
+					//						return false;
+					//					};
 				});
 			}(mui, document));
 		</script>
