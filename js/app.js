@@ -78,6 +78,7 @@
 		if(ret && ret == 200 && code && code == 1) {
 			return true;
 		} else {
+			plus.nativeUI.closeWaiting();
 			if(typeof data == 'string'){
 				var data = JSON.parse(data);
 			}

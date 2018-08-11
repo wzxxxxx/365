@@ -32,14 +32,16 @@
 			.img-juxing {
 				max-width: 5px;
 				height: 15px;
-				margin-right: 10px;
-				margin-top: 5px;
+				/*margin-right: 10px;
+				margin-top: 10px;
+				margin-left: 10px;*/
+				margin: 0px 10px;
 			}
 			
 			.mui-row {
 				background: white!important;
 				margin-top: 10px;
-				padding: 10px;
+				padding: 10px 0px;
 			}
 			
 			#arrange {
@@ -52,7 +54,9 @@
 				margin-right: 20px;
 			}
 			.mui-card {
-				margin: 10px 10px;
+				margin: 10px;
+				border: none;
+				border-radius: 0px;
 			}
 			.mui-content{
 				padding-bottom: 50px;
@@ -71,7 +75,7 @@
 				height: 15px;
 			}
 			.mui-card-content img{
-				max-height: 100px;
+				max-height: 120px;
 			}
 			.comment{
 				padding: 0px;
@@ -79,6 +83,22 @@
 			#commentNo{
 				margin-right: 20px;
 				color: gainsboro;
+			}
+			#mui-template{
+				padding: 0px;
+				background: #F2F2F2!important;
+			}
+			.text-left{
+				margin-left: 10px;
+			}
+			#toClass{
+				margin-left: -30px;
+			}
+			.mui-card-footer{
+				margin: 2px;
+			}
+			#last-row{
+				 padding-bottom: 0px;
 			}
 			/*.mui-table-view:before{
 				height: 0px;
@@ -102,9 +122,10 @@
 				<img id="good_img"/>
 			</div>
 			<div class="mui-row">
-				<div id="good_name">
+				<div id="good_name" class="text-left">
 				</div>
-				<span id="good_intro" style="color: darkgrey;"></span>
+				<div class="line"></div>
+				<span id="good_intro" style="color: darkgrey;" class="text-left"></span>
 			</div>
 			<!--<div class="mui-row" >
 				
@@ -113,12 +134,12 @@
 			<div class="mui-row">
 				<div><img src="images/img84.png" class="img-juxing" />服务价格</div>
 				<div class="line"></div>
-				<div id="price"></div>
+				<div id="price" class="text-left"></div>
 			</div>
 			<div class="mui-row">
 				<div><img src="images/img84.png" class="img-juxing" />服务介绍</div>
 				<div class="line"></div>
-				<div id="info"></div>
+				<div id="info" class="text-left"></div>
 			</div>
 
 			<div class="mui-row comment">
@@ -132,7 +153,7 @@
 				<!--<div>-->
 				<!--<img src="images/img84.png" class="img-juxing" />用户评论</div>-->
 				<!--<div class="line"></div>-->
-				<div id="mui-template2">
+				<div id="mui-template2" class="text-left">
 					<script type="text/template" id="temp2">
 					<% for(var i in record){ var item=record[i]; %>
 						
@@ -155,9 +176,8 @@
 					</script>
 				</div>
 			</div>
-			<div class="mui-row">
+			<div class="mui-row" id="last-row">
 				<div><img src="images/img84.png" class="img-juxing" />推荐</div>
-				<div class="line"></div>
 				<div class="mui-row" id="mui-template">
 						<script type="text/template" id="temp">
 							<% for(var i in record){ var item=record[i]; %>
@@ -214,7 +234,7 @@
 			var isCollect = 1;
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
-				self.show('slide-in-right', 200);
+				self.show('slide-in-right', 300);
 				plus.nativeUI.closeWaiting();
 				var loginData = JSON.parse(localStorage.getItem('login'));
 				if(!loginData) {

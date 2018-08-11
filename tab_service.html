@@ -116,6 +116,20 @@
 				city_id = '';
 
 			mui("#mui-template").on('tap', 'img', function(e) {
+//				plus.nativeUI.showWaiting("正在加载...", {
+//					background: "white", 
+//					width: '150px', 
+//					height: '150px',
+//					padding: '50px'
+//				});
+				var wt = plus.nativeUI.showWaiting('正在加载...', {
+					width: '40%',
+					height: '20%',
+					padding: '10%',
+					background: "rgba(255,255,255,0)",
+					style: 'black',
+					color: "rgba(0,0,0,1)"
+				})
 				var id = this.getAttribute("id");
 				var imgList = document.querySelectorAll(".img-center");
 				if(imgList) {
@@ -130,7 +144,10 @@
 						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
 					}
 				}
-				getSecondTypeList(id);
+				setTimeout(function(){
+					getSecondTypeList(id);
+				}, 200)
+				
 			});
 
 			mui("#mui-template2").on('tap', 'button', function(e) {
@@ -203,7 +220,7 @@
 						'record': sceTypeList
 					});
 					document.getElementById("mui-template2").innerHTML = str;
-
+					plus.nativeUI.closeWaiting();
 				})
 			}
 

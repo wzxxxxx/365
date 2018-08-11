@@ -62,7 +62,7 @@
 			}
 			
 			.inc-scroll-landscape-container {
-				position: fixed;	
+				position: fixed;
 				top: 0px;
 				/*z-index: 999;*/
 				width: 100%;
@@ -108,10 +108,12 @@
 				/*font-weight: bold;*/
 				/*background-color: #F2F2F2;*/
 			}
-			.mui-row{
+			
+			.mui-row {
 				margin-bottom: 40px;
 			}
-			.mui-table-view:before{
+			
+			.mui-table-view:before {
 				height: 2px;
 			}
 		</style>
@@ -123,14 +125,14 @@
 				<script type="text/template" id="temp">
 					<div class="mui-slider-indicator  inc-scroll-landscape-container">
 						<!--<div class="inc-scroll-landscape-container">-->
-							<div class="inc-scroll-landscape-content">
-								<ul>
-									<% for(var i in record){ var item=record[i]; %>
-									<li class="fuck" name="<%=item.at_id%>">
-										<%=item.at_name%>
-									</li>
-									<%}%>
-								</ul>
+						<div class="inc-scroll-landscape-content">
+							<ul>
+								<% for(var i in record){ var item=record[i]; %>
+								<li class="fuck" name="<%=item.at_id%>">
+									<%=item.at_name%>
+								</li>
+								<%}%>
+							</ul>
 							<!--</div>-->
 						</div>
 					</div>
@@ -192,6 +194,7 @@
 			});
 
 			function getTypeList() {
+
 				var data = {
 					service: 'Hlbr365app.Article.GetTypeList'
 				};
@@ -225,6 +228,7 @@
 			}
 
 			function getArticleList(id) {
+
 				var data = {
 						service: 'Hlbr365app.Article.GetArticleList',
 						at_id: id,
@@ -257,9 +261,10 @@
 								});
 
 								document.getElementById("mui-template2").innerHTML = str;
-
+								plus.nativeUI.closeWaiting();
 							} else {
 								document.getElementById('no_content').setAttribute('class', '');
+								plus.nativeUI.closeWaiting();
 							}
 						}
 					},
@@ -290,16 +295,26 @@
 			});
 
 			mui(".mui-content").on('tap', '.fuck', function(e) {
+				var wt = plus.nativeUI.showWaiting('正在加载...', {
+					width: '40%',
+					height: '20%',
+					padding: '10%',
+					background: "rgba(255,255,255,0)",
+					style: 'black',
+					color: "rgba(0,0,0,1)"
+				})
 				var eleArr = document.querySelectorAll(".fuck");
-							for(var i = 0; i < eleArr.length; i++) {
-								eleArr[i].setAttribute('class', 'fuck');
-							}
-//							var ele = document.getElementsByName(event.detail.typeId)[0];
-							this.setAttribute('class', 'fuck mui-active');
-//							mui.trigger(ele, 'tap');
+				for(var i = 0; i < eleArr.length; i++) {
+					eleArr[i].setAttribute('class', 'fuck');
+				}
+				//							var ele = document.getElementsByName(event.detail.typeId)[0];
+				this.setAttribute('class', 'fuck mui-active');
+				//							mui.trigger(ele, 'tap');
 				document.getElementById("mui-template2").innerHTML = '';
 				var id = this.getAttribute("name");
-				getArticleList(id);
+				setTimeout(function() {
+					getArticleList(id);
+				}, 200)
 			});
 		</script>
 	</body>
