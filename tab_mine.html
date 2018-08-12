@@ -105,6 +105,14 @@
 				var reloginBox = document.getElementById('relogin');
 				var collectionBox = document.getElementById('collection');
 				var noticeBox = document.getElementById('notice');
+				var youhuiquanBox = document.getElementById('youhuiquan');
+				youhuiquanBox.addEventListener('tap', function(){
+					mui.openWindow({
+						url: 'my_coupon.html',
+						id: 'my_coupon.html'
+
+					});
+				})
 				settingsBox.addEventListener('tap', function(event) {
 					mui.openWindow({
 						url: 'settings.html',

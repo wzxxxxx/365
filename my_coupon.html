@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.list-down-img {
+				width: 8px;
+				height: 5px;
+				margin-bottom: 3px;
+				margin-left: 5px;
+			}
+			
+			.fengeline {
+				float: right;
+				color: #F2F2F2;
+			}
+			/*.mui-text-center {
+				line-height: 50px;
+			}*/
+			
+			.mui-btn-block {
+				border: hidden;
+				background: white;
+				border-radius: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">优惠券</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row" id="firstrow">
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="city_name">
+					<a href="#popover" id="openPopover" class="mui-btn mui-btn-block">全部类型
+						<img src="images/img18.png" class="list-down-img" />
+						<span class="fengeline">|</span>
+					</a>
+				</div>
+				<!--<div class="mui-text-center fengeline">|</div>-->
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="service_name">
+					<a href="#popover2" id="openPopover2" class="mui-btn mui-btn-block">自己领取
+						<img src="images/img18.png" class="list-down-img" />
+						<span class="fengeline">|</span>
+					</a>
+				</div>
+				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center">
+					<a href="#popover3" id="openPopover3" class="mui-btn mui-btn-block" id="shopOrgood">到期时间
+					<img src="images/img18.png" class="list-down-img" />
+					</a>
+					
+				</div>
+			</div>
+			<div id="popover" class="mui-popover">
+				<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a href="#">
+								全部类型
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">
+								满减券
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">
+								折扣券
+							</a>
+						</li>
+				</ul>
+			</div>
+			<div id="popover2" class="mui-popover">
+				<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a href="#">
+								自己领取
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">
+								系统发放
+							</a>
+						</li>
+				</ul>
+			</div>
+			<div id="popover3" class="mui-popover">
+				<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a href="#">
+								即将到期
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">
+								最新领取
+							</a>
+						</li>
+				</ul>
+			</div>
+			<div class="mui-row" style="height: 50px;margin: 0px 10px;">
+					<div class="mui-col-sm-9 mui-col-xs-9">
+						<input id="code" type="text" style="border: none; height: 50px;" placeholder="请输入优惠券码"/>
+					</div>
+					<div class="mui-col-sm-3 mui-col-xs-3">
+						<button class="mui-btn mui-btn-outlined" style="background: #FF6C00; width: 100%;border: none;height: 50px;color: white;" id="confirm">确定</button>
+					</div>
+			</div>
+			<div class="mui-row">
+				
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/xiachenshi.js"></script>
+		<script type="text/javascript" src="js/app.js" ></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				var loginData = JSON.parse(localStorage.getItem('login'));
+				if(!loginData) {
+					return;
+				}
+				var mbi_number = loginData.data.info.mbi_number;
+				getMyCoupon(mbi_number);
+				
+				document.getElementById('confirm').addEventListener('tap', function(){
+					getMyCoupon(mbi_id, 'byCode', document.getElementById('code').value);
+				})
+			})
+			
+			function getMyCoupon(mbi_number, type, value){
+				var couponParam = {
+					service: 'Hlbr365app.Member.GetMyCouponList',
+					mbi_number: mbi_number,
+					firstRow: 1,
+					listRows: 20
+				}
+				if(type == 'byCode'){
+					couponParam.cc_code = value;
+				}
+				wAjax(couponParam, function(result){
+					
+				})
+			}
+			mui("#popover").on('tap', 'a', function(e) {
+				var wt = plus.nativeUI.showWaiting('正在加载...', {
+					width: '40%',
+					height: '20%',
+					padding: '10%',
+					background: "rgba(255,255,255,0)",
+					style: 'black',
+					color: "rgba(0,0,0,1)"
+				});
+				setTimeout(function(){
+					plus.nativeUI.closeWaiting();
+				}, 200)
+				mui('#popover').popover('hide');
+
+			});
+			mui("#popover2").on('tap', 'a', function(e) {
+				var wt = plus.nativeUI.showWaiting('正在加载...', {
+					width: '40%',
+					height: '20%',
+					padding: '10%',
+					background: "rgba(255,255,255,0)",
+					style: 'black',
+					color: "rgba(0,0,0,1)"
+				});
+				setTimeout(function(){
+					plus.nativeUI.closeWaiting();
+				}, 200)
+				mui('#popover2').popover('hide');
+
+			});
+			mui("#popover3").on('tap', 'a', function(e) {
+				var wt = plus.nativeUI.showWaiting('正在加载...', {
+					width: '40%',
+					height: '20%',
+					padding: '10%',
+					background: "rgba(255,255,255,0)",
+					style: 'black',
+					color: "rgba(0,0,0,1)"
+				});
+				setTimeout(function(){
+					plus.nativeUI.closeWaiting();
+				}, 200)
+				mui('#popover3').popover('hide');
+
+			});
+
+		</script>
+	</body>
+
+</html>

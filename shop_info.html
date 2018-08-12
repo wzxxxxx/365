@@ -50,6 +50,27 @@
 				max-width: 100px!important;
 				height: 100px!important;
 			}
+			#lijilingqu{
+				background: red;
+				 color: white;
+				 height: 100%;
+				 line-height: 50px;
+			}
+			#couponImg{
+				height: 20px;
+				max-width: 15px;
+				margin-left: 10px;
+margin-right: 10px;
+				/*margin: 15px 15px;*/ 
+			}
+			#counpon{
+				padding: 0px;
+				height: 50px;
+			}
+			.mui-col-sm-8{
+				padding-top: 15px;
+				color: red;
+			}
 		</style>
 	</head>
 
@@ -67,6 +88,15 @@
 			</div>
 			<div class="mui-row">
 				<div id="good_name">
+				</div>
+			</div>
+			<div class="mui-row" id="counpon">
+				<div class="mui-col-xs-8 mui-col-sm-8" >
+					<img src="images/ic_display.png" id="couponImg"/>
+					领取店铺优惠券
+				</div>
+				<div class="mui-col-xs-4 mui-col-sm-4 mui-text-center" id="lijilingqu" >
+					立即领取
 				</div>
 			</div>
 			<!--<div class="mui-row" >
@@ -125,6 +155,23 @@
 			</div>
 		</div>
 		</div>
+		<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action " style="background: white;">
+			<div class="mui-row mui-text-center">店铺优惠券</div>
+    <!-- 可选择菜单 -->
+    <!--<ul class="mui-table-view">
+      <!--<li class="mui-table-view-cell">
+        <a href="#">菜单1</a>
+      </li>
+      <li class="mui-table-view-cell">
+        <a href="#">菜单2</a>
+      </li>-->
+    <!-- 取消菜单 -->
+    <ul class="mui-table-view" style="background-image: url(images/img10.png);">
+      <li class="mui-table-view-cell">
+        <a href="#sheet1" style="color: white;border-radius: 0;"><b>完成</b></a>
+      </li>
+    </ul>
+</div>
 		<div class="mui-content-padded mui-hidden">
 			<nav class="mui-bar mui-bar-tab">
 				<a class="mui-tab-item">
@@ -172,6 +219,10 @@
 					//						collectImg.src = "images/img81.png";
 					//					}
 				})
+				document.getElementById('lijilingqu').addEventListener('tap', function(){
+					mui('#sheet1').popover('toggle');
+				})
+				
 
 //				document.getElementById('arrange').addEventListener('tap', function() {
 //					mui.openWindow({

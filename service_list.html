@@ -220,12 +220,6 @@
 
 			mui("#mui-template2").on('tap', 'a', function(e) {
 				var id = this.getAttribute("id");
-				//				for(var i = 0; i < typeList.length; i++) {
-				//					if(typeList[i].si_id == id) {
-				//						document.getElementById('firstTypeIcon').src = typeList[i].si_icon;
-				//						document.getElementById('firstTypeName').innerHTML = typeList[i].si_name;
-				//					}
-				//				}
 				type_id = id;
 				getGoodsList();
 				document.getElementById('openPopove2r').innerHTML = this.innerHTML + '<img src="images/img18.png" class="list-down-img"/><span class="fengeline">|</span>';
