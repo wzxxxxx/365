@@ -108,11 +108,24 @@
 				}
 			},
 			error: function(xhr, type, errorThrown) {
+				plus.nativeUI.closeWaiting();
+				plus.nativeUI.toast('网络连接错误');
 				//异常处理；
 				console.log(type);
 				return;
 			}
 		});
+	}
+	
+	showWaiting = function(){
+		return plus.nativeUI.showWaiting('正在加载...', {
+					width: '40%',
+					height: '20%',
+					padding: '10%',
+					background: "rgba(255,255,255,0)",
+					style: 'black',
+					color: "rgba(0,0,0,1)"
+				})
 	}
 	
 //	//获取公网IP地址

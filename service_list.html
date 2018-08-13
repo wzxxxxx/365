@@ -164,7 +164,7 @@
 					</script>
 				</ul>
 			</div>
-			<div id="no_content" class="mui-hidden">
+			<div id="no_content">
 				<div class="mui-content-padded nocontent">
 					<img src="images/img34.png" />
 					<p>暂无内容</p>
@@ -211,6 +211,7 @@
 			})
 
 			mui("#mui-template").on('tap', 'a', function(e) {
+				showWaiting();
 				var id = this.getAttribute("id");
 				var name = this.getAttribute('name');
 				if(name == 'isGood') {
@@ -237,6 +238,7 @@
 			});
 
 			mui("#mui-template2").on('tap', 'a', function(e) {
+				showWaiting();
 				var id = this.getAttribute("id");
 				type_id = id;
 				getGoodsList();
@@ -246,6 +248,7 @@
 			});
 
 			mui("#mui-template11").on('tap', 'a', function(e) {
+				showWaiting();
 				var id = this.getAttribute("id");
 				//				for(var i = 0; i < typeList.length; i++) {
 				//					if(typeList[i].si_id == id) {
@@ -275,16 +278,12 @@
 				}
 				wAjax(goodsParam, function(result) {
 					var goodsList = result.data.list;
-//					if(goodsList.length < 1) {
-//						document.getElementById('no_content').setAttribute('class', '');
-//					} else {
-//						document.getElementById('no_content').setAttribute('class', 'mui-hidden');
-						var str = template('temp', {
-							'record': goodsList
-						});
-						document.getElementById("mui-template").innerHTML = str;
-//					}
-
+					document.getElementById('no_content').hidden = goodsList.length > 0;
+					var str = template('temp', {
+						'record': goodsList
+					});
+					document.getElementById("mui-template").innerHTML = str;
+					plus.nativeUI.closeWaiting();
 				})
 			}
 
@@ -299,17 +298,19 @@
 				wAjax(shopListParam, function(result) {
 
 					var shopList = result.data.list;
-//					if(shopList.length < 1) {
-//						document.getElementById('mui-template').innerHTML = '';
-//						document.getElementById('no_content').setAttribute('class', '');
-						
-//					} else {
-//						document.getElementById('no_content').setAttribute('class', 'mui-hidden');
-						var str = template('temp', {
-							'record': shopList
-						});
-						document.getElementById("mui-template").innerHTML = str;
-//					}
+					document.getElementById('no_content').hidden = shopList.length > 0;
+					//					if(shopList.length < 1) {
+					//						document.getElementById('mui-template').innerHTML = '';
+					//						document.getElementById('no_content').setAttribute('class', '');
+
+					//					} else {
+					//						document.getElementById('no_content').setAttribute('class', 'mui-hidden');
+					var str = template('temp', {
+						'record': shopList
+					});
+					document.getElementById("mui-template").innerHTML = str;
+					//					}
+					plus.nativeUI.closeWaiting();
 				})
 			}
 
@@ -322,7 +323,7 @@
 					var goodsInfo = result.data.info;
 					return goodsInfo;
 				})
-				
+
 			}
 
 			function getSecondTypeList(firtTypeId) {
