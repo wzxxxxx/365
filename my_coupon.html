@@ -104,14 +104,14 @@
 						</li>
 				</ul>
 			</div>
-			<div class="mui-row" style="height: 50px;margin: 0px 10px;">
+			<!--<div class="mui-row" style="height: 50px;margin: 0px 10px;">
 					<div class="mui-col-sm-9 mui-col-xs-9">
 						<input id="code" type="text" style="border: none; height: 50px;" placeholder="请输入优惠券码"/>
 					</div>
 					<div class="mui-col-sm-3 mui-col-xs-3">
 						<button class="mui-btn mui-btn-outlined" style="background: #FF6C00; width: 100%;border: none;height: 50px;color: white;" id="confirm">确定</button>
 					</div>
-			</div>
+			</div>-->
 			<div class="mui-row">
 				
 			</div>
@@ -129,7 +129,7 @@
 				getMyCoupon(mbi_number);
 				
 				document.getElementById('confirm').addEventListener('tap', function(){
-					getMyCoupon(mbi_id, 'byCode', document.getElementById('code').value);
+					getMyCoupon(mbi_number, 'byCode', document.getElementById('code').value);
 				})
 			})
 			

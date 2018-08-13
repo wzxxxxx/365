@@ -128,10 +128,8 @@
 							if(isRequestSuccess(data)) {
 								var imgUrl = data.data.info[0];
 								editProfile(imgUrl, mbi_id);
-//								var profileParam = {
-//									
-//								}
-//								plus.nativeUI.toast("上传成功！");
+							} else {
+								editProfile(null, mbi_id);
 							}
 						},
 						error: function(xhr, type, errorThrown) {
@@ -140,26 +138,29 @@
 							return;
 						}
 					});
-					
+
 				})
 			})
-			
-			function editProfile(imgUrl, mbi_id){
+
+			function editProfile(imgUrl, mbi_id) {
 				var user_name = document.getElementById('user_name').innerHTML;
 				var sex = document.getElementById('sex').innerHTML;
 				var birth = document.getElementById('birth').innerHTML;
 				var editParam = {
 					service: 'Hlbr365app.Member.Edit',
-					mbi_id: mbi_id,
-//					mei_real_name: user_name.value,
-					mei_head: imgUrl
-//					mei_sex: ,
-//					mei_birth: 
+					mbi_id: mbi_id
+					//					mei_real_name: user_name.value,
+					//					mei_head: imgUrl
+					//					mei_sex: ,
+					//					mei_birth: 
 				};
+				if(imgUrl) {
+					editParam.mei_head = imgUrl;
+				}
 				if(user_name) editParam.mei_real_name = user_name;
-				if(sex) editParam.mei_sex = sex == '男'? 1 : 2;
+				if(sex) editParam.mei_sex = sex == '男' ? 1 : 2;
 				if(birth) editParam.mei_birth = new Date(birth).getTime();
-				wAjax(editParam, function(result){
+				wAjax(editParam, function(result) {
 					plus.webview.getWebviewById('tab_mine.html').reload();
 					mui.back();
 				})

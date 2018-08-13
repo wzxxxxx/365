@@ -39,8 +39,12 @@
 				height: 30px;
 				margin: 7px;
 				border-radius: 20px;
-				color: #F2F2F2;
+				color: gray;
 				border: none;
+			}
+			#searchBtn img{
+				margin-bottom: -4px;
+				 margin-right: 5px;
 			}
 			
 			#noticeImg {
@@ -72,7 +76,7 @@
 					<img src="images/img103.png" />
 			</button>
 			<h1 id="title" class="mui-title"></h1>
-			<button id="searchBtn"><img src="images/img61.png" style="margin-bottom: -4px; margin-right: 5px;"／>服务分类 服务内容</button>
+			<button id="searchBtn"><img src="images/img61.png" ／>服务分类 服务内容</button>
 			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">
 				<img id='noticeImg' src="images/img32.png" />
 			</button>
@@ -104,7 +108,7 @@
 						<span class="iconstyle mui-icon iconfont">
 							<img src="images/img95.png"  class="tab-icon"/>
 						</span>
-						<span class="mui-tab-label">服务</span>
+						<span class="mui-tab-label">分类</span>
 					</a>
 					<a id="class" class="mui-tab-item " href="tab_class.html">
 						<span class="iconstyle mui-icon iconfont">
@@ -135,7 +139,11 @@
 			(function($, doc) {
 				var account = doc.getElementById('account');
 				window.addEventListener('show', function() {
-						mui.trigger(document.getElementById('shouye'), 'tap');
+//						mui.trigger(document.getElementById('shouye'), 'tap');
+						plus.webview.show('tab_shouye.html');
+						document.getElementById("chooseCity").setAttribute("class", "mui-btn  mui-btn-link mui-pull-left");
+						document.getElementById('searchBtn').setAttribute('class', '');
+						document.getElementById('noticeImg').setAttribute('class', '');
 						document.getElementById('shouye').setAttribute('class', 'mui-tab-item mui-active');
 						document.getElementById('mine').setAttribute('class', 'mui-tab-item ');
 				}, false);

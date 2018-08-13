@@ -60,10 +60,22 @@
 			.mui-table-view:before {
 				height: 1px;
 			}
-			.mui-media-body img{
+			
+			.mui-media-body img {
 				width: 100%;
 				height: 120px;
 				background-size: cover;
+			}
+			
+			.nocontent {
+				text-align: center;
+				padding-top: 1.8rem;
+				padding-top: 150px;
+			}
+			
+			.nocontent img {
+				width: 100px;
+				height: 100px;
 			}
 		</style>
 	</head>
@@ -151,6 +163,12 @@
 						<%}%>
 					</script>
 				</ul>
+			</div>
+			<div id="no_content" class="mui-hidden">
+				<div class="mui-content-padded nocontent">
+					<img src="images/img34.png" />
+					<p>暂无内容</p>
+				</div>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
@@ -243,14 +261,13 @@
 			});
 
 			function getGoodsList() {
-				//				var goodsListWithInfo = [];
 				var goodsParam = {
 					service: 'Hlbr365app.Goods.GetServiceList',
 					firstRow: 1,
 					listRows: 20
 				}
 				if(name != '') {
-					7
+
 					goodsParam.name = name;
 				} else {
 					goodsParam.two_type_id = type_id;
@@ -258,11 +275,15 @@
 				}
 				wAjax(goodsParam, function(result) {
 					var goodsList = result.data.list;
-
-					var str = template('temp', {
-						'record': goodsList
-					});
-					document.getElementById("mui-template").innerHTML = str;
+//					if(goodsList.length < 1) {
+//						document.getElementById('no_content').setAttribute('class', '');
+//					} else {
+//						document.getElementById('no_content').setAttribute('class', 'mui-hidden');
+						var str = template('temp', {
+							'record': goodsList
+						});
+						document.getElementById("mui-template").innerHTML = str;
+//					}
 
 				})
 			}
@@ -278,11 +299,17 @@
 				wAjax(shopListParam, function(result) {
 
 					var shopList = result.data.list;
-
-					var str = template('temp', {
-						'record': shopList
-					});
-					document.getElementById("mui-template").innerHTML = str;
+//					if(shopList.length < 1) {
+//						document.getElementById('mui-template').innerHTML = '';
+//						document.getElementById('no_content').setAttribute('class', '');
+						
+//					} else {
+//						document.getElementById('no_content').setAttribute('class', 'mui-hidden');
+						var str = template('temp', {
+							'record': shopList
+						});
+						document.getElementById("mui-template").innerHTML = str;
+//					}
 				})
 			}
 
@@ -295,6 +322,7 @@
 					var goodsInfo = result.data.info;
 					return goodsInfo;
 				})
+				
 			}
 
 			function getSecondTypeList(firtTypeId) {

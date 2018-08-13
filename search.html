@@ -8,11 +8,12 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
 			#searchInput {
-				width: 300px;
+				width: 280px;
 				height: 30px;
 				margin: 7px;
 				border-radius: 20px;
 				border-style: hidden;
+				text-indent: 20px;
 			}
 			
 			.hot-search-btn {
@@ -35,7 +36,7 @@
 			}
 			
 			.mui-row span {
-				color: gainsboro;
+				color: gray;
 			}
 			
 			.mui-content {
@@ -52,9 +53,11 @@
 			
 			#searchImg {
 				position: fixed;
-				right: 80px;
+				left: 50px;
 				top: 32px;
 				z-index: 999;
+				height: 20px;
+				width: 20px;
 			}
 			
 			#searchBtn {
@@ -67,13 +70,13 @@
 	<body style="background: white;">
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
-			<input type="text" id="searchInput" placeholder="输入关键字"></input>
-			<img src="images/img61.png" id="searchImg" />
-			<span id="searchBtn" class="mui-pull-right">取消</span>
+			<img src="images/ic_search.png" id="searchImg" />
+			<input type="text" id="searchInput" placeholder="输入服务项和服务内容"></input>
+			<span id="searchBtn" class="mui-pull-right">搜索</span>
 		</header>
 		<div class="mui-content">
-			<div class="mui-row">
-				<img src="images/╦Л╦э.png" class="left-icon" />
+			<div class="mui-row" id="historySearch">
+				<!--<img src="images/╦Л╦э.png" class="left-icon" />-->
 				<span class="mui-pull-left">历史搜索</span>
 				<button type="button" class="mui-pull-right hot-search-btn" id="clearHistory"><img src="images/img123.png" class="sm-icon"/>清空历史</button>
 			</div>
@@ -85,7 +88,7 @@
 				</script>
 			</div>
 			<div class="mui-row">
-				<img src="images/img67.png" class="left-icon">
+				<!--<img src="images/img67.png" class="left-icon">-->
 				<span class="mui-pull-left">热门搜索</span>
 
 			</div>
@@ -105,11 +108,14 @@
 			mui.plusReady(function() {
 				var history = (localStorage.getItem('history') || '').trim();
 				if(history){
+					document.getElementById('historySearch').hidden = 'false';
 					var hisArr = history.split(' ', 5);
 					var str = template('temp0', {
 						"record": hisArr
 					});
 					document.getElementById("mui-template0").innerHTML = str;
+				} else {
+					document.getElementById('historySearch').hidden = 'true';
 				}
 				
 				var hotSearchParam = {

@@ -50,7 +50,7 @@
 				<span id="read"></span>
 			</div>
 			<div id="content"></div>
-			<img id="img" />
+			<!--<img id="img" />-->
 		</div>
 
 		<script src="js/mui.min.js"></script>
@@ -83,7 +83,7 @@
 							document.getElementById('time').innerHTML = new Date(1000 * info.ar_time).toLocaleDateString();
 							document.getElementById('read').innerHTML = info.ar_reads + ' 阅览';
 							document.getElementById('content').innerHTML = info.ar_content;
-							document.getElementById('img').src = info.ar_image;
+//							document.getElementById('img').src = info.ar_image;
 						}
 					},
 					error: function(xhr, type, errorThrown) {
