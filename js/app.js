@@ -5,6 +5,11 @@
  **/
 
 (function($, owner) {
+	$.init({
+					style: {
+						'scrollIndicator' :'none'
+					}
+				})
 
 	document.write("<script language=javascript src='js/md5.js'></script>");
 
