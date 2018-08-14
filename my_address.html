@@ -29,6 +29,7 @@
 				margin-bottom: 10px;
 				padding: 10px;
 				display: inline-block;
+				width: 100%;
 			}
 			
 			.mui-row img {
@@ -43,6 +44,12 @@
 			input {
 				margin-right: 10px;
 			}
+			.mui-col-xs-11{
+				font-size: 14px;
+			}
+			/*#mui-template{
+				width: 100%;
+			}*/
 		</style>
 	</head>
 
@@ -152,8 +159,11 @@
 
 			mui("#mui-template").on('tap', '.delete', function(e) {
 				var id = this.getAttribute("id");
-				deleteAddress(id);
-
+				mui.confirm('确认删除?', '家政365', ['是', '否'], function(event){
+					if(event.index == 0){
+						deleteAddress(id);
+					}
+				});
 			});
 
 			mui("#mui-template").on('tap', '.edit', function(e) {

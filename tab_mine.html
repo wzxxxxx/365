@@ -124,6 +124,7 @@
 					});
 				});
 				reloginBox.addEventListener('tap', function() {
+					localStorage.removeItem('login');
 					mui.openWindow({
 						url: 'login.html',
 						id: 'login.html'

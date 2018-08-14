@@ -418,14 +418,24 @@
 			
 			var mbi_number;
 			mui.plusReady(function() {
-				var loginData = JSON.parse(localStorage.getItem('login'));
-				if(!loginData) {
-					return;
-				}
-			 mbi_number = loginData.data.info.mbi_id;
+				var loginData = {};
+				var id = setInterval(function() {
+							if(localStorage.getItem('login')) {
+								clearInterval(id);
+//								$.fire(mainPage, 'show', null);
+//								mainPage.show("pop-in");
+								loginData = JSON.parse(localStorage.getItem('login'));
+								 mbi_number = loginData.data.info.mbi_id;
 
-				var orders = [];
-				getOrder();
+								getOrder();
+							}
+						}, 20);
+				
+//				var loginData = JSON.parse(localStorage.getItem('login'));
+//				if(!loginData) {
+//					return;
+//				}
+			
 
 			});
 

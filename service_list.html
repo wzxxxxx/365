@@ -31,6 +31,7 @@
 				line-height: 100px!important;
 				max-width: 100px!important;
 				height: 100px!important;
+				border-radius: 10px;
 			}
 			
 			.mui-btn-block {
@@ -46,11 +47,11 @@
 				margin-left: 5px;
 			}
 			
-			#mui-template .mui-table-view-cell:before {
+			.mui-table-view-cell:before {
 				height: 0px;
 			}
 			
-			#mui-template .mui-table-view-cell:after {
+			.mui-table-view-cell:after {
 				height: 10px;
 				width: 100%;
 				left: 0px;
@@ -63,7 +64,7 @@
 			
 			.mui-media-body img {
 				width: 100%;
-				height: 120px;
+				height: 125px;
 				background-size: cover;
 			}
 			
@@ -131,7 +132,6 @@
 					</script>
 				</ul>
 			</div>
-			<div>
 				<ul class="mui-table-view" id="mui-template">
 					<script type="text/template" id="temp">
 						<% for(var i in record){ var item=record[i]; %>
@@ -163,7 +163,6 @@
 						<%}%>
 					</script>
 				</ul>
-			</div>
 			<div id="no_content">
 				<div class="mui-content-padded nocontent">
 					<img src="images/img34.png" />

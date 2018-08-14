@@ -2,6 +2,7 @@ mui.plusReady(function() {
 	var topoffset=tiaozhengTOP();
 });
 function tiaozhengTOP(){
+	plus.webview.currentWebview().setStyle({scrollIndicator:'none'});
 	var iszhichi = plus.navigator.isImmersedStatusbar();
 	var topoffset;
 	if(iszhichi) {
