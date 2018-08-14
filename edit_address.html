@@ -51,6 +51,19 @@
 				left: 50%;
 				transform: translate(-50%, -10%);
 			}
+			input{
+				margin: 10px;
+			}
+			#iconRight{
+				height: 20px;
+				width: 10px;
+				position: fixed;
+				right: 10px;
+			}
+			#country{
+				margin-right: 20px;
+				color: gray;
+			}
 		</style>
 	</head>
 
@@ -61,7 +74,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-row">
-				联系人<input id="name" type="text" placeholder="请输入姓名">
+				联系人&#12288;<input id="name" type="text" placeholder="请输入姓名">
 			</div>
 			<div class="line"></div>
 			<div class="mui-row">
@@ -70,7 +83,7 @@
 			<div class="line"></div>
 			<div class="mui-row">
 				<a href="#popover">所在地区
-					<div class="mui-pull-right" id="country"></div>
+					<div class="mui-pull-right" id="country"></div><img src="images/ic_red_right.png" id="iconRight" />
 				</a>
 			</div>
 			<div id="popover" class="mui-popover">
