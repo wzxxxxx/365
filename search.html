@@ -8,12 +8,13 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
 			#searchInput {
-				width: 280px;
+				width: 270px;
 				height: 30px;
 				margin: 7px;
 				border-radius: 20px;
 				border-style: hidden;
 				text-indent: 20px;
+				background: white;
 			}
 			
 			.hot-search-btn {
@@ -62,7 +63,14 @@
 			
 			#searchBtn {
 				margin-top: 10px;
+				border: none;
 				color: white;
+				font-size: 16px;
+				background: transparent;
+				padding: 0;
+			}
+			#mui-template{
+				margin-top: 20px;
 			}
 		</style>
 	</head>
@@ -71,8 +79,10 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left "></a>
 			<img src="images/ic_search.png" id="searchImg" />
-			<input type="text" id="searchInput" placeholder="输入服务项和服务内容"></input>
-			<span id="searchBtn" class="mui-pull-right">搜索</span>
+			<form action="">
+				<input type="search" id="searchInput" placeholder="输入服务项和服务内容"></input>
+				<button id="searchBtn" type="submit" class="mui-pull-right">搜索</button>
+			</form>
 		</header>
 		<div class="mui-content">
 			<div class="mui-row" id="historySearch">
@@ -107,17 +117,17 @@
 		<script type="text/javascript">
 			mui.plusReady(function() {
 				var history = (localStorage.getItem('history') || '').trim();
-				if(history){
-					document.getElementById('historySearch').hidden = 'false';
+				if(history) {
+					document.getElementById('historySearch').hidden = false;
 					var hisArr = history.split(' ', 5);
 					var str = template('temp0', {
 						"record": hisArr
 					});
 					document.getElementById("mui-template0").innerHTML = str;
 				} else {
-					document.getElementById('historySearch').hidden = 'true';
+					document.getElementById('historySearch').hidden = true;
 				}
-				
+
 				var hotSearchParam = {
 					service: 'Hlbr365app.Member.GetHotSearch'
 				};
@@ -129,14 +139,30 @@
 					document.getElementById("mui-template").innerHTML = str;
 				})
 
-//				document.getElementById('searchBtn').addEventListener('tap', function() {
-//					document.getElementById('searchInput').value = '';
-//					//					var input = document.getElementById('searchInput').value;
-//					//					if(!input){
-//					//						plus.nativeUI.toast("请输入内容!");
-//					//						return;
-//					//					searchGoods(input);
-//				})
+				//				document.getElementById('searchBtn').addEventListener('tap', function() {
+				//					document.getElementById('searchInput').value = '';
+				//					//					var input = document.getElementById('searchInput').value;
+				//					//					if(!input){
+				//					//						plus.nativeUI.toast("请输入内容!");
+				//					//						return;
+				//					//					searchGoods(input);
+				//				})
+
+				document.querySelector('form').addEventListener('submit', function(e) {
+					e.preventDefault(); // 阻止默认事件
+					document.activeElement.blur();
+					//  var searchBtn = document.getElementById('searchBtn');
+					//  mui.trigger(searchBtn);
+					var input = document.getElementById('searchInput').value;
+					if(!input) {
+						plus.nativeUI.toast("请输入内容!");
+						return;
+					}
+					var history = localStorage.getItem('history') || '';
+					history = input + ' ' + history;
+					localStorage.setItem('history', history);
+					searchGoods(input);
+				});
 
 				document.getElementById('searchBtn').addEventListener('tap', function() {
 					var input = document.getElementById('searchInput').value;

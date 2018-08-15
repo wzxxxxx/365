@@ -106,9 +106,11 @@
 				
 				var clearCache = document.getElementById('clearCache');
 				clearCache.addEventListener('tap', function(){
+					var loginData = localStorage.getItem('login');
 					plus.cache.clear(function(){
 						plus.nativeUI.toast("缓存已清除");
 						initCacheSize();
+						localStorage.setItem('login', loginData);
 					})
 				})
 

@@ -112,6 +112,9 @@
 			#addrContent{
 				padding: 20px;
 			}
+			#prompt{
+				color: black;
+			}
 		}
 		</style>
 	</head>
@@ -259,6 +262,18 @@
 						bottomBtn.innerHTML = '去评价';
 						prompt.innerHTML = '待评价';
 						document.getElementById('price').setAttribute('class', 'mui-hidden');
+						bottomBtn.addEventListener('tap', function(){
+							mui.openWindow({
+								url: 'comment.html',
+								id: 'comment.html',
+								extras: {
+									ob_id: ob_id,
+									company_id: info.company_id,
+									og_id:info.goods.og_goods_id
+									
+								}
+							})
+						})
 					} else if(info.ob_status == 5) {
 						bottomBtn.setAttribute('class', 'mui-btn mui-pull-right');
 						bottomBtn.innerHTML = '去支付';
