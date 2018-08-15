@@ -6,48 +6,48 @@
 
 (function($, owner) {
 	$.init({
-					style: {
-						'scrollIndicator' :'none'
-					}
-				})
+		style: {
+			'scrollIndicator': 'none'
+		}
+	})
 
 	document.write("<script language=javascript src='js/md5.js'></script>");
 
 	var serverUrl = "http://365gateway.lanyukj.cn/public/index.php";
-//	var serverUrl = 'http://365gateway.0470365.com/public/index.php';
+	//	var serverUrl = 'http://365gateway.0470365.com/public/index.php';
 	var ipUrl = 'http://members.3322.org/dyndns/getip';
-	
+
 	var imageServerUrl = 'https://365image.lanyukj.cn/index.php/Upload/jzUpload';
-	
-	Date.prototype.format = function(fmt) { 
-     var o = { 
-        "M+" : this.getMonth()+1,                 //月份 
-        "d+" : this.getDate(),                    //日 
-        "h+" : this.getHours(),                   //小时 
-        "m+" : this.getMinutes(),                 //分 
-        "s+" : this.getSeconds(),                 //秒 
-        "q+" : Math.floor((this.getMonth()+3)/3), //季度 
-        "S"  : this.getMilliseconds()             //毫秒 
-    }; 
-    if(/(y+)/.test(fmt)) {
-            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
-    }
-     for(var k in o) {
-        if(new RegExp("("+ k +")").test(fmt)){
-             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-         }
-     }
-    return fmt; 
-}        
+
+	Date.prototype.format = function(fmt) {
+		var o = {
+			"M+": this.getMonth() + 1, //月份 
+			"d+": this.getDate(), //日 
+			"h+": this.getHours(), //小时 
+			"m+": this.getMinutes(), //分 
+			"s+": this.getSeconds(), //秒 
+			"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+			"S": this.getMilliseconds() //毫秒 
+		};
+		if(/(y+)/.test(fmt)) {
+			fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		}
+		for(var k in o) {
+			if(new RegExp("(" + k + ")").test(fmt)) {
+				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			}
+		}
+		return fmt;
+	}
 
 	//url拼接(包含sign)
 	makeurl = function(data, isGetToken, isUploadImg) {
 		if(!isGetToken) {
 			data.gateway = "App.Site.gatewayapp";
-//			data.Proj_ID = 2;
-//			data.Proj_Key = 'MzY15pm65oWn5a625pS/MTUzMzI2NjM0OA==';
-//			data.Proj_Secret ='NTdhZjg3YTg1ZThmYTYwMWRlOTc2YmQwNjcyNTMxNDMxNTMzMjY2MzQ4';
-//			data.g_mark = uuid;
+			//			data.Proj_ID = 2;
+			//			data.Proj_Key = 'MzY15pm65oWn5a625pS/MTUzMzI2NjM0OA==';
+			//			data.Proj_Secret ='NTdhZjg3YTg1ZThmYTYwMWRlOTc2YmQwNjcyNTMxNDMxNTMzMjY2MzQ4';
+			//			data.g_mark = uuid;
 			if(localStorage.getItem('token')) {
 				data.g_token = JSON.parse(localStorage.getItem('token')).data.info.g_token;
 				data.g_mark = JSON.parse(localStorage.getItem('token')).data.info.g_mark;
@@ -66,15 +66,30 @@
 		}
 		str += "&sign=" + hex_md5(str2);
 		var signValue = hex_md5(str2);
-		if(isUploadImg){
+		if(isUploadImg) {
 			data.sign = signValue;
 			return data;
-		}else {
+		} else {
 			return serverUrl + str.replace(/&/, "?");
 		}
 	}
-	
-	
+
+	var openWindow_1 = $.openWindow;
+
+	$.openWindow = function(obj) {
+		if(obj.waiting) {
+			obj.waiting.options = {
+				background: 'rgba(255,255,255, 0)'
+			}
+		} else {
+			obj.waiting = {
+				options: {
+					background: 'rgba(255,255,255, 0)'
+				}
+			}
+		};
+		return openWindow_1(obj);
+	}
 
 	//判断是否请求成功
 	isRequestSuccess = function(data) {
@@ -84,15 +99,15 @@
 			return true;
 		} else {
 			plus.nativeUI.closeWaiting();
-			if(typeof data == 'string'){
+			if(typeof data == 'string') {
 				var data = JSON.parse(data);
 			}
-			if(data){
-				if(data.data && data.data.msg){
-				plus.nativeUI.toast(data.data.msg);
-			} else if(data.msg){
-				plus.nativeUI.toast(data.msg);
-			}
+			if(data) {
+				if(data.data && data.data.msg) {
+					plus.nativeUI.toast(data.data.msg);
+				} else if(data.msg) {
+					plus.nativeUI.toast(data.msg);
+				}
 			}
 			return false;
 		}
@@ -116,45 +131,44 @@
 			}
 		});
 	}
-	
-	showWaiting = function(){
+
+	showWaiting = function() {
 		return plus.nativeUI.showWaiting('正在加载...', {
-					width: '40%',
-					height: '20%',
-					padding: '10%',
-					background: "rgba(255,255,255,0)",
-					style: 'black',
-					color: "rgba(0,0,0,1)"
-				})
+			width: '40%',
+			height: '20%',
+			padding: '10%',
+			background: "rgba(255,255,255,0)",
+			style: 'black',
+			color: "rgba(0,0,0,1)"
+		})
 	}
-	
-//	//获取公网IP地址
-//	getIp = function() {
-//		mui.ajax(ipUrl, {
-//			dataType: 'json',
-//			type: 'get', //HTTP请求类型
-//			timeout: 10000, //超时时间设置为10秒；
-//			headers: {
-//				'Content-Type': 'application/json'
-//			},
-//			success: function(data) {
-//				if(data) {
-//					console.log(data);
-//					return data;
-//				}
-//			},
-//			error: function(xhr, type, errorThrown) {
-//				//异常处理；
-//				console.log(type);
-//				return;
-//			}
-//		});
-//	}
-	
+
+	//	//获取公网IP地址
+	//	getIp = function() {
+	//		mui.ajax(ipUrl, {
+	//			dataType: 'json',
+	//			type: 'get', //HTTP请求类型
+	//			timeout: 10000, //超时时间设置为10秒；
+	//			headers: {
+	//				'Content-Type': 'application/json'
+	//			},
+	//			success: function(data) {
+	//				if(data) {
+	//					console.log(data);
+	//					return data;
+	//				}
+	//			},
+	//			error: function(xhr, type, errorThrown) {
+	//				//异常处理；
+	//				console.log(type);
+	//				return;
+	//			}
+	//		});
+	//	}
+
 	/**
 	 * 用户登录
 	 **/
-
 
 	owner.createState = function(name, callback) {
 		var state = owner.getState();

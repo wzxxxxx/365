@@ -287,12 +287,15 @@
 						prompt.innerHTML = '工作人员已在工作中.';
 					} else if(info.ob_status == 8 || info.ob_status == 14) {
 						prompt.innerHTML = '已完成！';
+						document.getElementById('price').hidden = true;
 					} else if(info.ob_status == 12) {
 						prompt.innerHTML = '商家已取消订单！' + info.ob_enterprise_cancel_remark;
 						serverPeople.setAttribute('class', 'mui-hidden');
+						document.getElementById('price').hidden = true;
 					} else if(info.ob_status == 13) {
 						prompt.innerHTML = '用户已取消订单！' + info.ob_client_cancel_remark;
 						serverPeople.setAttribute('class', 'mui-hidden');
+						document.getElementById('price').hidden = true;
 					}
 				})
 			}
