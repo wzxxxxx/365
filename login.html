@@ -128,16 +128,6 @@
 			</div>
 		</form>
 		<a id='forgetPassword'>忘记密码</a>
-		<!--<form class="mui-input-group">
-				<ul class="mui-table-view mui-table-view-chevron">
-					<li class="mui-table-view-cell">
-						自动登录
-						<div id="autoLogin" class="mui-switch">
-							<div class="mui-switch-handle"></div>
-						</div>
-					</li>
-				</ul>
-			</form>-->
 		<div class="mui-content-padded">
 			<button id='login' class="mui-btn mui-btn-block">登录</button>
 			<div class="link-area">
@@ -162,7 +152,7 @@
 					plus.webview.currentWebview().setStyle({
 						'popGesture': 'none'
 					});
-//					var state = app.getState();
+					//					var state = app.getState();
 					var mainPage = plus.webview.getWebviewById("main");
 					var main_loaded_flag = false;
 					if(!mainPage) {
@@ -243,14 +233,10 @@
 						};
 
 						wAjax(data, function(result) {
-//							app.createState(loginInfo.account, callback);
 							localStorage.setItem('login', JSON.stringify(result));
 							toMain();
 						})
 					};
-					//					setTimeout(function() {
-					//						plus.navigator.closeSplashscreen();
-					//					}, 600);
 					//检查 "登录状态/锁屏状态" 结束
 					var loginButton = doc.getElementById('login');
 					var accountBox = doc.getElementById('account');
@@ -299,19 +285,6 @@
 							}
 						});
 					}, false);
-					//					var backButtonPress = 0;
-					//					$.back = function(event) {
-					//						backButtonPress++;
-					//						if(backButtonPress > 1) {
-					//							plus.runtime.quit();
-					//						} else {
-					//							plus.nativeUI.toast('再按一次退出应用');
-					//						}
-					//						setTimeout(function() {
-					//							backButtonPress = 0;
-					//						}, 1000);
-					//						return false;
-					//					};
 				});
 			}(mui, document));
 		</script>
