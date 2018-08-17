@@ -140,8 +140,8 @@
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
 						"retina35": "",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "",
-						"retina47": "images/img31.png"
+						"retina40": "/Users/lanyukeji.net/Downloads/启动页640.png",
+						"retina47": "images/img31.png","iphonex":"/Users/lanyukeji.net/Downloads/启动页x.png","retina55":"/Users/lanyukeji.net/Downloads/启动页1242.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/

@@ -258,6 +258,7 @@
 					}
 					wAjax(submitParam, function(result){
 						plus.webview.getWebviewById('tab_order.html').reload();
+						plus.nativeUI.toast('订单提交成功！');
 						mui.back();
 					})
 				}
