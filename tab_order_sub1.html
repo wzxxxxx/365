@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			/*.mui-slider-indicator .mui-active {
+				color: #FF6C00!important;
+				border-bottom-color: #FF6C00!important;
+			}
+			
+			.mui-slider-indicator {
+				background: white;
+			}
+			*/
+			.display-none {
+				display: none;
+			}
+			
+			.mui-row {
+				font-size: small;
+				padding: 2px;
+				padding-left: 10px;
+			}
+			/*body {
+				background: white;
+			}*/
+			
+			.line {
+				width: 100%;
+				height: 1px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				background: #F2F2F2;
+			}
+			
+			img {
+				height: 20px;
+				width: 20px;
+				margin-top: 15px;
+				margin-left: 10px;
+				margin-right: 10px;
+				margin-bottom: -3px;
+			}
+			
+			.mui-row button {
+				background: red;
+				border-radius: 25px;
+				color: white;
+				margin-right: 10px;
+			}
+			
+			.mui-content {
+				background: white;
+			}
+			
+			.status {
+				color: red;
+				line-height: 50px;
+				margin-right: 10px;
+			}
+			
+			/*.mui-segmented-control-positive {
+				height: 40px;
+				border-bottom: gainsboro 1px solid!important;
+			}*/
+			/*.mui-slider-group .mui-control-content {
+				height: 1000px;
+			}*/
+			
+			.mui-btn {
+				border: none;
+			}
+			
+			.nocontent {
+				text-align: center;
+				padding-top: 1.8rem;
+				padding-top: 150px;
+			}
+			
+			.nocontent img {
+				width: 100px;
+				height: 100px;
+			}
+			
+			/*#pullrefresh {
+				margin-top: 40px;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+			<div id="item1" class="mui-scroll">
+
+				<!--<div id="scroll" class="mui-scroll-wrapper">-->
+				<div id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<div class="mui-content" id="<%=item.ob_id%>">
+							<div>
+								<img src="images/img24.png" />
+								<span id="shijian"><%=item.company_name%></span>
+								<% if(item.ob_status==6 || item.ob_status == 7){%>
+								<div class="mui-pull-right status">待评价</div>
+								<%} else if(item.ob_status==5){%>
+								<div class="mui-pull-right status">待付款</div>
+								<%} else if(item.ob_status==14 || item.ob_status==8){%>
+								<div class="mui-pull-right status">已完成</div>
+								<%} else if(item.ob_status==1 || item.ob_status==2){%>
+								<div class="mui-pull-right status">待服务</div>
+								<%} else if(item.ob_status==12 || item.ob_status==13){%>
+								<div class="mui-pull-right status">已取消</div>
+								<%}%>
+							</div>
+							<div class="line"></div>
+							<div class="mui-row">
+								<%=item.goods.og_goods_name%>
+							</div>
+							<div class="mui-row">
+								预约时间:
+								<%=item.user_predict_work_time%>
+							</div>
+							<div class="mui-row">下单时间:
+								<%=item.ob_time%>
+							</div>
+
+							<div class="mui-row">
+								<%=item.user_contacts_name%>&nbsp;&nbsp;
+								<%=item.user_contacts_phone%>
+							</div>
+							<div class="mui-row">备注:
+								<%=item.ob_remark%>
+							</div>
+							<% if(item.ob_status==1 || item.ob_status == 2){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==6 || item.ob_status == 7){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
+							</div>
+							<%}%>
+							<% if(item.ob_status==5){%>
+							<div class="mui-row">
+								<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
+							</div>
+							<%}%>
+							<div class="line"></div>
+						</div>
+						<%}%>
+
+					</script>
+
+				</div>
+				<div id="item1_1_null">
+					<div class="mui-content-padded " id="nocontent">
+						<img src="images/img34.png" />
+						<p>暂无内容</p>
+					</div>
+				</div>
+				<!--</div>-->
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/arttmpl.js" ></script>
+		<script type="text/javascript" src="js/app.js" ></script>
+		<!--<script type="text/javascript" src="js/xiachenshi.js" ></script>-->
+		<script type="text/javascript">
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+						auto: false, //可选,默认false.首次加载自动上拉刷新一次
+						callback: getOrder//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					}
+				}
+			});
+			
+			
+			mui.plusReady(function() {
+				
+				var self = plus.webview.currentWebview();
+				var list = self.list || [];
+				fillData(list);
+				
+			})
+			
+			function fillData(list){
+				for(var i = 0; i < list.length; i++) {
+					list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
+					list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
+				}
+				var str = template('temp', {
+					"record": list
+				});
+				
+				document.getElementById('item1_1_null').hidden = str.trim();
+				document.getElementById("mui-template").innerHTML = str;
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			}
+			
+			
+			function getOrder() {
+				var	loginData = JSON.parse(localStorage.getItem('login'));
+				var	mbi_number = loginData.data.info.mbi_id;
+				var orderParam = {
+					service: 'Hlbr365app.Member.GetMyOrderList',
+					mbi_number: mbi_number,
+					firstRow: 1,
+					listRows: 10
+				};
+				wAjax(orderParam, function(result){
+					var list = result.data.list;
+//					initSubpages(list);
+					fillData(list);
+				});
+			}
+			
+			mui("#mui-template").on('tap', '.mui-content', function(e) {
+				var order_id = this.getAttribute("id");
+				mui.openWindow({
+					url: 'order_detail.html',
+					id: 'order_detail.html',
+					extras: {
+						order_id: order_id
+					}
+				})
+
+			});
+		</script>
+	</body>
+
+</html>

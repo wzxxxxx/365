@@ -16,16 +16,11 @@
 				background: white;
 			}
 			
-			.display-none {
-				display: none;
-			}
-			
 			.mui-row {
 				font-size: small;
 				padding: 2px;
 				padding-left: 10px;
 			}
-			
 			/*body {
 				background: white;
 			}*/
@@ -68,28 +63,14 @@
 				height: 40px;
 				border-bottom: gainsboro 1px solid!important;
 			}
-			
-			.mui-slider-group .mui-control-content {
+			/*.mui-slider-group .mui-control-content {
 				height: 1000px;
-			}
+			}*/
 			
 			.mui-btn {
 				border: none;
 			}
 			
-			.nocontent {
-				text-align: center;
-				padding-top: 1.8rem;
-				padding-top: 150px;
-			}
-			
-			.nocontent img {
-				width: 100px;
-				height: 100px;
-			}
-			#pullrefresh{
-				margin-top: 40px;
-			}
 		</style>
 	</head>
 
@@ -97,463 +78,240 @@
 		<div class="mui-content">
 			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-positive">
 				<div class="mui-scroll">
-					<a class="mui-control-item  mui-active" href="#item1">全部</a>
-					<a class="mui-control-item" href="#item2">待服务</a>
-					<a class="mui-control-item" href="#item3">待支付</a>
-					<a class="mui-control-item" href="#item4">待评价</a>
-				</div>
-			</div>
-			<div class="mui-slider-group mui-scroll-wrapper" id="pullrefresh">
-				<div id="item1" class="mui-slider-item mui-control-content mui-scroll mui-active">
-					<!--<div id="scroll" class="mui-scroll-wrapper">-->
-						<div  id="mui-template">
-							<script type="text/template" id="temp">
-								<% for(var i in record){ var item=record[i]; %>
-								<div class="mui-content" id="<%=item.ob_id%>">
-									<div>
-										<img src="images/img24.png" />
-										<span id="shijian"><%=item.company_name%></span>
-										<% if(item.ob_status==6 || item.ob_status == 7){%>
-										<div class="mui-pull-right status">待评价</div>
-										<%} else if(item.ob_status==5){%>
-										<div class="mui-pull-right status">待付款</div>
-										<%} else if(item.ob_status==14 || item.ob_status==8){%>
-										<div class="mui-pull-right status">已完成</div>
-										<%} else if(item.ob_status==1 || item.ob_status==2){%>
-										<div class="mui-pull-right status">待服务</div>
-										<%} else if(item.ob_status==12 || item.ob_status==13){%>
-										<div class="mui-pull-right status">已取消</div>
-										<%}%>
-									</div>
-									<div class="line"></div>
-									<div class="mui-row">
-										<%=item.goods.og_goods_name%>
-									</div>
-									<div class="mui-row">
-										预约时间:
-										<%=item.user_predict_work_time%>
-									</div>
-									<div class="mui-row">下单时间:
-										<%=item.ob_time%>
-									</div>
-
-									<div class="mui-row">
-										<%=item.user_contacts_name%>&nbsp;&nbsp;
-										<%=item.user_contacts_phone%>
-									</div>
-									<div class="mui-row">备注:
-										<%=item.ob_remark%>
-									</div>
-									<% if(item.ob_status==1 || item.ob_status == 2){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==6 || item.ob_status == 7){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==5){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
-									</div>
-									<%}%>
-									<div class="line"></div>
-								</div>
-								<%}%>
-
-							</script>
-
-						</div>
-						<div id="item1_1_null" class="display-none">
-							<div class="mui-content-padded " id="nocontent">
-								<img src="images/img34.png" />
-								<p>暂无内容</p>
-							</div>
-						</div>
-					<!--</div>-->
-				</div>
-
-				<div id="item2" class="mui-slider-item mui-control-content mui-scrol">
-					<!--<div id="scroll" class="mui-scroll-wrapper">-->
-						<div class=" item1_1" id="mui-template2">
-							<script type="text/template2" id="temp2">
-								<% for(var i in record){ var item=record[i]; %>
-								<% if(item.ob_status==1 || item.ob_status == 2){%>
-								<div class="mui-content" id="<%=item.ob_id%>">
-									<div>
-										<img src="images/img24.png" />
-										<span id="shijian"><%=item.company_name%></span>
-										<% if(item.ob_status==6 || item.ob_status == 7){%>
-										<div class="mui-pull-right status">待评价</div>
-										<%} else if(item.ob_status==5){%>
-										<div class="mui-pull-right status">待付款</div>
-										<%} else if(item.ob_status==14 || item.ob_status==8){%>
-										<div class="mui-pull-right status">已完成</div>
-										<%} else if(item.ob_status==1 || item.ob_status==2){%>
-										<div class="mui-pull-right status">待服务</div>
-										<%} else if(item.ob_status==12 || item.ob_status==13){%>
-										<div class="mui-pull-right status">已取消</div>
-										<%}%>
-									</div>
-									<div class="line"></div>
-									<div class="mui-row">
-										<%=item.goods.og_goods_name%>
-									</div>
-									<div class="mui-row">
-										预约时间:
-										<%=item.user_predict_work_time%>
-									</div>
-									<div class="mui-row">下单时间:
-										<%=item.ob_time%>
-									</div>
-
-									<div class="mui-row">
-										<%=item.user_contacts_name%>&nbsp;&nbsp;
-										<%=item.user_contacts_phone%>
-									</div>
-									<div class="mui-row">备注:
-										<%=item.ob_remark%>
-									</div>
-									<% if(item.ob_status==1 || item.ob_status == 2){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==6 || item.ob_status == 7){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==5){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
-									</div>
-									<%}%>
-									<div class="line"></div>
-								</div>
-								<%}%>
-								<%}%>
-							</script>
-
-						</div>
-						
-						<div id="item1_2_null" class="display-none">
-							<div class="mui-content-padded nocontent">
-								<img src="images/img34.png" />
-								<p>暂无内容</p>
-							</div>
-						</div>
-						<!--<div id="item1_2_null" class="display-none">
-							<div class="mui-content-padded " style="text-align:center;padding-top:1.8rem;">
-								<div><img src="images/img34.png" /></div>
-								<p>暂无内容</p>
-							</div>
-						</div>-->
-				</div>
-
-				<div id="item3" class="mui-slider-item mui-control-content mui-scroll">
-					<!--<div id="scroll" class="mui-scroll-wrapper">-->
-						<div class=" item1_1" id="mui-template3">
-							<script type="text/template" id="temp3">
-								<% for(var i in record){ var item=record[i]; %>
-								<% if(item.ob_status==5){%>
-								<div class="mui-content" id="<%=item.ob_id%>">
-									<div>
-										<img src="images/img24.png" />
-										<span id="shijian"><%=item.company_name%></span>
-										<% if(item.ob_status==6 || item.ob_status == 7){%>
-										<div class="mui-pull-right status">待评价</div>
-										<%} else if(item.ob_status==5){%>
-										<div class="mui-pull-right status">待付款</div>
-										<%} else if(item.ob_status==14 || item.ob_status==8){%>
-										<div class="mui-pull-right status">已完成</div>
-										<%} else if(item.ob_status==1 || item.ob_status==2){%>
-										<div class="mui-pull-right status">待服务</div>
-										<%} else if(item.ob_status==12 || item.ob_status==13){%>
-										<div class="mui-pull-right status">已取消</div>
-										<%}%>
-									</div>
-									<div class="line"></div>
-									<div class="mui-row">
-										<%=item.goods.og_goods_name%>
-									</div>
-									<div class="mui-row">
-										预约时间:
-										<%=item.user_predict_work_time%>
-									</div>
-									<div class="mui-row">下单时间:
-										<%=item.ob_time%>
-									</div>
-
-									<div class="mui-row">
-										<%=item.user_contacts_name%>&nbsp;&nbsp;
-										<%=item.user_contacts_phone%>
-									</div>
-									<div class="mui-row">备注:
-										<%=item.ob_remark%>
-									</div>
-									<% if(item.ob_status==1 || item.ob_status == 2){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==6 || item.ob_status == 7){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==5){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
-									</div>
-									<%}%>
-									<div class="line"></div>
-								</div>
-								<%}%>
-								<%}%>
-							</script>
-
-						</div>
-
-						<div id="item1_3_null" class="display-none">
-							<div class="mui-content-padded nocontent">
-								<img src="images/img34.png" />
-								<p>暂无内容</p>
-							</div>
-						</div>
-				</div>
-
-				<div id="item4" class="mui-slider-item mui-control-content mui-scroll">
-					<!--<div id="scroll" class="mui-scroll-wrapper">-->
-						<div class=" item1_1" id="mui-template4">
-							<script type="text/template" id="temp4">
-								<% for(var i in record){ var item=record[i]; %>
-								<% if(item.ob_status==6 || item.ob_status==7){%>
-								<div class="mui-content" id="<%=item.ob_id%>">
-									<div>
-										<img src="images/img24.png" />
-										<span id="shijian"><%=item.company_name%></span>
-										<% if(item.ob_status==6 || item.ob_status == 7){%>
-										<div class="mui-pull-right status">待评价</div>
-										<%} else if(item.ob_status==5){%>
-										<div class="mui-pull-right status">待付款</div>
-										<%} else if(item.ob_status==14 || item.ob_status==8){%>
-										<div class="mui-pull-right status">已完成</div>
-										<%} else if(item.ob_status==1 || item.ob_status==2){%>
-										<div class="mui-pull-right status">待服务</div>
-										<%} else if(item.ob_status==12 || item.ob_status==13){%>
-										<div class="mui-pull-right status">已取消</div>
-										<%}%>
-									</div>
-									<div class="line"></div>
-									<div class="mui-row">
-										<%=item.goods.og_goods_name%>
-									</div>
-									<div class="mui-row">
-										预约时间:
-										<%=item.user_predict_work_time%>
-									</div>
-									<div class="mui-row">下单时间:
-										<%=item.ob_time%>
-									</div>
-
-									<div class="mui-row">
-										<%=item.user_contacts_name%>&nbsp;&nbsp;
-										<%=item.user_contacts_phone%>
-									</div>
-									<div class="mui-row">备注:
-										<%=item.ob_remark%>
-									</div>
-									<% if(item.ob_status==1 || item.ob_status == 2){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="cancel">取消订单</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==6 || item.ob_status == 7){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="comment">去评价</button>
-									</div>
-									<%}%>
-									<% if(item.ob_status==5){%>
-									<div class="mui-row">
-										<button class="mui-btn mui-btn-outlined mui-pull-right" id="pay">去支付</button>
-									</div>
-									<%}%>
-									<div class="line"></div>
-								</div>
-								<%}%>
-								<%}%>
-							</script>
-
-						</div>
-
-						<div id="item1_4_null" class="display-none">
-							<div class="mui-content-padded nocontent">
-								<img src="images/img34.png" />
-								<p>暂无内容</p>
-							</div>
-						</div>
-
+					<a class="mui-control-item  mui-active" href="#item1" data-wid="tab_order_sub1.html">全部</a>
+					<a class="mui-control-item" href="#item2" data-wid="tab_order_sub2.html">待服务</a>
+					<a class="mui-control-item" href="#item3" data-wid="tab_order_sub3.html">待支付</a>
+					<a class="mui-control-item" href="#item4" data-wid="tab_order_sub4.html">待评价</a>
 				</div>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
-		<script type="text/javascript" src="js/arttmpl.js"></script>
+		<!--<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript" src="js/mui.pullToRefresh.js"></script>
-		<script type="text/javascript" src="js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript" src="js/mui.pullToRefresh.material.js"></script>-->
+		<script type="text/javascript" src="js/webviewGroup.js"></script>
 		<script type="text/javascript">
-			
-			
-			mui.init({
-				pullRefresh: {
-					container: "#pullrefresh", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
-					down: {
-						style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
-						auto: false, //可选,默认false.首次加载自动上拉刷新一次
-						callback: getOrder//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-					}
-				}
-			});
-			
+			//			mui.init({
+			//				pullRefresh: {
+			//					container: "#pullrefresh", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			//					down: {
+			//						style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+			//						auto: false, //可选,默认false.首次加载自动上拉刷新一次
+			//						callback: getOrder//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+			//					}
+			//				}
+			//			});
+
 			var mbi_number;
 			mui.plusReady(function() {
 				var loginData = {};
 				var id = setInterval(function() {
-							if(localStorage.getItem('login')) {
-								clearInterval(id);
-//								$.fire(mainPage, 'show', null);
-//								mainPage.show("pop-in");
-								loginData = JSON.parse(localStorage.getItem('login'));
-								 mbi_number = loginData.data.info.mbi_id;
+					if(localStorage.getItem('login')) {
+						clearInterval(id);
+						//								$.fire(mainPage, 'show', null);
+						//								mainPage.show("pop-in");
+						loginData = JSON.parse(localStorage.getItem('login'));
+						mbi_number = loginData.data.info.mbi_id;
 
-								getOrder();
-							}
-						}, 20);
-				
-//				var loginData = JSON.parse(localStorage.getItem('login'));
-//				if(!loginData) {
-//					return;
-//				}
-			
+						getOrder();
+					}
+				}, 20);
+
+				//				var loginData = JSON.parse(localStorage.getItem('login'));
+				//				if(!loginData) {
+				//					return;
+				//				}
 
 			});
 
+			function initSubpages(data) {
+				var self = plus.webview.currentWebview();
+				var group = new webviewGroup(self.id, {
+					items: [{
+						id: "tab_order_sub1.html",
+						url: "tab_order_sub1.html",
+						extras: {
+							list: data
+						},
+						waiting: {
+							options: {
+								background: 'rgba(255,255,255, 0)'
+							}
+						}
+					}, {
+						id: "tab_order_sub2.html",
+						url: "tab_order_sub2.html",
+						extras: {
+							list: data
+						},
+						waiting: {
+							options: {
+								background: 'rgba(255,255,255, 0)'
+							}
+						}
+					}, {
+						id: "tab_order_sub3.html",
+						url: "tab_order_sub3.html",
+						extras: {
+							list: data
+						},
+						waiting: {
+							options: {
+								background: 'rgba(255,255,255, 0)'
+							}
+						}
+					}, {
+						id: "tab_order_sub4.html",
+						url: "tab_order_sub4.html",
+						extras: {
+							list: data
+						},
+						waiting: {
+							options: {
+								background: 'rgba(255,255,255, 0)'
+							}
+						}
+					}],
+					onChange: function(obj) {
+						var c = document.querySelector(".mui-control-item.mui-active");
+						if(c) {
+							c.classList.remove("mui-active");
+						}
+						var target = document.querySelector(".mui-scroll .mui-control-item:nth-child(" + (parseInt(obj.index) + 1) + ")");
+						target.classList.add("mui-active");
+						if(target.scrollIntoView) {
+							target.scrollIntoView();
+						}
+					}
+				});
+
+				mui(".mui-scroll").on("tap", ".mui-control-item", function(e) {
+					var wid = this.getAttribute("data-wid");
+					group.switchTab(wid);
+				});
+
+			}
+
 			function getOrder() {
-				var data = {
+				var orderParam = {
 					service: 'Hlbr365app.Member.GetMyOrderList',
 					mbi_number: mbi_number,
 					firstRow: 1,
 					listRows: 10
 				};
-				mui.ajax(makeurl(data), {
-					type: 'get', //HTTP请求类型
-					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
-						console.log(JSON.stringify(data));
-						if(isRequestSuccess(data)) {
-							
-//							 mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-							var list = data.data.list;
-							if(list && list.length > 0) {
-								for(var i = 0; i < list.length; i++) {
-									list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
-									list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
-								}
-								var str = template('temp', {
-									"record": list
-								});
-								if(!(str.trim())) {
-									document.getElementById('item1_1_null').setAttribute('class', '');
-								}else {
-									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-								}
-								document.getElementById("mui-template").innerHTML = str;
-								var str2 = template('temp2', {
-									"record": list
-								});
-								if(!(str2.trim())) {
-									document.getElementById('item1_2_null').setAttribute('class', '');
-								}else {
-									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-								}
-								document.getElementById("mui-template2").innerHTML = str2;
-								var str3 = template('temp3', {
-									"record": list
-								});
-								if(!(str3.trim())) {
-									document.getElementById('item1_3_null').setAttribute('class', '');
-								}else {
-									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-								}
-								document.getElementById("mui-template3").innerHTML = str3;
-								var str4 = template('temp4', {
-									"record": list
-								});
-								if(!(str4.trim())) {
-									document.getElementById('item1_4_null').setAttribute('class', '');
-								} else {
-									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-								}
-								document.getElementById("mui-template4").innerHTML = str4;
-								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-							}
-						}
-					},
-					error: function(xhr, type, errorThrown) {
-						//异常处理；
-						console.log(type);
-						return;
-						//							return callback('网络连接错误');
-					}
+				wAjax(orderParam, function(result) {
+					var list = result.data.list;
+					initSubpages(list);
 				});
 			}
 
-			mui("#mui-template").on('tap', '.mui-content', function(e) {
-				var order_id = this.getAttribute("id");
-				mui.openWindow({
-					url: 'order_detail.html',
-					id: 'order_detail.html',
-					extras: {
-						order_id: order_id
-					}
-				})
+			//				mui.ajax(makeurl(data), {
+			//					type: 'get', //HTTP请求类型
+			//					timeout: 10000, //超时时间设置为10秒；
+			//					success: function(data) {
+			//						console.log(JSON.stringify(data));
+			//						if(isRequestSuccess(data)) {
+			//							
+			////							 mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			//							var list = data.data.list;
+			//							if(list && list.length > 0) {
+			////								for(var i = 0; i < list.length; i++) {
+			////									list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
+			////									list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
+			////								}
+			////								var str = template('temp', {
+			////									"record": list
+			////								});
+			////								if(!(str.trim())) {
+			////									document.getElementById('item1_1_null').setAttribute('class', '');
+			////								}else {
+			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
+			////								}
+			////								document.getElementById("mui-template").innerHTML = str;
+			////								var str2 = template('temp2', {
+			////									"record": list
+			////								});
+			////								if(!(str2.trim())) {
+			////									document.getElementById('item1_2_null').setAttribute('class', '');
+			////								}else {
+			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
+			////								}
+			////								document.getElementById("mui-template2").innerHTML = str2;
+			////								var str3 = template('temp3', {
+			////									"record": list
+			////								});
+			////								if(!(str3.trim())) {
+			////									document.getElementById('item1_3_null').setAttribute('class', '');
+			////								}else {
+			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
+			////								}
+			////								document.getElementById("mui-template3").innerHTML = str3;
+			////								var str4 = template('temp4', {
+			////									"record": list
+			////								});
+			////								if(!(str4.trim())) {
+			////									document.getElementById('item1_4_null').setAttribute('class', '');
+			////								} else {
+			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
+			////								}
+			////								document.getElementById("mui-template4").innerHTML = str4;
+			////								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+			//							}
+			//						}
+			//					},
+			//					error: function(xhr, type, errorThrown) {
+			//						//异常处理；
+			//						console.log(type);
+			//						return;
+			//						//							return callback('网络连接错误');
+			//					}
+			//				});
+			//			}
 
-			});
-			mui("#mui-template2").on('tap', '.mui-content', function(e) {
-				var order_id = this.getAttribute("id");
-				mui.openWindow({
-					url: 'order_detail.html',
-					id: 'order_detail.html',
-					extras: {
-						order_id: order_id
-					}
-				})
-			});
-			mui("#mui-template3").on('tap', '.mui-content', function(e) {
-				var order_id = this.getAttribute("id");
-				mui.openWindow({
-					url: 'order_detail.html',
-					id: 'order_detail.html',
-					extras: {
-						order_id: order_id
-					}
-				})
-
-			});
-			mui("#mui-template4").on('tap', '.mui-content', function(e) {
-				var order_id = this.getAttribute("id");
-				mui.openWindow({
-					url: 'order_detail.html',
-					id: 'order_detail.html',
-					extras: {
-						order_id: order_id
-					}
-				})
-
-			});
+			//			mui("#mui-template").on('tap', '.mui-content', function(e) {
+			//				var order_id = this.getAttribute("id");
+			//				mui.openWindow({
+			//					url: 'order_detail.html',
+			//					id: 'order_detail.html',
+			//					extras: {
+			//						order_id: order_id
+			//					}
+			//				})
+			//
+			//			});
+			//			mui("#mui-template2").on('tap', '.mui-content', function(e) {
+			//				var order_id = this.getAttribute("id");
+			//				mui.openWindow({
+			//					url: 'order_detail.html',
+			//					id: 'order_detail.html',
+			//					extras: {
+			//						order_id: order_id
+			//					}
+			//				})
+			//			});
+			//			mui("#mui-template3").on('tap', '.mui-content', function(e) {
+			//				var order_id = this.getAttribute("id");
+			//				mui.openWindow({
+			//					url: 'order_detail.html',
+			//					id: 'order_detail.html',
+			//					extras: {
+			//						order_id: order_id
+			//					}
+			//				})
+			//
+			//			});
+			//			mui("#mui-template4").on('tap', '.mui-content', function(e) {
+			//				var order_id = this.getAttribute("id");
+			//				mui.openWindow({
+			//					url: 'order_detail.html',
+			//					id: 'order_detail.html',
+			//					extras: {
+			//						order_id: order_id
+			//					}
+			//				})
+			//
+			//			});
 		</script>
 	</body>
 

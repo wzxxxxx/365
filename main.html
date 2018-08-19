@@ -235,7 +235,7 @@
 					}
 				});
 
-				function preloadOtherPages() {
+				function preloadPages() {
 					var screenHeight = doc.body.clientHeight - 44 - 50;
 					var pageExtras = {
 						"pageHeight": screenHeight,
@@ -265,7 +265,7 @@
 				}
 
 				$.plusReady(function() {
-					preloadOtherPages();
+					preloadPages();
 //					setTimeout(function() {
 //						plus.webview.show('tab_shouye.html');
 //					}, 200);
