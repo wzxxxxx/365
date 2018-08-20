@@ -9,11 +9,15 @@
 		<style>
 			.mui-slider-indicator .mui-active {
 				color: #FF6C00!important;
-				border-bottom-color: #FF6C00!important;
+				border-bottom: #FF6C00 1px solid!important;
+				/* border-bottom-color: #FF6C00!important; */
 			}
+			
 			
 			.mui-slider-indicator {
 				background: white;
+				height: 40px;
+				
 			}
 			
 			.mui-row {
@@ -59,10 +63,7 @@
 				margin-right: 10px;
 			}
 			
-			.mui-segmented-control-positive {
-				height: 40px;
-				border-bottom: gainsboro 1px solid!important;
-			}
+			
 			/*.mui-slider-group .mui-control-content {
 				height: 1000px;
 			}*/
@@ -133,44 +134,24 @@
 						url: "tab_order_sub1.html",
 						extras: {
 							list: data
-						},
-						waiting: {
-							options: {
-								background: 'rgba(255,255,255, 0)'
-							}
 						}
 					}, {
 						id: "tab_order_sub2.html",
 						url: "tab_order_sub2.html",
 						extras: {
 							list: data
-						},
-						waiting: {
-							options: {
-								background: 'rgba(255,255,255, 0)'
-							}
 						}
 					}, {
 						id: "tab_order_sub3.html",
 						url: "tab_order_sub3.html",
 						extras: {
 							list: data
-						},
-						waiting: {
-							options: {
-								background: 'rgba(255,255,255, 0)'
-							}
 						}
 					}, {
 						id: "tab_order_sub4.html",
 						url: "tab_order_sub4.html",
 						extras: {
 							list: data
-						},
-						waiting: {
-							options: {
-								background: 'rgba(255,255,255, 0)'
-							}
 						}
 					}],
 					onChange: function(obj) {
