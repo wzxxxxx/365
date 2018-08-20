@@ -2848,27 +2848,27 @@ select:focus {
 }
 
 .mui-segmented-control-positive {
-	border: 1px solid #4cd964
+	border: 1px solid #FF6C00
 }
 
 .mui-segmented-control-positive .mui-control-item {
-	color: #4cd964;
+	color: #FF6C00;
 	border-color: inherit
 }
 
 .mui-segmented-control-positive .mui-control-item.mui-active {
 	color: #fff;
-	background-color: #4cd964
+	background-color: #FF6C00
 }
 
 .mui-segmented-control-positive.mui-segmented-control-inverted .mui-control-item.mui-active {
-	color: #4cd964;
-	border-bottom: 2px solid #4cd964;
+	color: #FF6C00;
+	border-bottom: 2px solid #FF6C00;
 	background: 0 0
 }
 
 .mui-segmented-control-positive.mui-segmented-control-inverted~.mui-slider-progress-bar {
-	background-color: #4cd964
+	background-color: #FF6C00
 }
 
 .mui-segmented-control-negative {
