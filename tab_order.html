@@ -7,6 +7,9 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
+				border-bottom: 2px #f2f2f2 solid;
+			}
 		
 			.mui-slider-indicator {
 				background: white;
@@ -181,112 +184,6 @@
 				});
 			}
 
-			//				mui.ajax(makeurl(data), {
-			//					type: 'get', //HTTP请求类型
-			//					timeout: 10000, //超时时间设置为10秒；
-			//					success: function(data) {
-			//						console.log(JSON.stringify(data));
-			//						if(isRequestSuccess(data)) {
-			//							
-			////							 mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-			//							var list = data.data.list;
-			//							if(list && list.length > 0) {
-			////								for(var i = 0; i < list.length; i++) {
-			////									list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
-			////									list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
-			////								}
-			////								var str = template('temp', {
-			////									"record": list
-			////								});
-			////								if(!(str.trim())) {
-			////									document.getElementById('item1_1_null').setAttribute('class', '');
-			////								}else {
-			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-			////								}
-			////								document.getElementById("mui-template").innerHTML = str;
-			////								var str2 = template('temp2', {
-			////									"record": list
-			////								});
-			////								if(!(str2.trim())) {
-			////									document.getElementById('item1_2_null').setAttribute('class', '');
-			////								}else {
-			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-			////								}
-			////								document.getElementById("mui-template2").innerHTML = str2;
-			////								var str3 = template('temp3', {
-			////									"record": list
-			////								});
-			////								if(!(str3.trim())) {
-			////									document.getElementById('item1_3_null').setAttribute('class', '');
-			////								}else {
-			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-			////								}
-			////								document.getElementById("mui-template3").innerHTML = str3;
-			////								var str4 = template('temp4', {
-			////									"record": list
-			////								});
-			////								if(!(str4.trim())) {
-			////									document.getElementById('item1_4_null').setAttribute('class', '');
-			////								} else {
-			////									document.getElementById('item1_4_null').setAttribute('class', 'mui-hidden');
-			////								}
-			////								document.getElementById("mui-template4").innerHTML = str4;
-			////								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-			//							}
-			//						}
-			//					},
-			//					error: function(xhr, type, errorThrown) {
-			//						//异常处理；
-			//						console.log(type);
-			//						return;
-			//						//							return callback('网络连接错误');
-			//					}
-			//				});
-			//			}
-
-			//			mui("#mui-template").on('tap', '.mui-content', function(e) {
-			//				var order_id = this.getAttribute("id");
-			//				mui.openWindow({
-			//					url: 'order_detail.html',
-			//					id: 'order_detail.html',
-			//					extras: {
-			//						order_id: order_id
-			//					}
-			//				})
-			//
-			//			});
-			//			mui("#mui-template2").on('tap', '.mui-content', function(e) {
-			//				var order_id = this.getAttribute("id");
-			//				mui.openWindow({
-			//					url: 'order_detail.html',
-			//					id: 'order_detail.html',
-			//					extras: {
-			//						order_id: order_id
-			//					}
-			//				})
-			//			});
-			//			mui("#mui-template3").on('tap', '.mui-content', function(e) {
-			//				var order_id = this.getAttribute("id");
-			//				mui.openWindow({
-			//					url: 'order_detail.html',
-			//					id: 'order_detail.html',
-			//					extras: {
-			//						order_id: order_id
-			//					}
-			//				})
-			//
-			//			});
-			//			mui("#mui-template4").on('tap', '.mui-content', function(e) {
-			//				var order_id = this.getAttribute("id");
-			//				mui.openWindow({
-			//					url: 'order_detail.html',
-			//					id: 'order_detail.html',
-			//					extras: {
-			//						order_id: order_id
-			//					}
-			//				})
-			//
-			//			});
 		</script>
 	</body>
 

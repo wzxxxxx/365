@@ -141,7 +141,7 @@
 		</div>-->
 		<script src="js/mui.min.js"></script>
 		<script src="js/mui.enterfocus.js"></script>
-		<script language="javascript" type="text/javascript" src="http://fw.qq.com/ipaddress">  </script> 
+		<script src="http://pv.sohu.com/cityjson?ie=utf-8 "></script>
 		<script src="js/app.js"></script>
 		<script>
 			(function($, doc) {
@@ -225,7 +225,8 @@
 							return;
 						}
 						// var ip = '192.168.0.100';
-						var ip = IPData[0];
+						// console.log(returnCitySN);
+						var ip = returnCitySN["cip"];
 						console.log(ip);
 						var data = {
 							service: "Hlbr365app.Member.Landed",

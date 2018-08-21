@@ -205,6 +205,7 @@
 				});
 				
 				document.getElementById('item1_1_null').hidden = str.trim();
+				if(!str.trim()) mui(".mui-content")[0].style.background = "#f8f8f8";
 				document.getElementById("mui-template").innerHTML = str;
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 			}
