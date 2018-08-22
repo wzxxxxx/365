@@ -82,17 +82,17 @@
 				background: gainsboro;
 			} */
 			
-			.nocontent {
-				text-align: center;
-				padding-top: 1.8rem;
-				padding-top: 150px;
-				
-			}
+				#item1_1_null{
+						height: 100%;
+			background: #f8f8f8;
+			padding-top: 150px;
+					}
 			
-			.nocontent img {
-				width: 100px;
-				height: 100px;
-			}
+			
+			        #item1_1_null img {
+			            width: 100px;
+			            height: 100px;
+			        }
 			
 			/* body{
 				background: gainsboro;
@@ -170,12 +170,11 @@
 
 				</div>
 
-				<div id="item1_1_null">
-					<div class="mui-content-padded nocontent">
-						<img src="images/img34.png" />
-						<p>暂无内容</p>
-					</div>
-				</div>
+				
+			</div>
+			<div id="item1_1_null" class="mui-text-center">
+					<img src="images/img34.png" />
+					<p>暂无内容</p>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
@@ -209,26 +208,23 @@
 						})
 						
 							function fillData(list){
-								if(list.length > 0){
 									
 								for(var i = 0; i < list.length; i++) {
 									list[i].user_predict_work_time = new Date(list[i].user_predict_work_time * 1000).toLocaleString();
 									list[i].ob_time = new Date(list[i].ob_time * 1000).toLocaleString();
-								}
 								}
 								var str = template('temp', {
 									"record": list
 								});
 								
 								
-								if(!str.trim()) {
-									mui(".mui-content")[0].style.background = "#f8f8f8";
-								} else {
-									pageIndex++;
-								}
+								if (str.trim()) pageIndex++;
 								$("#mui-template").append(str);
-								document.getElementById('item1_1_null').hidden = pageIndex - 1 || str.trim();
 								mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+								document.getElementById('item1_1_null').hidden = pageIndex - 1 || str.trim();
+								document.getElementById('item1_1_null').hidden ?  mui('#pullrefresh').pullRefresh().enablePullupToRefresh() :  mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+
+								
 							}
 							
 							

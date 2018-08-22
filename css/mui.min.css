@@ -242,7 +242,7 @@ a:active {
 }
 
 .mui-content {
-	background-color: #efeff4;
+	/* background-color: #efeff4; */
 	-webkit-overflow-scrolling: touch
 }
 
