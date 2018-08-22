@@ -15,9 +15,9 @@
 
 	var serverUrl = "http://365gateway.lanyukj.cn/public/index.php";
 	//	var serverUrl = 'http://365gateway.0470365.com/public/index.php';
-	var ipUrl = 'http://members.3322.org/dyndns/getip';
+	// var ipUrl = 'http://members.3322.org/dyndns/getip';
 
-	var imageServerUrl = 'https://365image.lanyukj.cn/index.php/Upload/jzUpload';
+	// var imageServerUrl = 'https://365image.lanyukj.cn/index.php/Upload/jzUpload';
 
 	Date.prototype.format = function(fmt) {
 		var o = {

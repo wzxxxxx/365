@@ -210,6 +210,8 @@
 	</head>
 
 	<body>
+		<div class="mui-scroll-wrapper" id="pullrefresh">
+			<div class="mui-scroll">
 		<div class="mui-content">
 			<a class="mui-bar mui-bar-nav" href="#popover" id="openPopover" ></a>
 			<div id="popover" class="mui-popover">
@@ -230,23 +232,23 @@
 					<script type="text/template" id="temp">
 						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 						<!--<div class="mui-slider-item mui-slider-item-duplicate">
-							<a href="#">
-								<img src="images/img59.png">
-							</a>
-						</div>-->
+							<!-- <a href="#">
+								// <img src="images/img59.png">
+							<!-- </a> -->
+						<!-- </div>--> -->
 						<% for(var i in record){ var item=record[i]; %>
 						<div class="mui-slider-item">
 							<a href="#" id="<%=item.ar_id%>">
-								<img src="<%=item.ar_img || 'images/img16.png' %>" style="width: 100%;max-height: 200px;">
+								<img src="<%=item.ar_img%>" style="width: 100%;max-height: 200px;">
 							</a>
 						</div>
 						<%}%>
 						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-						<!--<div class="mui-slider-item mui-slider-item-duplicate">
-							<a href="#">
-								<img src="images/img59.png">
-							</a>
-						</div>-->
+						<!-- <!--<div class="mui-slider-item mui-slider-item-duplicate"> -->
+							<!-- <a href="#"> -->
+								<!-- <img src="images/img59.png"> -->
+							<!-- </a> -->
+						<!-- </div>--> -->
 					</script>
 
 				</div>
@@ -347,68 +349,30 @@
 				</div>
 			</div>
 			</div>
+			</div>
+			</div>
 			<script type="text/javascript" src="js/arttmpl.js"></script>
 			<script src="js/mui.min.js"></script>
 			<script type="text/javascript" src="js/app.js"></script>
 			<script type="text/javascript">
 				//默认为海拉尔市
 				var city_id = '150702';
+				
+				mui.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						down: {
+							style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+							auto: false, //可选,默认false.首次加载自动上拉刷新一次
+							callback: getConutryList//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+						}
+					}
+				});
 
-//				mui('.mui-scroll-wrapper').scroll({
-//					scrollX: true
-//				});
-//				mui.init({
-//					style: {
-//						'scrollIndicator' :'none'
-//					}
-//				})
 
 				mui.plusReady(function() {
 					getConutryList();
-					if(city_id) {
-						var adParam = {
-							service: 'Hlbr365app.Ad.GetList',
-							ap_id: 1,
-							ar_city_id: city_id
-						};
-						wAjax(adParam, function(result) {
-							var adList = result.data.list.top;
-							var middleAd = result.data.list.middle;
-							var middleAdImg = document.getElementById('middleAd');
-							var adTitle = document.getElementById('adTitle');
-							adTitle.innerHTML = adList[0].ar_title;
-							if(middleAd) {
-								middleAdImg.src = middleAd.ar_img;
-
-								middleAdImg.addEventListener('tap', function() {
-									mui.openWindow({
-										url: 'ad_info.html',
-										id: 'ad_info.html',
-										extras: {
-											ar_id: middleAd.ar_id
-										}
-									})
-								});
-							}
-//							for(var i = 0; i< adList.length;i++){
-//								if(adList[i].ar_img == ''){
-//									adList[i].ar_img = "images/img16.png"
-//								}
-//							}
-
-							var str = template('temp', {
-								"record": adList
-							});
-							document.getElementById("mui-template").innerHTML = str;
-							//加该行后slider才可以滑动, 不知道为啥..
-							var slider = mui('.mui-slider').slider();
-							for(var i = 1; i < adList.length; i++) {
-								document.getElementById('indicator').insertAdjacentHTML("afterEnd", "<div class=\"mui-indicator\"></div>");
-							}
-							getServiceList();
-						});
-
-					}
+					
 
 					document.getElementById('toClass').addEventListener('tap', function() {
 						var main = plus.webview.currentWebview().opener();
@@ -427,7 +391,50 @@
 							'record': countryList
 						});
 						document.getElementById("mui-template0").innerHTML = str;
+						getAdList();
 					})
+				}
+				
+				function getAdList(){
+					if(city_id) {
+											var adParam = {
+												service: 'Hlbr365app.Ad.GetList',
+												ap_id: 1,
+												ar_city_id: city_id
+											};
+											wAjax(adParam, function(result) {
+												var adList = result.data.list.top;
+												var middleAd = result.data.list.middle;
+												var middleAdImg = document.getElementById('middleAd');
+												var adTitle = document.getElementById('adTitle');
+												adTitle.innerHTML = adList[0].ar_title;
+												if(middleAd) {
+													middleAdImg.src = middleAd.ar_img;
+					
+													middleAdImg.addEventListener('tap', function() {
+														mui.openWindow({
+															url: 'ad_info.html',
+															id: 'ad_info.html',
+															extras: {
+																ar_id: middleAd.ar_id
+															}
+														})
+													});
+												} 
+					
+												var str = template('temp', {
+													"record": adList
+												});
+												document.getElementById("mui-template").innerHTML = str;
+												//加该行后slider才可以滑动, 不知道为啥..
+												var slider = mui('.mui-slider').slider();
+												for(var i = 1; i < adList.length; i++) {
+													document.getElementById('indicator').insertAdjacentHTML("afterEnd", "<div class=\"mui-indicator\"></div>");
+												}
+												getServiceList();
+											});
+					
+										}
 				}
 
 				function getServiceList() {
@@ -486,6 +493,7 @@
 							'record': goodsList
 						});
 						document.getElementById('mui-template5').innerHTML = str5;
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 					})
 				}
 
