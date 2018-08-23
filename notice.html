@@ -48,27 +48,6 @@
 		<script type="text/javascript" src="js/app.js" ></script>
 		<script type="text/javascript" src="js/arttmpl.js" ></script>
 		<script type="text/javascript" src="js/xiachenshi.js" ></script>
-		<script type="text/javascript">
-			mui.plusReady(function(){
-				var loginData = JSON.parse(localStorage.getItem('login'));
-				if(!loginData) {
-					return;
-				}
-				var mbi_id = loginData.data.info.mbi_id;
-				getAllNotice(mbi_id);
-			})
-			
-			function getAllNotice(mbi_id){
-				var noticeParam = {
-					service: 'Hlbr365app.Message.ReadAllInfo',
-					mbi_id: mbi_id
-				}
-				wAjax(noticeParam, function(result){
-					
-				})
-				
-			}
-		</script>
-	</body>
+<script type="text/javascript" src="myjs/notice.js"></script>	</body>
 
 </html>

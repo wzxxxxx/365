@@ -27,20 +27,6 @@
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js" ></script>
 		<script type="text/javascript" src="js/app.js" ></script>
-		<script type="text/javascript">
-			mui.plusReady(function(){
-				var param = {
-					service: 'Jzxt.AboutMe.GetDetails'
-				}
-				wAjax(param, function(result){
-					var content = result.data.info.jz_note;
-					var ele = document.createElement('div');
-					ele.innerHTML = content;
-					document.getElementById('aboutus').innerHTML = ele.innerText;
-//					document.getElementById('aboutus').innerHTML = content;
-				})
-			})
-		</script>
-	</body>
+<script type="text/javascript" src="myjs/about_us.js"></script>	</body>
 
 </html>
