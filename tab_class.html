@@ -7,17 +7,6 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<style>
-			/* .mui-bar {
-				background: red;
-			}
-			
-			.mui-title {
-				color: white;
-			} */
-			
-			/* .mui-content{
-				background: #f8f8f8;
-			} */
 			
 			.mui-active {
 				color: #FF6C00!important;
@@ -137,7 +126,6 @@
 								</li>
 								<%}%>
 							</ul>
-							<!--</div>-->
 						</div>
 					</div>
 				</script>
@@ -150,7 +138,7 @@
 							<a href="javascript:;">
 								<img class="mui-media-object mui-pull-left" src="<%=item.ar_image_thum%>">
 								<div class="mui-media-body">
-									<%=item.ar_content%>
+									<%=item.at_name%>
 									<p class='mui-ellipsis'>
 										<img src="images/img27.png" class="timeImg" />
 										<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -164,7 +152,7 @@
 					</script>
 				</ul>
 			</div>
-			<div id="no_content" class="mui-hidden">
+			<div id="no_content">
 				<div class="mui-content-padded nocontent">
 					<img src="images/img34.png" />
 					<p>暂无内容</p>

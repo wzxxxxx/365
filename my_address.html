@@ -80,7 +80,11 @@
 								<%=item.mda_contacts_address%> </div>
 							<h5>----------------------------------------------------------</h5>
 							<div>
-								<input type="checkbox" disabled="<%=item.mda_default%>" />默认地址
+								<% if(item.mda_default==1){%>
+								<input type="checkbox" checked="checked" disabled="disabled"/>默认地址
+								<%} else if(item.mda_default==0){%>
+								<input type="checkbox" disabled="disabled"/>默认地址
+								<%}%>
 								<span id="<%=item.mda_id%>" class="mui-pull-right delete">删除</span>
 								<span name="<%=item.mda_id%>" class="mui-pull-right edit">编辑&nbsp;&nbsp;&nbsp;</span>
 							</div>
