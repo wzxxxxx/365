@@ -102,7 +102,7 @@
 						user_number: mbi_id,
 						jg_id: good_id,
 						mda_id: addrId,
-						predict_time: Number(orderDate)
+						predict_time: Number(orderDate) / 1000
 					}
 					var remark = document.getElementById('remark').value;
 					if(remark) {

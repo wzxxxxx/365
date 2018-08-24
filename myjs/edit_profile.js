@@ -53,7 +53,7 @@
 				}
 				if(user_name) editParam.mei_real_name = user_name;
 				if(sex) editParam.mei_sex = sex == '男' ? 1 : 2;
-				if(birth) editParam.mei_birth = new Date(birth).getTime();
+				if(birth) editParam.mei_birth = (new Date(birth).getTime()) / 1000 ;
 				wAjax(editParam, function(result) {
 					plus.webview.getWebviewById('tab_mine.html').reload();
 					mui.back();

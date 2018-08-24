@@ -50,7 +50,7 @@
 												var middleAd = result.data.list.middle;
 												var middleAdImg = document.getElementById('middleAd');
 												var adTitle = document.getElementById('adTitle');
-												adTitle.innerHTML = adList[0].ar_title;
+//												adTitle.innerHTML = adList[0].ar_title;
 												if(middleAd) {
 													middleAdImg.src = middleAd.ar_img;
 					

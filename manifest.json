@@ -285,5 +285,9 @@
          ]
       }
    },
-   "unpackage" : [ "README.md" ]
+   "unpackage" : [
+	  "README.md",
+	  "images/img44.png",
+	  "libs/easymob-webim-sdk/quickstart.md"
+	]
 }
