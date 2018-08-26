@@ -3,7 +3,7 @@
 			var name = '';
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
-				self.show('slide-in-right', 200);
+// 				self.show('slide-in-right', 200);
 				plus.nativeUI.closeWaiting();
 				getConutryList();
 				if(self.type_id && self.first_id && self.name) {
@@ -50,11 +50,11 @@
 						id: 'goods_info.html',
 						extras: {
 							good_id: id
-						}, //自定义扩展参数
-						show: {
-							autoShow: false, //页面loaded事件发生后自动显示，默认为true
-							event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
-						}
+						} //自定义扩展参数
+// 						show: {
+// 							autoShow: false, //页面loaded事件发生后自动显示，默认为true
+// 							event: 'loaded' //页面显示时机，默认为titleUpdate事件时显示
+// 						}
 					});
 				}
 			});

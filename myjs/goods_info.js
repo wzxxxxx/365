@@ -2,7 +2,7 @@
 			var shares = null;
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
-				self.show('slide-in-right', 300);
+// 				self.show('pop-in', 300);
 				plus.nativeUI.closeWaiting();
 				updateSerivces();
 				

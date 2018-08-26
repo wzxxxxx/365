@@ -45,11 +45,6 @@
 				background-size: contain;
 				color: white;
 				border: none;
-				position: fixed;
-				bottom: 5px;
-				/*left: 100px;*/
-				left: 50%;
-				transform: translate(-50%, -10%);
 			}
 			input{
 				margin: 10px;
@@ -102,7 +97,11 @@
 			<div class="line"></div>
 			<div class="mui-row"><textarea id="addressDetail" placeholder="请填写详细地址"></textarea></div>
 			<div><input id="isDefault" type="checkbox" />是否为默认收货地址</div>
-			<button type="button" class="mui-btn mui-pull-right" id="addAddress">提交修改</button>
+			<div class="mui-content-padded mui-text-center">
+				<nav class="mui-bar mui-bar-tab" >
+			<button type="button" class="mui-btn" id="addAddress">提交修改</button>
+			</nav>
+			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>

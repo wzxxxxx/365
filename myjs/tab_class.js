@@ -71,35 +71,36 @@
 			}
 
 			function getArticleList(id) {
-
-			    var data = {
-			        service: 'Hlbr365app.Article.GetArticleList',
-			        at_id: id,
-			        firstRow: 1,
-			        listRows: 20
-			    };
-
-			    wAjax(data, function (result) {
-			            var list = result.data.list;
-			            // if (list && list.length > 0) {
-			                
-			                for (var i = 0; i < list.length; i++) {
-			                    list[i].ar_time = new Date(1000 * list[i].ar_time).toLocaleDateString();
-			                }
-			                var str = template('temp2', {
-			                    "record": list
-			                });
-
-			                document.getElementById("mui-template2").innerHTML = str;
-							document.getElementById('no_content').hidden = list.length > 0;
-			                plus.nativeUI.closeWaiting();
-// 			            } else {
-// 			                document.getElementById('no_content').setAttribute('class', '');
-// 							plus.nativeUI.closeWaiting();
-// 
-// 			            }
-			    })
-			}
+			
+						    var data = {
+						        service: 'Hlbr365app.Article.GetArticleList',
+						        at_id: id,
+						        firstRow: 1,
+						        listRows: 20
+						    };
+			
+						    wAjax(data, function (result) {
+						            var list = result.data.list;
+						            // if (list && list.length > 0) {
+						                
+						                for (var i = 0; i < list.length; i++) {
+						                    list[i].ar_time = new Date(1000 * list[i].ar_time).toLocaleDateString();
+						                }
+						                var str = template('temp2', {
+						                    "record": list
+						                });
+			
+						                document.getElementById("mui-template2").innerHTML = str;
+										document.getElementById('no_content').hidden = list.length > 0;
+						                plus.nativeUI.closeWaiting();
+			// 			            } else {
+			// 			                document.getElementById('no_content').setAttribute('class', '');
+			// 							plus.nativeUI.closeWaiting();
+			// 
+			// 			            }
+						    })
+						}
+			
 			// articles = [];
 			// 				mui.ajax({
 			// 					url: makeurl(data),

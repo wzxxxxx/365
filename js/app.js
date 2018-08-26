@@ -77,6 +77,9 @@
 	var openWindow_1 = $.openWindow;
 
 	$.openWindow = function(obj) {
+		obj.show = {
+			aniShow: 'pop-in'
+		};
 		if(obj.waiting) {
 			obj.waiting.options = {
 				background: 'rgba(255,255,255, 0)'

@@ -1,34 +1,15 @@
-			//			mui.init({
-			//				pullRefresh: {
-			//					container: "#pullrefresh", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
-			//					down: {
-			//						style: 'circle', //必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
-			//						auto: false, //可选,默认false.首次加载自动上拉刷新一次
-			//						callback: getOrder//必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-			//					}
-			//				}
-			//			});
-
 			var mbi_number;
 			mui.plusReady(function() {
 				var loginData = {};
 				var id = setInterval(function() {
 					if(localStorage.getItem('login')) {
 						clearInterval(id);
-						//								$.fire(mainPage, 'show', null);
-						//								mainPage.show("pop-in");
 						loginData = JSON.parse(localStorage.getItem('login'));
 						mbi_number = loginData.data.info.mbi_id;
 
 						getOrder();
 					}
 				}, 20);
-
-				//				var loginData = JSON.parse(localStorage.getItem('login'));
-				//				if(!loginData) {
-				//					return;
-				//				}
-
 			});
 
 			function initSubpages(data) {

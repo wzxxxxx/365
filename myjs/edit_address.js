@@ -10,7 +10,7 @@
 				var mbi_id = loginData.data.info.mbi_id;
 				document.getElementById('addAddress').addEventListener('tap', function() {
 					// 登陆出现错误无法获取mbi_id
-					addAddress(mbi_id);
+					addAddress(id, mbi_id);
 //					addAddress(58);
 				})
 				getConutryList();
@@ -47,14 +47,15 @@
 				})
 			}
 
-			function addAddress(mbi_id) {
+			function addAddress(mda_id, mbi_id) {
 				var name = document.getElementById('name').value;
 				var phoneNumber = document.getElementById('number').value;
 				var addressDetail = document.getElementById('addressDetail').value;
 				var isDefault = document.getElementById('isDefault').value;
 				var addressParam = {
-					service: 'Hlbr365app.MemberDeliveryAddress.Add',
+					service: 'Hlbr365app.MemberDeliveryAddress.Edit',
 					mbi_id: mbi_id,
+					mda_id: mda_id,
 					mda_contacts_name: name,
 					mda_contacts_phone: phoneNumber,
 					mda_contacts_province: 150000,
