@@ -9,7 +9,7 @@
 						return;
 					}
 					var mbi_id = loginData.data.info.mbi_id;
-
+					getDefaultAddr(mbi_id);
 					document.getElementById('chooseAddress').addEventListener('tap', function() {
 						mui.openWindow({
 							url: 'my_address.html',
@@ -62,6 +62,24 @@
 						mda_id: id
 					}
 					wAjax(getAddrParam, function(result) {
+						var addrInfo = result.data.info;
+						if(addrInfo) {
+							document.getElementById('noAddr').setAttribute('class', 'mui-hidden');
+							document.getElementById('gotAddr').setAttribute('class', 'mui-row');
+							document.getElementById('name').innerHTML = '联系人：' + addrInfo.mda_contacts_name;
+							document.getElementById('phoneNumber').innerHTML = '联系电话：' + addrInfo.mda_contacts_phone;
+							document.getElementById('address').innerHTML = '联系地址：' + addrInfo.mda_contacts_province_name +
+								addrInfo.mda_contacts_city_name + addrInfo.mda_contacts_county_name + addrInfo.mda_contacts_address;
+						}
+					})
+				}
+				
+				function getDefaultAddr(mbi_id){
+					var defaultAddrparam = {
+						service: 'Hlbr365app.MemberDeliveryAddress.GetDefault',
+						mbi_id: mbi_id
+					}
+					wAjax(defaultAddrparam, function(result){
 						var addrInfo = result.data.info;
 						if(addrInfo) {
 							document.getElementById('noAddr').setAttribute('class', 'mui-hidden');

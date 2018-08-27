@@ -56,6 +56,7 @@
 				if(birth) editParam.mei_birth = (new Date(birth).getTime()) / 1000 ;
 				wAjax(editParam, function(result) {
 					plus.webview.getWebviewById('tab_mine.html').reload();
+					plus.nativeUI.toast('修改地址成功！');
 					mui.back();
 				})
 			}
@@ -134,6 +135,25 @@
 
 				})
 			}
+			
+			document.getElementById('leixing').addEventListener('tap', function(){
+				var actionstyle = {
+								title: "	请选择你的性别",
+								buttons: [{
+									title: "男"
+								}, {
+									title: "女"
+								}]
+							};
+							plus.nativeUI.actionSheet(actionstyle, function(e) {
+								console.log("User pressed: " + e.index);
+								if(e.index == 1){
+									document.getElementById('sex').innerHTML = '男';
+								} else if(e.index == 2){
+									document.getElementById('sex').innerHTML = '女';
+								}
+							});
+			})
 
 			document.getElementById('birthday').addEventListener('tap', function() {
 				var dtPicker = new mui.DtPicker({
@@ -146,12 +166,12 @@
 				})
 			})
 
-			mui("#forward").on('tap', 'a', function(e) {
-				var sex = this.innerHTML;
-				document.getElementById('sex').innerHTML = sex;
-				mui('#forward').popover('hide');
-				//				cancelOrder(reason);
-			});
+//			mui("#forward").on('tap', 'a', function(e) {
+//				var sex = this.innerHTML;
+//				document.getElementById('sex').innerHTML = sex;
+//				mui('#forward').popover('hide');
+//				//				cancelOrder(reason);
+//			});
 
 			//头像
 			document.getElementById('zhaoxiang').addEventListener('tap', function() {

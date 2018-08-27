@@ -28,7 +28,7 @@
 						document.getElementById('number').value = addrInfo.mda_contacts_phone;
 						document.getElementById('country').innerHTML = addrInfo.mda_contacts_county_name;
 						document.getElementById('addressDetail').value = addrInfo.mda_contacts_address;
-						document.getElementById('isDefault').value = addrInfo.mda_default;
+						document.getElementById('isDefault').checked = addrInfo.mda_default == '1';
 					}
 				})
 			}
@@ -51,7 +51,7 @@
 				var name = document.getElementById('name').value;
 				var phoneNumber = document.getElementById('number').value;
 				var addressDetail = document.getElementById('addressDetail').value;
-				var isDefault = document.getElementById('isDefault').value;
+				var isDefault = document.getElementById('isDefault').checked ? 1 : 0;
 				var addressParam = {
 					service: 'Hlbr365app.MemberDeliveryAddress.Edit',
 					mbi_id: mbi_id,

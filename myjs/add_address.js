@@ -31,7 +31,7 @@
 				var name = document.getElementById('name').value;
 				var phoneNumber = document.getElementById('number').value;
 				var addressDetail = document.getElementById('addressDetail').value;
-				var isDefault = document.getElementById('isDefault').value;
+				var isDefault = document.getElementById('isDefault').checked ? 1 : 0;
 				var addressParam = {
 					service: 'Hlbr365app.MemberDeliveryAddress.Add',
 					mbi_id: mbi_id,
@@ -46,6 +46,7 @@
 				wAjax(addressParam, function(result){
 					var myAddress = plus.webview.getWebviewById('my_address.html');
 					myAddress.reload();
+					plus.nativeUI.toast("添加地址成功！");
 					mui.back();
 				})
 			}
