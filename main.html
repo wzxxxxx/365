@@ -42,10 +42,11 @@
 				color: gray;
 				border: none;
 			}
-			#searchBtn img{
+			
+			#searchBtn img {
 				margin-bottom: -4px;
-				 margin-right: 5px;
-				 margin-left: -20px;
+				margin-right: 5px;
+				margin-left: -20px;
 			}
 			
 			#noticeImg {
@@ -125,16 +126,16 @@
 		<script src="js/app.js"></script>
 		<script>
 			(function($, doc) {
-				
+
 				var account = doc.getElementById('account');
 				window.addEventListener('show', function() {
-//						mui.trigger(document.getElementById('shouye'), 'tap');
-						plus.webview.show('tab_shouye.html');
-						document.getElementById("chooseCity").setAttribute("class", "mui-btn  mui-btn-link mui-pull-left");
-						document.getElementById('searchBtn').setAttribute('class', '');
-						document.getElementById('noticeImg').setAttribute('class', '');
-						document.getElementById('shouye').setAttribute('class', 'mui-tab-item mui-active');
-						document.getElementById('mine').setAttribute('class', 'mui-tab-item ');
+					//						mui.trigger(document.getElementById('shouye'), 'tap');
+					plus.webview.show('tab_shouye.html');
+					document.getElementById("chooseCity").setAttribute("class", "mui-btn  mui-btn-link mui-pull-left");
+					document.getElementById('searchBtn').setAttribute('class', '');
+					document.getElementById('noticeImg').setAttribute('class', '');
+					document.getElementById('shouye').setAttribute('class', 'mui-tab-item mui-active');
+					document.getElementById('mine').setAttribute('class', 'mui-tab-item ');
 				}, false);
 
 				var subpages = ['tab_shouye.html', 'tab_service.html', 'tab_class.html', 'tab_order.html', 'tab_mine.html'];
@@ -253,9 +254,9 @@
 
 				$.plusReady(function() {
 					preloadPages();
-//					setTimeout(function() {
-//						plus.webview.show('tab_shouye.html');
-//					}, 200);
+					//					setTimeout(function() {
+					//						plus.webview.show('tab_shouye.html');
+					//					}, 200);
 
 					var searchButton = document.getElementById('searchBtn');
 					searchButton.addEventListener('tap', function(event) {
@@ -276,4 +277,5 @@
 			}(mui, document));
 		</script>
 	</body>
-	</html>
+
+</html>
