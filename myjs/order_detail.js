@@ -3,7 +3,10 @@
 				if(self.order_id) {
 					getOrderInfo(self.order_id);
 				}
+				getChannels();
 			})
+
+			var ob_number = '';
 
 			function getOrderInfo(ob_id) {
 				var getOrderParam = {
@@ -30,6 +33,8 @@
 					if(info.pay) {
 						document.getElementById('price').innerHTML = info.pay.op_actual_price + '元';
 					}
+
+					ob_number = info.ob_number;
 
 					var bottomBtn = document.getElementById('bottomButton');
 					var prompt = document.getElementById('prompt');
@@ -75,13 +80,12 @@
 							};
 							plus.nativeUI.actionSheet(actionstyle, function(e) {
 								console.log("User pressed: " + e.index);
-								if (e.index == 1) {
-									createOrder(info.ob_number, 2);
-								} else if(e.index == 2){
-									createOrder(info.ob_number, 3);
+								if(e.index == 1) {
+									createOrder(2);
+								} else if(e.index == 2) {
+									createOrder(3);
 								}
 							});
-//							createOrder(info.ob_number);
 						})
 					} else if(info.ob_status == 3) {
 						prompt.innerHTML = '商家已指派工作人员.';
@@ -122,142 +126,83 @@
 				cancelOrder(reason);
 			});
 
-			function createOrder(ob_number, index) {
+			function createOrder(index) {
+				var self = plus.webview.currentWebview();
+				var ob_id = self.order_id || '';
 				var createOrderParam = {
 					service: 'Hlbr365app.Order.PayOrder',
 					ob_number: ob_number,
 					op_pay_mode: index
 				}
-				console.log("testtt" + index);
-				wAjax(createOrderParam, function(result) {
-					var html = result.data.info;
-					console.log(html);
-					document.getElementById('submitOrder').innerHTML = html;
-					setTimeout(function() {
-						document.forms['alipaysubmit'].submit();
-					}, 500);
-				})
+				if(index == 2) { 
+					wAjax(createOrderParam, function(result) {
+						var order_info = result.data.info.wx;
+						order_info.retcode = 0;
+						order_info.retmsg = 'ok';
+						pay('wxpay', order_info);
+					})
+				} else if(index == 3) {
+					wAjax(createOrderParam, function(result) {
+						var html = result.data.info;
+						console.log(html);
+						document.getElementById('submitOrder').innerHTML = html;
+						setTimeout(function() {
+							document.forms['alipaysubmit'].submit();
+						}, 500);
+					})
+				}
 			}
 
-			//			var pays = [], aliUrl = '';
-			//			function payOrder(ob_number) {
-			////				createOrder(ob_number);
-			//				
-			//				
-			//				plus.payment.getChannels(function(channels) {
-			////					var content = document.getElementById('dcontent');
-			////					var info = document.getElementById('info');
-			////					var txt = '支付通道信息：';
-			//					for(var i in channels) {
-			//						var channel = channels[i];
-			//						if(channel.id == 'qhpay' || channel.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
-			//							continue;
-			//						}
-			//						pays[channel.id] = channel;
-			////						txt += 'id:' + channel.id + ', ';
-			////						txt += 'description:' + channel.description + ', ';
-			////						txt += 'serviceReady:' + channel.serviceReady + '； ';
-			////						var de = document.createElement('div');
-			////						de.setAttribute('class', 'button');
-			////						de.setAttribute('onclick', 'pay(this.id)');
-			////						de.id = channel.id;
-			////						de.innerText = channel.description + '支付';
-			////						content.appendChild(de);
-			//						if(channel.id == 'alipay'){
-			//							checkServices(channel);
-			//						}
-			//						
-			//					}
-			////					info.innerText = txt;
-			//				}, function(e) {
-			//					outLine('获取支付通道失败：' + e.message);
-			//				});
-			//			}
-			//
-			//				var w = null;
-			//			var PAYSERVER = 'http://365gateway.lanyukj.cn/public/index.php?';
-			//			
-			//			// 检测是否安装支付服务
-			//			function checkServices(pc) {
-			//				if(!pc.serviceReady) {
-			//					var txt = null;
-			//					switch(pc.id) {
-			//						case 'alipay':
-			//							txt = '检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？';
-			//							break;
-			//						default:
-			//							txt = '系统未安装“' + pc.description + '”服务，无法完成支付，是否立即安装？';
-			//							break;
-			//					}
-			//					plus.nativeUI.confirm(txt, function(e) {
-			//						if(e.index == 0) {
-			//							pc.installService();
-			//						}
-			//					}, pc.description);
-			//				} else {
-			//					pay('alipay', document.getElementById('price').innerHTML);
-			//				}
-			//			}
-			//			
-			//			// 支付
-			//			function pay(id, price) {
-			//				if(w) {
-			//					return;
-			//				} //检查是否请求订单中
-			////				if(id === 'appleiap') {
-			////					outSet('应用内支付');
-			////					clicked('payment_iap.html');
-			////					return;
-			////				}
-			////				outSet('----- 请求支付 -----');
-			//				var url = PAYSERVER;
-			////				if(id == 'alipay' || id == 'wxpay') {
-			////					url += id;
-			////				} else {
-			////					plus.nativeUI.alert('当前环境不支持此支付通道！', null, '捐赠');
-			////					return;
-			////				}
-			////				var appid = plus.runtime.appid;
-			////				if(navigator.userAgent.indexOf('StreamApp') >= 0) {
-			////					appid = 'Stream';
-			////				}
-			////				url += '&appid=' + appid + '&total=';
-			//				url += aliUrl;
-			//				w = plus.nativeUI.showWaiting();
-			//				// 请求支付订单
-			//				var amount = price;
-			//				var xhr = new XMLHttpRequest();
-			//				xhr.onreadystatechange = function() {
-			//					switch(xhr.readyState) {
-			//						case 4:
-			//							w.close();
-			//							w = null;
-			//							if(xhr.status == 200) {
-			//								console.log('----- 请求订单成功 -----');
-			//								console.log(xhr.responseText);
-			//								var order = xhr.responseText;
-			//								plus.payment.request(pays[id], order, function(result) {
-			//									console.log('----- 支付成功 -----');
-			//									console.log(JSON.stringify(result));
-			//									plus.nativeUI.alert('支付成功：感谢你的支持，我们会继续努力完善产品。', function() {
-			//										back();
-			//									}, '捐赠');
-			//								}, function(e) {
-			//									console.log('----- 支付失败 -----');
-			//									console.log('[' + e.code + ']：' + e.message);
-			//									plus.nativeUI.alert('更多错误信息请参考支付(Payment)规范文档：http://www.html5plus.org/#specification#/specification/Payment.html', null, '支付失败：' + e.code);
-			//								});
-			//							} else {
-			//								console.log('----- 请求订单失败 -----');
-			//								console.log(xhr.status);
-			//								plus.nativeUI.alert('获取订单信息失败！', null, '捐赠');
-			//							}
-			//							break;
-			//						default:
-			//							break;
-			//					}
-			//				}
-			//				xhr.open('GET', url);
-			//				console.log('请求支付订单：' + url );
-			//				xhr.send();
-			//			}
+			var pays = [];
+
+			function getChannels() {
+				plus.payment.getChannels(function(channels) {
+					for(var i in channels) {
+						var channel = channels[i];
+						if(channel.id == 'qhpay' || channel.id == 'qihoo') { // 过滤掉不支持的支付通道：暂不支持360相关支付
+							continue;
+						}
+						pays[channel.id] = channel;
+						if(channel.id == 'alipay') {
+							checkServices(channel);
+						}
+					}
+				}, function(e) {
+					outLine('获取支付通道失败：' + e.message);
+				});
+			}
+
+			// 检测是否安装支付服务
+			function checkServices(pc) {
+				if(!pc.serviceReady) {
+					var txt = null;
+					switch(pc.id) {
+						case 'alipay':
+							txt = '检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？';
+							break;
+						default:
+							txt = '系统未安装“' + pc.description + '”服务，无法完成支付，是否立即安装？';
+							break;
+					}
+					plus.nativeUI.confirm(txt, function(e) {
+						if(e.index == 0) {
+							pc.installService();
+						}
+					}, pc.description);
+				}
+			}
+
+			// 支付
+			function pay(id, ob_id) {
+				plus.payment.request(pays[id], ob_id, function(result) {
+					plus.nativeUI.alert('订单支付成功！', function() {
+						back();
+						plus.webview.currentWebview().reload();
+					}, '呼伦贝尔365');
+				}, function(e) {
+					console.log('----- 支付失败 -----');
+					console.log('[' + e.code + ']：' + e.message);
+					plus.nativeUI.alert('更多错误信息请参考支付(Payment)规范文档：http://www.html5plus.org/#specification#/specification/Payment.html', null, '支付失败：' + e.code);
+				});
+			}
+		

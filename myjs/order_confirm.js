@@ -82,6 +82,7 @@
 					wAjax(defaultAddrparam, function(result){
 						var addrInfo = result.data.info;
 						if(addrInfo) {
+							addrId = addrInfo.mda_id;
 							document.getElementById('noAddr').setAttribute('class', 'mui-hidden');
 							document.getElementById('gotAddr').setAttribute('class', 'mui-row');
 							document.getElementById('name').innerHTML = '联系人：' + addrInfo.mda_contacts_name;
@@ -126,8 +127,10 @@
 					if(remark) {
 						submitParam.ob_remark = remark;
 					}
+					plus.nativeUI.showWaiting();
 					wAjax(submitParam, function(result){
 						plus.webview.getWebviewById('tab_order.html').reload();
+						plus.nativeUI.closeWaiting();
 						plus.nativeUI.toast('订单提交成功！');
 						mui.back();
 					})
