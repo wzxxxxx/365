@@ -146,9 +146,9 @@
 <!--<script type="text/javascript" src="myjs/login.js"></script>-->	
 	<script>
 					(function($, doc) {
-				$.init({
-					statusBarBackground: '#f7f7f7'
-				});
+//				$.init({
+//					statusBarBackground: '#f7f7f7'
+//				});
 				$.plusReady(function() {
 					plus.screen.lockOrientation("portrait-primary");
 					plus.webview.currentWebview().setStyle({
@@ -165,7 +165,7 @@
 					} else {
 						main_loaded_flag = true;
 					}
-
+					
 					mainPage.addEventListener("loaded", function() {
 						main_loaded_flag = true;
 					});
@@ -176,7 +176,7 @@
 							if(main_loaded_flag) {
 								clearInterval(id);
 								$.fire(mainPage, 'show', null);
-								mainPage.show("pop-in");
+								mainPage.show("fade-in");
 							}
 						}, 20);
 					};
