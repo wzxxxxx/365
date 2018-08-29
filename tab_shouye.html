@@ -254,7 +254,7 @@
 							<div class="mui-scroll" id="mui-template4">
 								<script type="text/template" id="temp4">
 									<% for(var i in record){ var item=record[i]; %>
-									<div class="mui-control-item test">
+									<div class="mui-control-item test" id="<%=item.at_id%>">
 										<h5><%=item.at_name%></h5>
 										<img src="<%=item.at_image %>" />
 									</div>

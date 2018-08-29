@@ -247,7 +247,7 @@
 
 				});
 
-				mui("#mui-template4").on('tap', 'li', function(e) {
+				mui("#mui-template4").on('tap', '.test', function(e) {
 					var id = this.getAttribute("id");
 					var param = {
 						typeId: id
@@ -256,13 +256,6 @@
 					var classPage = plus.webview.getWebviewById('tab_class.html');
 					mui.fire(main, 'toClass', param);
 					mui.fire(classPage, 'toClass', param);
-					//					mui.openWindow({
-					//						url: 'goods_info.html',
-					//						id: 'goods_info.html',
-					//						extras: {
-					//							good_id: id
-					//						}
-					//					});
 				});
 
 				mui("#mui-template5").on('tap', 'img', function(e) {
