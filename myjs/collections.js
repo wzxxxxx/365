@@ -45,7 +45,7 @@
 					mbi_id: loginData.data.info.mbi_id,
 					jc_type: 1,
 					firstRow: isDown ? 1 : pageIndex,
-					listRows: 1
+					listRows: 10
 				}
 				wAjax(collectionParam, function(result) {
 					var collectionList = result.data.list;
@@ -54,8 +54,6 @@
 						});
 						//如果为下拉刷新 将分页数置为2;如果为上拉刷新且数据不为空, 分页数+1
 						isDown ? pageIndex = 2 : (str.trim() && pageIndex++);
-//						if(str.trim() && !isDown) pageIndex++;
-						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 						document.getElementById('no_content').hidden = pageIndex - 1 || str.trim();
 //						!isDown && document.getElementById('no_content').hidden ? mui('#pullrefresh').pullRefresh().enablePullupToRefresh() : mui(
 //							'#pullrefresh').pullRefresh().disablePullupToRefresh();
@@ -66,7 +64,13 @@
 				}
 
 			function pulldownRefresh() {
-				getCollections(true);
+				mui('#pullrefresh').pullRefresh().refresh(true);
+				setTimeout(function(){
+					getCollections(true);
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+					mui.toast('刷新成功!');
+				}, 1000)
+				
 			}
 
 			function pullupRefresh() {
