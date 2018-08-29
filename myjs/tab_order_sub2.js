@@ -34,10 +34,10 @@
 								
 								
 							if (str.trim()) pageIndex++;
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 							document.getElementById('item1_1_null').hidden = pageIndex - 1 || str.trim();
 							if(!(document.getElementById('item1_1_null')).hidden) mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
 							isDown ? document.getElementById("mui-template").innerHTML = str : $("#mui-template").append(str);
-							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 							list.length < 10 ? mui('#pullrefresh').pullRefresh().endPullupToRefresh(true) : mui('#pullrefresh').pullRefresh().endPullupToRefresh();
 							
 							}

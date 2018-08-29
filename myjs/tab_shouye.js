@@ -256,13 +256,6 @@
 					var classPage = plus.webview.getWebviewById('tab_class.html');
 					mui.fire(main, 'toClass', param);
 					mui.fire(classPage, 'toClass', param);
-					//					mui.openWindow({
-					//						url: 'goods_info.html',
-					//						id: 'goods_info.html',
-					//						extras: {
-					//							good_id: id
-					//						}
-					//					});
 				});
 
 				mui("#mui-template5").on('tap', 'img', function(e) {

@@ -80,6 +80,9 @@
 		obj.show = {
 			aniShow: 'pop-in'
 		};
+// 		if(obj.style){
+// 			 obj.style.bounce = 'vertical';
+// 		}
 		if(obj.waiting) {
 			obj.waiting.options = {
 				background: 'rgba(255,255,255, 0)'
@@ -116,7 +119,7 @@
 		}
 	}
 
-	wAjax = function(data, success) {
+	wAjax = function(data, success, error) {
 		mui.ajax(makeurl(data), {
 			type: 'post', //HTTP请求类型
 			timeout: 10000, //超时时间设置为10秒；
@@ -130,7 +133,7 @@
 				plus.nativeUI.toast('网络连接错误');
 				//异常处理；
 				console.log(type);
-				return;
+				return error(type);
 			}
 		});
 	}
