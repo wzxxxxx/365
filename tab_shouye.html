@@ -92,10 +92,6 @@
 				color: red;
 				background: white;
 			}
-			/*#mui-template {
-			width: 100%;
-			height: 200px;
-		}*/
 			
 			#mui-template2 {
 				margin-top: 10px;
@@ -166,8 +162,6 @@
 				height: 0px;
 				z-index: -999;
 			}
-			
-			
 		</style>
 	</head>
 
@@ -254,7 +248,7 @@
 							<div class="mui-scroll" id="mui-template4">
 								<script type="text/template" id="temp4">
 									<% for(var i in record){ var item=record[i]; %>
-									<div class="mui-control-item test">
+									<div class="mui-control-item test" id="<%=item.at_id%>">
 										<h5><%=item.at_name%></h5>
 										<img src="<%=item.at_image %>" />
 									</div>

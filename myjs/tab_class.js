@@ -19,7 +19,6 @@
 			});
 
 			function getTypeList() {
-
 			    var data = {
 			        service: 'Hlbr365app.Article.GetTypeList'
 			    };

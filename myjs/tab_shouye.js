@@ -247,7 +247,7 @@
 
 				});
 
-				mui("#mui-template4").on('tap', 'li', function(e) {
+				mui("#mui-template4").on('tap', '.test', function(e) {
 					var id = this.getAttribute("id");
 					var param = {
 						typeId: id
