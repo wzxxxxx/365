@@ -29,6 +29,9 @@
 				width: 100px;
 				height: 100px;
 			}
+			.mui-content {
+				margin-top: 10px;
+			}
 		</style>
 	</head>
 
@@ -37,7 +40,8 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">我的收藏</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+		<div class="mui-scroll">
 			<ul class="mui-table-view" id="mui-template">
 				<script type="text/template" id="temp">
 					<% for(var i in record){ var item=record[i]; %>
@@ -70,6 +74,7 @@
 					<p>暂无内容</p>
 				</div>
 			</div>
+		</div>
 		</div>
 		</div>
 		<script src="js/mui.min.js"></script>

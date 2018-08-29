@@ -6,7 +6,6 @@
 						clearInterval(id);
 						loginData = JSON.parse(localStorage.getItem('login'));
 						mbi_number = loginData.data.info.mbi_id;
-
 						getOrder();
 					}
 				}, 20);
