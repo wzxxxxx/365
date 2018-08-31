@@ -56,7 +56,7 @@
 				if(birth) editParam.mei_birth = (new Date(birth).getTime()) / 1000 ;
 				wAjax(editParam, function(result) {
 					plus.webview.getWebviewById('tab_mine.html').reload();
-					plus.nativeUI.toast('修改地址成功！');
+					plus.nativeUI.toast('修改个人信息成功！');
 					mui.back();
 				})
 			}
