@@ -58,7 +58,8 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">我的地址</h1>
 		</header>
-		<div class="mui-content">
+		<!--<div class="mui-content mui-scroll-wrapper" id="pullrefresh">-->
+			<div class="mui-content">
 			<div id="mui-template">
 				<script type="text/template" id="temp">
 					<% for(var i in record){ var item=record[i]; %>
@@ -94,12 +95,14 @@
 				</script>
 
 			</div>
-			<div class="mui-content-padded mui-text-center">
+			
+			<!--</div>-->
+		</div>
+		<div class="mui-content-padded mui-text-center">
 				<nav class="mui-bar mui-bar-tab" >
 			<button type="button" class="mui-btn" id="addAddress">添加地址</button>
 			</nav>
 			</div>
-		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>`

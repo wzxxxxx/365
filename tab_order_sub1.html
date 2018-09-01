@@ -110,15 +110,15 @@
                                     <%=item.company_name%>
                                 </span>
                                 <% if(item.ob_status==6 || item.ob_status == 7){%>
-                                    <div class="mui-pull-right status">待评价</div>
+                                    <div>待评价</div>
                                     <%} else if(item.ob_status==5){%>
-                                        <div class="mui-pull-right status">待付款</div>
+                                        <div>待付款</div>
                                         <%} else if(item.ob_status==14 || item.ob_status==8){%>
-                                            <div class="mui-pull-right status">已完成</div>
+                                            <div>已完成</div>
                                             <%} else if(item.ob_status==1 || item.ob_status==2){%>
-                                                <div class="mui-pull-right status">待服务</div>
+                                                <div>待服务</div>
                                                 <%} else if(item.ob_status==12 || item.ob_status==13){%>
-                                                    <div class="mui-pull-right status">已取消</div>
+                                                    <div>已取消</div>
                                                     <%}%>
                             </div>
                             <div class="line"></div>

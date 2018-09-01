@@ -136,32 +136,6 @@
 					});
 				}
 
-				//				function createWebview() {
-				//					var nw = null;
-				//					nw = nw || plus.webview.create('http://m.weibo.cn/u/3196963860', 'test', {
-				//						popGesture: 'hide',
-				//						subNViews: [{
-				//							id: 'subnview1',
-				//							styles: {
-				//								top: '0px',
-				//								height: '100px',
-				//								backgroundColor: '#FF0000'
-				//							},
-				//							tags: [{
-				//								tag: 'font',
-				//								id: 'font',
-				//								text: '原生子View控件',
-				//								textStyles: {
-				//									size: '18px'
-				//								}
-				//							}]
-				//						}]
-				//					});
-				//					nw.addEventListener('close', function() {
-				//						nw = null;
-				//					}, false);
-				//					nw.show('pop-in');
-				//				}
 
 				function getRecGoods() {
 					var recGoodsParam = {

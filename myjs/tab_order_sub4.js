@@ -8,6 +8,8 @@
        			},
        			up: {
        				auto: false,
+       				contentinit: '',
+                    contentdown: '',
        				contentrefresh: '正在加载...',
        				callback: pullupRefresh
        			}
@@ -15,7 +17,6 @@
        	});
 
        	mui.plusReady(function() {
-
        		var self = plus.webview.currentWebview();
        		var list = self.list || [];
        		fillData(list, true);
@@ -31,24 +32,21 @@
        			"record": list
        		});
 
-       		if(str.trim()) pageIndex++;
-			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-       		document.getElementById('item1_1_null').hidden = pageIndex - 1 || str.trim();
-       		document.getElementById('item1_1_null').hidden ? mui('#pullrefresh').pullRefresh().enablePullupToRefresh() : mui(
+       		isDown ? pageIndex = 2 : (str.trim() && pageIndex++);
+       		document.getElementById('item1_1_null').hidden = pageIndex - 2 || str.trim();
+       		isDown ? document.getElementById("mui-template").innerHTML = str : document.getElementById("mui-template").insertAdjacentHTML('beforeend', str);
+       		!isDown && list.length < 10 ? mui('#pullrefresh').pullRefresh().endPullupToRefresh(true) : mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+       		isDown && document.getElementById('item1_1_null').hidden ? mui('#pullrefresh').pullRefresh().enablePullupToRefresh() : mui(
        			'#pullrefresh').pullRefresh().disablePullupToRefresh();
-       		isDown ? document.getElementById("mui-template").innerHTML = str : $("#mui-template").append(str);
-       		list.length < 10 ? mui('#pullrefresh').pullRefresh().endPullupToRefresh(true) : mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-
        	}
 
        	function getOrder(isDown) {
-       		if(isDown) pageIndex = 1;
        		var loginData = JSON.parse(localStorage.getItem('login'));
        		var mbi_number = loginData.data.info.mbi_id;
        		var orderParam = {
        			service: 'Hlbr365app.Member.GetMyOrderList',
        			mbi_number: mbi_number,
-       			firstRow: pageIndex,
+       			firstRow: isDown ? 1 : pageIndex,
        			listRows: 10
        		};
        		wAjax(orderParam, function(result) {
@@ -57,19 +55,24 @@
        		});
        	}
 
-       	var pageIndex = 1;
+       	var pageIndex = 2;
 
        	function pullupRefresh() {
        		setTimeout(function() {
-       			getOrder(false); 
-       		}, 1000);
+       			getOrder(false);
+       		}, 500);
        	}
 
        	function pulldownRefresh() {
-       		getOrder(true);
+       		mui('#pullrefresh').pullRefresh().refresh(true);
+       		setTimeout(function() {
+       			getOrder(true);
+       			mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+       			mui.toast('刷新成功!');
+       		}, 500)
 
        	}
-
+       	
        	mui("#mui-template").on('tap', '.mui-content', function(e) {
        		var order_id = this.getAttribute("id");
        		mui.openWindow({

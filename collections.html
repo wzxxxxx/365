@@ -19,6 +19,7 @@
 				height: 100px!important;
 				border-radius: 10px;
 			}
+			
 			.nocontent {
 				text-align: center;
 				padding-top: 1.8rem;
@@ -29,8 +30,9 @@
 				width: 100px;
 				height: 100px;
 			}
-			.mui-content{
-				margin-top: 10px;
+			
+			.mui-bar-nav~.mui-content .mui-pull-top-pocket {
+				top: 60px !important;
 			}
 		</style>
 	</head>
@@ -41,46 +43,47 @@
 			<h1 class="mui-title">我的收藏</h1>
 		</header>
 		<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
-		<div class="mui-scroll">
-			<ul class="mui-table-view" id="mui-template">
-				<script type="text/template" id="temp">
-					<% for(var i in record){ var item=record[i]; %>
-					<li class="mui-table-view-cell mui-media service-li">
-						<a href="javascript:;" id="<%=item.jg_id%>">
-							<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img%>">
-							<div class="mui-media-body">
-								<%=item.jg_name%>
-								<p class='mui-ellipsis'>
-									<%=item.jg_intro%>
-								</p>
-								<p class="mui-ellipsis">
-									_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-								</p>
-								<p class="mui-ellipsis">
-									<%=item.jci_name%>
-								</p>
-								<!--<p class="mui-ellipsis">
+			<div class="mui-scroll">
+				<ul class="mui-table-view" id="mui-template">
+					<script type="text/template" id="temp">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell mui-media service-li">
+							<a href="javascript:;" id="<%=item.jg_id%>">
+								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img%>">
+								<div class="mui-media-body">
+									<%=item.jg_name%>
+									<p class='mui-ellipsis'>
+										<%=item.jg_intro%>
+									</p>
+									<p class="mui-ellipsis">
+										_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+									</p>
+									<p class="mui-ellipsis">
+										<%=item.jci_name%>
+									</p>
+									<!--<p class="mui-ellipsis">
 									<%=item.ar_reads%>
 								</p>-->
-							</div>
-						</a>
-					</li>
-					<%}%>
-				</script>
-			</ul>
-			<div id="no_content" class="mui-hidden">
-				<div class="mui-content-padded nocontent">
-					<img src="images/img34.png" />
-					<p>暂无内容</p>
+								</div>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+				<div id="no_content" class="mui-hidden">
+					<div class="mui-content-padded nocontent">
+						<img src="images/img34.png" />
+						<p>暂无内容</p>
+					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>
-<script type="text/javascript" src="myjs/collections.js"></script>	</body>
+		<script type="text/javascript" src="myjs/collections.js"></script>
+	</body>
 
 </html>

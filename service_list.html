@@ -94,7 +94,6 @@
 						<span class="fengeline">|</span>
 					</a>
 				</div>
-				<!--<div class="mui-text-center fengeline">|</div>-->
 				<div class="mui-col-sm-4 mui-col-xs-4 mui-text-center" id="service_name">
 					<a href="#popover2" id="openPopove2r" class="mui-btn mui-btn-block">家庭保洁
 						<img src="images/img18.png" class="list-down-img" />
@@ -132,37 +131,37 @@
 					</script>
 				</ul>
 			</div>
-				<ul class="mui-table-view" id="mui-template">
-					<script type="text/template" id="temp">
-						<% for(var i in record){ var item=record[i]; %>
-						<li class="mui-table-view-cell mui-media service-li">
-							<% if(item.isGoods == 1 || !item.isGoods){%>
-							<a href="javascript:;" id="<%=item.jg_id || item.jci_id%>">
-								<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img || item.jci_logo%>">
-								<div class="mui-media-body">
-									<%=item.jg_name || item.jci_name%>
-									<p class='mui-ellipsis'>
-										<%=item.jg_intro || item.jci_intro%>
-									</p>
-									<p class="mui-ellipsis">
-										_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-									</p>
-									<p class="mui-ellipsis">
-										<%=item.jci_name%>
-									</p>
-								</div>
-							</a>
-							<%} else if(item.isGoods == 2 && item.Ad){%>
-							<a href="javascript:;" id="<%=item.Ad.ar_id%>" name="isGood" style="padding: 0;">
-								<div class="mui-media-body">
-									<img src="<%=item.Ad.ar_img%>">
-								</div>
-							</a>
+					<ul class="mui-table-view" id="mui-template">
+						<script type="text/template" id="temp">
+							<% for(var i in record){ var item=record[i]; %>
+							<li class="mui-table-view-cell mui-media service-li">
+								<% if(item.isGoods == 1 || !item.isGoods){%>
+								<a href="javascript:;" id="<%=item.jg_id || item.jci_id%>">
+									<img class="mui-media-object mui-pull-left img_left" src="<%=item.jg_img || item.jci_logo%>">
+									<div class="mui-media-body">
+										<%=item.jg_name || item.jci_name%>
+										<p class='mui-ellipsis'>
+											<%=item.jg_intro || item.jci_intro%>
+										</p>
+										<p class="mui-ellipsis">
+											_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+										</p>
+										<p class="mui-ellipsis">
+											<%=item.jci_name%>
+										</p>
+									</div>
+								</a>
+								<%} else if(item.isGoods == 2 && item.Ad){%>
+								<a href="javascript:;" id="<%=item.Ad.ar_id%>" name="isGood" style="padding: 0;">
+									<div class="mui-media-body">
+										<img src="<%=item.Ad.ar_img%>">
+									</div>
+								</a>
+								<%}%>
+							</li>
 							<%}%>
-						</li>
-						<%}%>
-					</script>
-				</ul>
+						</script>
+					</ul>
 			<div id="no_content">
 				<div class="mui-content-padded nocontent">
 					<img src="images/img34.png" />
@@ -174,6 +173,7 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/arttmpl.js"></script>
 		<script type="text/javascript" src="js/xiachenshi.js"></script>
-<script type="text/javascript" src="myjs/service_list.js"></script>	</body>
+		<script type="text/javascript" src="myjs/service_list.js"></script>
+	</body>
 
 </html>

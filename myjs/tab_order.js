@@ -1,12 +1,11 @@
-			var mbi_number;
 			mui.plusReady(function() {
 				var loginData = {};
 				var id = setInterval(function() {
 					if(localStorage.getItem('login')) {
 						clearInterval(id);
 						loginData = JSON.parse(localStorage.getItem('login'));
-						mbi_number = loginData.data.info.mbi_id;
-						getOrder();
+						var mbi_number = loginData.data.info.mbi_id;
+						getOrder(mbi_number);
 					}
 				}, 20);
 			});
@@ -59,7 +58,7 @@
 
 			}
 
-			function getOrder() {
+			function getOrder(mbi_number) {
 				var orderParam = {
 					service: 'Hlbr365app.Member.GetMyOrderList',
 					mbi_number: mbi_number,

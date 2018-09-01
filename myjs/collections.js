@@ -8,6 +8,8 @@
 					},
 					up: {
 						auto: false,
+						contentinit: '',
+                  	    contentdown: '',
 						contentrefresh: '正在加载...',
 						callback: pullupRefresh
 					}
@@ -49,32 +51,32 @@
 				}
 				wAjax(collectionParam, function(result) {
 					var collectionList = result.data.list;
-						var str = template('temp', {
-							'record': collectionList
-						});
-						//如果为下拉刷新 将分页数置为2;如果为上拉刷新且数据不为空, 分页数+1
-						isDown ? pageIndex = 2 : (str.trim() && pageIndex++);
-						document.getElementById('no_content').hidden = pageIndex - 1 || str.trim();
-//						!isDown && document.getElementById('no_content').hidden ? mui('#pullrefresh').pullRefresh().enablePullupToRefresh() : mui(
-//							'#pullrefresh').pullRefresh().disablePullupToRefresh();
-						isDown ? document.getElementById("mui-template").innerHTML = str : document.getElementById("mui-template").insertAdjacentHTML('beforeend', str);
-						!isDown && collectionList.length < 10 ? mui('#pullrefresh').pullRefresh().endPullupToRefresh(true) : mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-					})
+					var str = template('temp', {
+						'record': collectionList
+					});
+					//如果为下拉刷新 将分页数置为2;如果为上拉刷新且数据不为空, 分页数+1
+					isDown ? pageIndex = 2 : (str.trim() && pageIndex++);
+					document.getElementById('no_content').hidden = pageIndex - 1 || str.trim();
+					//						
+					isDown ? document.getElementById("mui-template").innerHTML = str : document.getElementById("mui-template").insertAdjacentHTML('beforeend', str);
+					!isDown && collectionList.length < 10 ? mui('#pullrefresh').pullRefresh().endPullupToRefresh(true) : mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+					isDown && document.getElementById('no_content').hidden ? mui('#pullrefresh').pullRefresh().enablePullupToRefresh() : mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+				})
 
-				}
+			}
 
 			function pulldownRefresh() {
 				mui('#pullrefresh').pullRefresh().refresh(true);
-				setTimeout(function(){
+				setTimeout(function() {
 					getCollections(true);
 					mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 					mui.toast('刷新成功!');
-				}, 1000)
-				
+				}, 500)
+
 			}
 
 			function pullupRefresh() {
 				setTimeout(function() {
 					getCollections(false);
-				}, 1000);
+				}, 500);
 			}
