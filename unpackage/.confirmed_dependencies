@@ -1,29 +1,29 @@
 {
-	"login.html": {
-		"refer": [
-			"main.html"
-		]
-	},
-	"about_us.html": {
-		"resources": [
-			"js/xiachenshi.js"
-		]
-	},
-	"tab_order.html": {
-		"resources": [
-			"tab_order_sub1.html"
-		],
-		"refer": [
-			"tab_order_sub1.html"
-		]
-	},
-	"main.html": {
-		"refer": [
-			"tab_shouye.html",
-			"tab_order.html",
-			"tab_mine.html",
-			"tab_service.html",
-			"tab_class.html"
-		]
-	}
+  "login.html": {
+    "refer": [
+      "main.html"
+    ]
+  },
+  "about_us.html": {
+    "resources": [
+      "js/xiachenshi.js"
+    ]
+  },
+  "tab_order.html": {
+    "resources": [
+      "tab_order_sub1.html"
+    ],
+    "refer": [
+      "tab_order_sub1.html"
+    ]
+  },
+  "main.html": {
+    "refer": [
+      "tab_shouye.html",
+      "tab_order.html",
+      "tab_mine.html",
+      "tab_service.html",
+      "tab_class.html"
+    ]
+  }
 }
