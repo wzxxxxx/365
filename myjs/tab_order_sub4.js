@@ -10,6 +10,7 @@
        				auto: false,
        				contentinit: '',
                     contentdown: '',
+                    contentnomore: '',
        				contentrefresh: '正在加载...',
        				callback: pullupRefresh
        			}
@@ -33,11 +34,9 @@
        		});
 
        		isDown ? pageIndex = 2 : (str.trim() && pageIndex++);
-       		document.getElementById('item1_1_null').hidden = pageIndex - 2 || str.trim();
+       		if(isDown) document.getElementById('item1_1_null').hidden = pageIndex - 2 || str.trim();
        		isDown ? document.getElementById("mui-template").innerHTML = str : document.getElementById("mui-template").insertAdjacentHTML('beforeend', str);
        		!isDown && list.length < 10 ? mui('#pullrefresh').pullRefresh().endPullupToRefresh(true) : mui('#pullrefresh').pullRefresh().endPullupToRefresh();
-       		isDown && document.getElementById('item1_1_null').hidden ? mui('#pullrefresh').pullRefresh().enablePullupToRefresh() : mui(
-       			'#pullrefresh').pullRefresh().disablePullupToRefresh();
        	}
 
        	function getOrder(isDown) {

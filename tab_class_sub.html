@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.nocontent {
+				text-align: center;
+				padding-top: 1.8rem;
+				padding-top: 150px;
+			}
+			
+			.nocontent img {
+				width: 100px;
+				height: 100px;
+			}
+			img {
+				max-width: 200px!important;
+				height: 100px!important;
+			}
+			
+			.mui-media {
+				height: 120px;
+			}
+			
+			.mui-ellipsis {
+				line-height: 100px;
+			}
+			
+			.timeImg {
+				height: 10px!important;
+				width: 10px;
+				margin-right: 5px;
+			}
+			
+			.readImg {
+				height: 10px!important;
+				width: 15px;
+				margin-right: 5px;
+			}
+			.mui-table-view:before {
+				height: 2px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-row">
+				<ul class="mui-table-view" id="mui-template2">
+					<script type="text/template" id="temp2">
+						<% for(var i in record){ var item=record[i]; %>
+						<li class="mui-table-view-cell mui-media" name="<%=item.ar_id%>">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="<%=item.ar_image_thum%>">
+								<div class="mui-media-body">
+									<%=item.at_name%>
+									<p class='mui-ellipsis'>
+										<img src="images/img27.png" class="timeImg" />
+										<%=item.ar_time%>&nbsp;&nbsp;&nbsp;&nbsp;
+										<img src="images/img26.png" class="readImg" />
+										<%=item.ar_reads%>
+									</p>
+								</div>
+							</a>
+						</li>
+						<%}%>
+					</script>
+				</ul>
+			</div>
+			<div id="no_content">
+				<div class="mui-content-padded nocontent">
+					<img src="images/img34.png" />
+					<p>暂无内容</p>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function(){});
+			
+		</script>
+			
+	</body>
+
+</html>
